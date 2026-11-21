@@ -1,0 +1,734 @@
+[
+  {
+    "cheat_name": "$250,000",
+    "effect_description": "Instantly gives you $250,000",
+    "category": "Player",
+    "unlock_requirement": "Make $250,000 from fenced goods",
+    "controller_inputs": {
+      "d_pad_sequence": "Up, Right, Down, Left, Up, Left, Down, Right",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Up, Right, Down, Left, Up, Left, Down, Right",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Up, Right, Down, Left, Up, Left, Down, Right",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Drunk",
+    "effect_description": "Instantly makes you and your partner drunk",
+    "category": "Player",
+    "unlock_requirement": "Spend $2,500 on alcohol",
+    "controller_inputs": {
+      "d_pad_sequence": "Up, Left, Right, Up, Up, Left, Right, Up, Left, Right",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Up, Left, Right, Up, Up, Left, Right, Up, Left, Right",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Up, Left, Right, Up, Up, Left, Right, Up, Left, Right",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Raise Heat Level",
+    "effect_description": "Raises your level of heat across the map",
+    "category": "Player",
+    "unlock_requirement": "TBD",
+    "controller_inputs": {
+      "d_pad_sequence": "Left, Down, Right, Down, Up, Down Up",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Left, Down, Right, Down, Up, Down, Up",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Left, Down, Right, Down, Up, Down, Up",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Raise Wanted Level",
+    "effect_description": "Raises your wanted level",
+    "category": "Player",
+    "unlock_requirement": "Lose a 3-star wanted level 50 times",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Unlimited Focus",
+    "effect_description": "Focus never runs out",
+    "category": "Player",
+    "unlock_requirement": "TBD",
+    "controller_inputs": {
+      "d_pad_sequence": "Down, Up, Up, Down, Up, Down, Up, Down Up, Right",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Down, Up, Up, Down, Up, Down, Up, Down, Up, Right",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Down, Up, Up, Down, Up, Down, Up, Down, Up, Right",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "No Fall Damage",
+    "effect_description": "You are immune to fall damage",
+    "category": "Player",
+    "unlock_requirement": "Survive a freefall from 40 feet 20 times",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Parachute",
+    "effect_description": "Adds a parachute to your loadout",
+    "category": "Player",
+    "unlock_requirement": "Complete 50 skydives or base jumps from 300 feet or higher",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Body Armor",
+    "effect_description": "Adds body armor to your loadout",
+    "category": "Player",
+    "unlock_requirement": "Complete 100 workouts",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Repair Vehicle",
+    "effect_description": "Fully repairs your current vehicle",
+    "category": "Player",
+    "unlock_requirement": "Get 1st place in 10 races at Gellhorn Raceway, Thrillbilly Mud Club, and Boone Speedway",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Unlimited Nitrous",
+    "effect_description": "Nitrous and fuel never runs out on vehicles",
+    "category": "Player",
+    "unlock_requirement": "Complete 50 stunt jumps",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Max Ammo",
+    "effect_description": "Fills all ammo to maximum",
+    "category": "Combat",
+    "unlock_requirement": "Win 25 bronze medals or higher at shooting ranges",
+    "controller_inputs": {
+      "d_pad_sequence": "Down, Up, Right, Down, Left, Left, Up, Up, Down, Left",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Down, Up, Right, Down, Left, Left, Up, Up, Down, Left",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Down, Up, Right, Down, Left, Left, Up, Up, Down, Left",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Infinite Ammo",
+    "effect_description": "Ammo never runs out",
+    "category": "Combat",
+    "unlock_requirement": "Win 25 silver medals or higher at shooting ranges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "No Reload",
+    "effect_description": "Ammo never runs out with no need to reload",
+    "category": "Combat",
+    "unlock_requirement": "Win 25 gold medals at shooting ranges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "All Explosive Weapons",
+    "effect_description": "Adds all explosive weapons to your loadout with full ammo",
+    "category": "Combat",
+    "unlock_requirement": "Throw 100 grenades",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Incendiary Ammo",
+    "effect_description": "All ammo is incendiary",
+    "category": "Combat",
+    "unlock_requirement": "Burn 100 enemies with fire damage",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Exploding Bottles",
+    "effect_description": "All bottles explode when damaged",
+    "category": "Combat",
+    "unlock_requirement": "Throw 100 molotovs",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Explosive Shotgun",
+    "effect_description": "Adds a Mason & Keen Shortstraw to your loadout that fires explosive shells",
+    "category": "Combat",
+    "unlock_requirement": "Hit 100 enemies with explosive damage",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Haunters H-AT",
+    "effect_description": "Adds a Haunters H-AT to your loadout",
+    "category": "Combat",
+    "unlock_requirement": "Blow up 100 vehicles",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Attack Force",
+    "effect_description": "Bullets and melee attacks launch targets on impact",
+    "category": "Combat",
+    "unlock_requirement": "TBD",
+    "controller_inputs": {
+      "d_pad_sequence": "Down, Up, Left, Left, Right, Down, Down, Up, Down",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Down, Up, Left, Left, Right, Down, Down, Up, Down",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Down, Up, Left, Left, Right, Down, Down, Up, Down",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Exploding Balls",
+    "effect_description": "Sports balls explode on impact",
+    "category": "Combat",
+    "unlock_requirement": "TBD",
+    "controller_inputs": {
+      "d_pad_sequence": "Down, Up, Left, Left, Right, Down, Down, Up, Right",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Down, Up, Left, Left, Right, Down, Down, Up, Right",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Down, Up, Left, Left, Right, Down, Down, Up, Right",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Vehicle Force",
+    "effect_description": "Vehicle collisions launch targets",
+    "category": "Combat",
+    "unlock_requirement": "Kill 25 enemies with a vehicle",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Interstate Ambulance",
+    "effect_description": "Spawns an Interstate Ambulance",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Discover the Interstate Ambulance in the Progress menu",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Airboat 09",
+    "effect_description": "Spawns an Airboat 09",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 survival challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Bravado Banshee",
+    "effect_description": "Spawns a Bravado Banshee",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all combat challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Tuff BMX",
+    "effect_description": "Spawns a Tuff BMX",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 fitness challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Maibatsu Boomazoom",
+    "effect_description": "Spawns a Maibatsu Boomazoom",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 shopping challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Nagasaki Carbon RS",
+    "effect_description": "Spawns a Nagasaki Carbon RS",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all exploration challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "’65 Vapid Dominator",
+    "effect_description": "Spawns a ’65 Vapid Dominator",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all fitness challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Progen Emerus",
+    "effect_description": "Spawns a Progen Emerus",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all vehicle challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Inflatable Flamingo",
+    "effect_description": "Spawns an Inflatable Flamingo",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Destroy 50 cocaine flamingos",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "MTL Pumper",
+    "effect_description": "Spawns an MTL Pumper",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Discover the MTL Pumper in the Progress menu",
+    "controller_inputs": {
+      "d_pad_sequence": "Left, Up, Right, Down, Left, Right, Right, Up",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Left, Up, Right, Down, Left, Right, Right, Up",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Left, Up, Right, Down, Left, Right, Right, Up",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Vapid Stanier G2 Taxi",
+    "effect_description": "Spawns a Vapid Stanier G2 Taxi",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 sports challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Haunters P-996 LAZER",
+    "effect_description": "Spawns a Haunters P-996 LAZER",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "HVY Bulldozer",
+    "effect_description": "Spawns an HVY Bulldozer",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Discover the HVY Bulldozer in the Progress menu",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Lapwing Mallard",
+    "effect_description": "Spawns a Lapwing Mallard",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 vehicle challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Brimstone Golfer",
+    "effect_description": "Spawns a Brimstone Golfer",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all sports challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Haunters Rhino Tank",
+    "effect_description": "Spawns a Haunters Rhino Tank",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all survival challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Maibatsu Sanchez",
+    "effect_description": "Spawns a Maibatsu Sanchez",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 criminal challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Nagasaki Sea Sparrow",
+    "effect_description": "Spawns a Nagasaki Sea Sparrow",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 exploration challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Speeder 700 GT",
+    "effect_description": "Spawns a Speeder 700 GT",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete 5 combat challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Truffade Thrax",
+    "effect_description": "Spawns a Truffade Thrax",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all shopping challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Western Zombie Bobber",
+    "effect_description": "Spawns a Western Zombie Bobber",
+    "category": "Spawn Vehicles",
+    "unlock_requirement": "Complete all criminal challenges",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Move Time Forward",
+    "effect_description": "Moves the time of day forward",
+    "category": "Environment",
+    "unlock_requirement": "Find 10 collectible watches",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Pause Time of Day",
+    "effect_description": "Pauses the current time of day",
+    "category": "Environment",
+    "unlock_requirement": "Find 20 collectible watches",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Cycle Weather",
+    "effect_description": "Adjusts the weather conditions",
+    "category": "Environment",
+    "unlock_requirement": "Reveal the entire map",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Golden Hour",
+    "effect_description": "Applies a golden filter with a wide aspect ratio",
+    "category": "Screen Filters",
+    "unlock_requirement": "Spend 4 hours holding hands",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Powdered Sugar",
+    "effect_description": "Turns the world white with sparkling highlights",
+    "category": "Screen Filters",
+    "unlock_requirement": "Scan all space debris with WAINK",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Pinhole",
+    "effect_description": "Applies a pinhole camera filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Clear 25 gang operations with your partner",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Neon Jungle",
+    "effect_description": "Applies neon highlights to the world",
+    "category": "Screen Filters",
+    "unlock_requirement": "Discover all 16 Girlypop Vehicles",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Yesteryear",
+    "effect_description": "Applies a black & white CRT TV filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Discover the Ridgeway",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Cataclysm",
+    "effect_description": "Fills the world with murky smoke",
+    "category": "Screen Filters",
+    "unlock_requirement": "Discover Martha’s Vamos in the Progress menu",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Videotape",
+    "effect_description": "Applies a videotape-style filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Complete 50 activities with your partner",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Dark Mirror",
+    "effect_description": "Flips the world upside down and turns it black",
+    "category": "Screen Filters",
+    "unlock_requirement": "Make $500,000 selling vehicles",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Migraine",
+    "effect_description": "Applies a blurred, distorted filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Survive 6 minutes with a 6-star wanted level",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Dollhouse",
+    "effect_description": "Applies a vivid filter with a narrow aspect ratio",
+    "category": "Screen Filters",
+    "unlock_requirement": "Spend 8 hours with your partner",
+    "controller_inputs": {
+      "d_pad_sequence": "Down, Down, Up, Right, Right, Up, Left, Left, Down, Right",
+      "ps5": "Press D-Pad Up (phone) -> Hold L1 + R1 -> D-Pad: Down, Down, Up, Right, Right, Up, Left, Left, Down, Right",
+      "xbox_series_xs": "Press D-Pad Up (phone) -> Hold LB + RB -> D-Pad: Down, Down, Up, Right, Right, Up, Left, Left, Down, Right",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Bubblegum",
+    "effect_description": "Turns the world purple and yellow with sparkling highlights",
+    "category": "Screen Filters",
+    "unlock_requirement": "Find all 24 collectible cards for the Vice City Flamingos",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Fast Forward",
+    "effect_description": "Applies a motion blur and accelerates cloud movements",
+    "category": "Screen Filters",
+    "unlock_requirement": "Complete 50 meditations",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Fisheye",
+    "effect_description": "Applies a fisheye filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Catch 100 fish",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Faded Glory",
+    "effect_description": "Applies a color CRT TV filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Rob 50 stores with your partner",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Pixel Art",
+    "effect_description": "Applies a pixelated filter",
+    "category": "Screen Filters",
+    "unlock_requirement": "Makes $250,000 selling collectibles",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  },
+  {
+    "cheat_name": "Hellscape",
+    "effect_description": "Turns the world red and orange with a heat haze",
+    "category": "Screen Filters",
+    "unlock_requirement": "Steal 100 cop vehicles",
+    "controller_inputs": {
+      "d_pad_sequence": "TBD",
+      "ps5": "TBD",
+      "xbox_series_xs": "TBD",
+      "cell_phone_number": "N/A"
+    }
+  }
+]
