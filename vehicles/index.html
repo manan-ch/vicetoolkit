@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="editorial">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/">
+  <title>GTA 6 Vehicles Database - 72 Confirmed Cars, Bikes & Boats | ViceToolkit</title>
+  <meta name="description" content="Comprehensive technical directory of all 72 confirmed GTA 6 vehicles across 15 classes. Compare real-world archetypes, top speeds, powertrains, and spawn locations.">
+  <meta name="keywords" content="GTA 6 cheats, GTA 6 map, Leonida map, Vice City cheats, PS5 GTA 6 codes, Xbox GTA 6 cheats, GTA 6 vehicle database, GTA 6 money guide">
+  <link rel="canonical" href="https://vicetoolkit.com/vehicles/">
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vicetoolkit.com/vehicles/">
+  <meta property="og:title" content="GTA 6 Vehicles Database - 72 Confirmed Cars, Bikes & Boats | ViceToolkit">
+  <meta property="og:description" content="61 verified controller cheat sequences, 72 confirmed vehicles, and 2,532 interactive map locations across Leonida for GTA 6.">
+  <meta property="og:image" content="./assets/gta6_hero_keyart.jpg">
+
+  <!-- Typography & Styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet Interactive Map Engine CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ViceToolkit",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "All",
+    "description": "Technical directory and companion database for GTA 6."
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="app-navbar">
+    <div class="nav-container">
+      <!-- Branded Gaming Logo (GTA 6 Badge) -->
+      <a href="#" class="brand-group" onclick="switchView('cheats'); return false;">
+        <div class="brand-logo-badge">
+          <svg class="brand-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="viceGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f43f5e" />
+                <stop offset="50%" stop-color="#ec4899" />
+                <stop offset="100%" stop-color="#06b6d4" />
+              </linearGradient>
+              <linearGradient id="shieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f43f5e" />
+                <stop offset="100%" stop-color="#06b6d4" />
+              </linearGradient>
+            </defs>
+            <!-- Tactical Gaming Emblem Plate -->
+            <rect x="1.5" y="1.5" width="37" height="37" rx="10" fill="#0f172a" stroke="url(#shieldBorder)" stroke-width="2"/>
+            <rect x="4" y="4" width="32" height="32" rx="7" fill="url(#viceGrad6)" fill-opacity="0.14"/>
+            <!-- Bold Sharp Gaming Numeral 6 -->
+            <path d="M25 7.5H17C12.8 7.5 9.5 10.8 9.5 15V25C9.5 29.2 12.8 32.5 17 32.5H23C27.2 32.5 30.5 29.2 30.5 25V21C30.5 16.8 27.2 13.5 23 13.5H16.5V13C16.5 11.6 17.6 10.5 19 10.5H25V7.5ZM16.5 18H23C24.4 18 25.5 19.1 25.5 20.5V25.5C25.5 26.9 24.4 28 23 28H17C15.6 28 14.5 26.9 14.5 25.5V20.5C14.5 19.1 15.6 18 16.5 18Z" fill="url(#viceGrad6)"/>
+            <!-- Gaming Reticle Accent Dot -->
+            <circle cx="27" cy="10" r="2" fill="#06b6d4"/>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <div class="brand-name">VICE<span class="brand-accent">TOOLKIT</span><span class="brand-six-tag">6</span></div>
+          <div class="brand-tagline">GTA 6 GAMING &amp; MAP HUB</div>
+        </div>
+      </a>
+
+      <!-- Clean Text Tabs (Zero Emojis) -->
+      <div class="nav-tabs" id="navTabsMenu">
+        <button class="nav-tab-btn" data-view="cheats">Cheatsheet</button>
+        <button class="nav-tab-btn" data-view="map">Interactive Map</button>
+        <button class="nav-tab-btn active" data-view="vehicles">Vehicles DB</button>
+        <button class="nav-tab-btn" data-view="money">Economy Guide</button>
+        <button class="nav-tab-btn" data-view="faq">Documentation</button>
+      </div>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       VIEW 1: CHEATSHEET
+       ========================================================================= -->
+  <section class="app-view" id="view-cheats">
+    <div class="view-container">
+      <!-- Clean Tactical Intelligence Header & Featured Hero -->
+      <header class="polygon-editorial-header">
+        <h1 class="editorial-main-title">GTA 6 Cheats &amp; Secret Codes</h1>
+        <p class="editorial-lead-subhead">Verified controller inputs, weapon spawn codes, and gameplay modifiers for PS5 &amp; Xbox Series X|S.</p>
+
+        <!-- Featured Character Hero Image Frame -->
+        <div class="polygon-featured-frame">
+          <img src="./assets/gta6_hero_keyart.jpg" alt="GTA 6 Official Jason &amp; Lucia Key Artwork" class="polygon-featured-img" />
+          <span class="polygon-frame-credit">Official Key Artwork &bull; Rockstar Games</span>
+        </div>
+      </header>
+
+      <!-- Clean Unified Cheats Search & Filter Console -->
+      <div class="cheats-control-strip">
+        <div class="cheats-top-bar">
+          <div class="search-input-wrap">
+            <svg class="search-icon-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="text" id="appCheatSearch" placeholder="Search cheats by effect, weapon, armor, wanted level, or vehicle name..." autocomplete="off">
+          </div>
+
+          <!-- Platform Switcher -->
+          <div class="controller-toggle-group">
+            <button class="controller-btn active" data-platform="ps5">PlayStation 5</button>
+            <button class="controller-btn" data-platform="xbox">Xbox Series X|S</button>
+          </div>
+        </div>
+
+        <!-- Clean Category Filter Pills (Directly Below Search Bar) -->
+        <div class="filter-pills-row">
+          <button class="filter-pill-btn active" data-category="all">All Codes (61)</button>
+          <button class="filter-pill-btn" data-category="money">Cash &amp; Wealth (1)</button>
+          <button class="filter-pill-btn" data-category="combat">Weapons &amp; Ammo (11)</button>
+          <button class="filter-pill-btn" data-category="wanted">Wanted Level (2)</button>
+          <button class="filter-pill-btn" data-category="player">Player Abilities (7)</button>
+          <button class="filter-pill-btn" data-category="vehicles">Vehicle Spawns (21)</button>
+          <button class="filter-pill-btn" data-category="world">Weather &amp; Filters (19)</button>
+        </div>
+      </div>
+
+      <!-- Cards Grid (Permanent HUD Cards Form) -->
+      <div class="cheats-cards-grid" id="cheatsCardsGrid">
+        <!-- Rendered via app.js -->
+      </div>
+
+      <!-- Tactical Dispatch & Strategy Guides -->
+      <div class="editorial-guides-section">
+        <div class="section-title-wrap">
+          <span class="section-kicker">READ NEXT &bull; TACTICAL DOSSIERS</span>
+          <h2 class="section-main-heading">GTA 6 Strategy Guides &amp; Tactical Dossiers</h2>
+          <p class="section-subtext">Deep-dive mechanical guides curated by the ViceToolkit intelligence desk.</p>
+        </div>
+
+        <div class="guides-cards-grid">
+          <article class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-badge badge-combat">DUAL PROTAGONISTS</span>
+              <span class="guide-read-time">6 Min Read</span>
+            </div>
+            <h3 class="guide-title">Dual Synergy Mechanics: Maximizing Jason &amp; Lucia's Active Abilities</h3>
+            <p class="guide-summary">
+              GTA 6 introduces dynamic character switching during open-world firefights. Lucia commands precision tactical focus while Jason delivers heavy suppressive firepower. Learn the optimal switch cooldown loops.
+            </p>
+            <div class="guide-key-bullet">
+              <strong>Key Tactic:</strong> Initiating Lucia's Dead-Eye focus during a corner breach allows Jason to flank without drawing target aggro.
+            </div>
+          </article>
+
+          <article class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-badge badge-economy">CAPITAL FLOW</span>
+              <span class="guide-read-time">8 Min Read</span>
+            </div>
+            <h3 class="guide-title">Fast Liquidity &amp; Underground Fencing Across Little Haiti</h3>
+            <p class="guide-summary">
+              Avoid standard pawn shops that take a 60% haircut on luxury jewelry and precious stones. Unlocking the Little Haiti syndicates provides full 300% black-market payouts for safe-deposit box loot.
+            </p>
+            <div class="guide-key-bullet">
+              <strong>Key Tactic:</strong> Time your fencing drop-offs between 01:00 and 04:00 in-game time when police patrols are stationed around Ocean Drive.
+            </div>
+          </article>
+
+          <article class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-badge badge-map">SAFEHOUSES</span>
+              <span class="guide-read-time">5 Min Read</span>
+            </div>
+            <h3 class="guide-title">Safehouses &amp; Real Estate Matrix: Securing Offshore Garages</h3>
+            <p class="guide-summary">
+              Purchasable properties in Leonida serve as strategic respawn anchors and vehicle chop shops. Analyze every available safehouse from Port Gellhorn industrial lofts to Ocean Beach penthouses.
+            </p>
+            <div class="guide-key-bullet">
+              <strong>Key Tactic:</strong> The Port Gellhorn dry-dock safehouse grants immediate waterway escape routes via high-speed fan airboats.
+            </div>
+          </article>
+
+          <article class="guide-card">
+            <div class="guide-tag-row">
+              <span class="guide-badge badge-vehicles">UNDERWORLD MOTORS</span>
+              <span class="guide-read-time">7 Min Read</span>
+            </div>
+            <h3 class="guide-title">Stolen Exotic Supercar Registration &amp; Insurance Loopholes</h3>
+            <p class="guide-summary">
+              Stealing high-end hypercars like the Pegassi Torero XO triggers tracker alarms. Discover the specific underground mod shops equipped with VIN scramblers to legally register exotic rides.
+            </p>
+            <div class="guide-key-bullet">
+              <strong>Key Tactic:</strong> Disconnect vehicle GPS modules within 90 seconds of hotwiring to prevent automatic 3-Star heat escalation.
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 2: INTERACTIVE MAP (LEAFLET GOOGLE-MAPS ENGINE)
+       ========================================================================= -->
+  <section class="app-view" id="view-map">
+    <div class="view-container">
+      <div class="view-header map-view-header">
+        <h1 class="view-heading">GTA 6 Interactive Map</h1>
+        <p class="view-description">
+          Authentic in-game cartography covering all 2,532 confirmed locations, weapon caches, stunt jumps, vehicles, and activities across Vice City and greater Leonida.
+        </p>
+      </div>
+
+      <!-- Map Live Marker Search Bar & Tool Actions -->
+      <div class="map-toolbar-bar">
+        <div class="map-gps-search-box">
+          <svg class="search-icon-svg" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input type="text" id="mapLocationSearch" placeholder="Search 2,532 markers (Bank, Ammu-Nation, Stunt, Cheetah, Airport...)" autocomplete="off" />
+          <div id="mapSearchResults" class="map-search-dropdown-list hidden"></div>
+        </div>
+
+        <div class="map-toolbar-actions">
+          <button class="map-tool-btn" id="btnToggleMapSidebar" title="Toggle Categories Sidebar">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+            <span id="sidebarToggleLabel">Hide Sidebar</span>
+          </button>
+
+          <button class="map-tool-btn" id="btnFitMapOverview" title="Zoom to whole state">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span>Fit State</span>
+          </button>
+
+          <button class="map-tool-btn" id="btnMapFullscreen" title="Toggle Fullscreen">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+            </svg>
+            <span id="fullscreenToggleLabel">Fullscreen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Filter Toggle Button for Small Screens -->
+      <button class="mobile-map-drawer-btn" id="mobileMapDrawerBtn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        <span id="mobileMapDrawerBtnText">Filter 2,532 Waypoints &amp; Categories (Tap to Open)</span>
+      </button>
+
+      <div class="map-page-layout">
+        <!-- Control Sidebar (IGN Architecture Replica) -->
+        <div class="map-control-panel">
+          <!-- IGN Style Header & Progress Widget -->
+          <div class="progress-widget-box">
+            <div class="progress-header">
+              <span class="progress-title">Completion Tracker</span>
+              <span class="progress-percent-val" id="mapProgressText">0%</span>
+            </div>
+            <div class="progress-track-bar">
+              <div class="progress-fill-bar" id="mapProgressFill"></div>
+            </div>
+            <div class="progress-counter-row">
+              <span id="mapCompletedCount">Completed: <strong>0</strong></span>
+              <span id="mapIncompletedCount">Incomplete: <strong>2,532</strong></span>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="ign-layer-actions">
+            <button class="btn-layer-toggle" id="btnShowAllLayers">Show All (2,532)</button>
+            <button class="btn-layer-toggle" id="btnHideAllLayers">Hide All</button>
+          </div>
+
+          <!-- Interactive Marker Categories (IGN GTA 6 Groups) -->
+          <div>
+            <span class="filter-category-heading">Filter Map Markers</span>
+            <div class="pin-toggle-list" id="mapCategoryList">
+              <div class="pin-toggle-item active" data-group="vehicles">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -180px -618px;" title="Vehicles"></span>
+                  <span>Standout Vehicles</span>
+                </div>
+                <span class="pin-count-badge">103</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="weapons">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -270px -558px;" title="Weapons"></span>
+                  <span>Ammu-Nation &amp; Weapons</span>
+                </div>
+                <span class="pin-count-badge">39</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="robberies">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: 0px -528px;" title="Robberies"></span>
+                  <span>Banks &amp; Robberies</span>
+                </div>
+                <span class="pin-count-badge">386</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="stunts">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -632px -480px;" title="Stunts"></span>
+                  <span>Stunts &amp; Jumps</span>
+                </div>
+                <span class="pin-count-badge">397</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="safehouses">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -450px -528px;" title="Safehouses"></span>
+                  <span>Garages &amp; Safehouses</span>
+                </div>
+                <span class="pin-count-badge">102</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="collectibles">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -300px -618px;" title="Collectibles"></span>
+                  <span>Cards &amp; Collectibles</span>
+                </div>
+                <span class="pin-count-badge">227</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="gangs">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -480px -618px;" title="Gangs"></span>
+                  <span>Gang Syndicates</span>
+                </div>
+                <span class="pin-count-badge">40</span>
+              </div>
+
+              <div class="pin-toggle-item active" data-group="activities">
+                <div class="pin-label-group">
+                  <span class="cat-sprite-icon" style="background-position: -90px -558px;" title="Activities"></span>
+                  <span>Activities &amp; Hotspots</span>
+                </div>
+                <span class="pin-count-badge">1,238</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Teleport Waypoint Jump -->
+          <div>
+            <span class="filter-category-heading">Quick Sector Teleport</span>
+            <div class="teleport-pills-grid" id="teleportPillsContainer">
+              <!-- Populated dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Real Leaflet Map Viewport with Waypoint Intel Drawer & Telemetry HUD -->
+        <div class="map-canvas-viewport" id="mapCanvasViewport">
+          <button class="map-exit-fullscreen-btn hidden" id="btnExitFullscreen">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            <span>Exit Fullscreen</span>
+          </button>
+          <div id="leafletMapContainer"></div>
+
+          <!-- Live Telemetry HUD -->
+          <div class="map-telemetry-hud" id="mapTelemetryHud">
+            GPS Telemetry: Leonida Sector [Active] &bull; 2,532 Waypoints Loaded
+          </div>
+
+          <!-- Waypoint Location Intel Card (Floating Overlay) -->
+          <div class="waypoint-intel-drawer hidden" id="waypointIntelDrawer">
+            <div class="drawer-header">
+              <span class="drawer-sector-tag" id="drawerSectorTag">SECTOR INTEL</span>
+              <button class="drawer-close-btn" id="drawerCloseBtn">&times;</button>
+            </div>
+            <h3 class="drawer-title" id="drawerTitle">Location Name</h3>
+            <p class="drawer-coords" id="drawerCoords">In-Game GPS: X: 0, Y: 0</p>
+            <p class="drawer-desc" id="drawerDesc">Location navigational intelligence and instructions.</p>
+            <div class="drawer-actions">
+              <button class="btn-copy-gps" id="btnCopyGps">Copy Waypoint GPS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 3: VEHICLES DB (WITH 100% ACCURATE WIKIMEDIA IMAGES)
+       ========================================================================= -->
+  <section class="app-view active" id="view-vehicles">
+    <div class="view-container">
+      <!-- Luxury Vehicle Header -->
+      <div class="vehicles-editorial-header">
+        <h1 class="vehicles-main-title">GTA 6 Vehicles Database</h1>
+        <p class="vehicles-lead-subhead">
+          Confirmed vehicle models, real-world archetypes, verified top speeds, and performance telemetry across greater Leonida.
+        </p>
+
+        <!-- Technical Telemetry HUD Metrics -->
+        <div class="vehicles-metrics-hud">
+          <div class="hud-stat-box">
+            <span class="stat-number">72</span>
+            <span class="stat-label">Confirmed Models</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">15</span>
+            <span class="stat-label">Vehicle Classes</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">340 <small>MPH</small></span>
+            <span class="stat-label">Max Speed (P-996 Lazer)</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">AWD &bull; RWD &bull; Jet &bull; Marine</span>
+            <span class="stat-label">Powertrain Matrix</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Luxury Segmented Control & Search Console -->
+      <div class="vehicles-toolbar">
+        <div class="vehicle-type-filters">
+          <button class="v-filter-btn active" data-category="all">
+            <span class="v-btn-label">All Models</span>
+            <span class="v-pill-count">72</span>
+          </button>
+          <button class="v-filter-btn" data-category="hyper">
+            <span class="v-btn-label">Super &amp; Hypercars</span>
+            <span class="v-pill-count">3</span>
+          </button>
+          <button class="v-filter-btn" data-category="sports">
+            <span class="v-btn-label">Sports Cars</span>
+            <span class="v-pill-count">8</span>
+          </button>
+          <button class="v-filter-btn" data-category="classics">
+            <span class="v-btn-label">Sports Classics</span>
+            <span class="v-pill-count">3</span>
+          </button>
+          <button class="v-filter-btn" data-category="muscle">
+            <span class="v-btn-label">Muscle Cars</span>
+            <span class="v-pill-count">7</span>
+          </button>
+          <button class="v-filter-btn" data-category="coupes">
+            <span class="v-btn-label">Coupes &amp; GT</span>
+            <span class="v-pill-count">4</span>
+          </button>
+          <button class="v-filter-btn" data-category="sedans">
+            <span class="v-btn-label">Sedans &amp; Luxury</span>
+            <span class="v-pill-count">4</span>
+          </button>
+          <button class="v-filter-btn" data-category="suvs">
+            <span class="v-btn-label">SUVs &amp; Crossovers</span>
+            <span class="v-pill-count">6</span>
+          </button>
+          <button class="v-filter-btn" data-category="offroad">
+            <span class="v-btn-label">Off-Road &amp; 4x4</span>
+            <span class="v-pill-count">5</span>
+          </button>
+          <button class="v-filter-btn" data-category="vans">
+            <span class="v-btn-label">Vans &amp; Pickups</span>
+            <span class="v-pill-count">6</span>
+          </button>
+          <button class="v-filter-btn" data-category="motorcycles">
+            <span class="v-btn-label">Motorcycles &amp; Bikes</span>
+            <span class="v-pill-count">8</span>
+          </button>
+          <button class="v-filter-btn" data-category="emergency">
+            <span class="v-btn-label">Emergency &amp; Police</span>
+            <span class="v-pill-count">4</span>
+          </button>
+          <button class="v-filter-btn" data-category="commercial">
+            <span class="v-btn-label">Commercial &amp; Heavy</span>
+            <span class="v-pill-count">5</span>
+          </button>
+          <button class="v-filter-btn" data-category="aviation">
+            <span class="v-btn-label">Planes &amp; Jets</span>
+            <span class="v-pill-count">2</span>
+          </button>
+          <button class="v-filter-btn" data-category="helicopters">
+            <span class="v-btn-label">Helicopters</span>
+            <span class="v-pill-count">2</span>
+          </button>
+          <button class="v-filter-btn" data-category="boats">
+            <span class="v-btn-label">Boats &amp; Watercraft</span>
+            <span class="v-pill-count">5</span>
+          </button>
+        </div>
+
+        <div class="vehicles-utility-row">
+          <div class="v-search-box">
+            <svg class="v-search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="text" id="vehicleSearchInput" placeholder="Search by model, archetype, engine, or spawn location..." autocomplete="off">
+            <span class="v-search-hint">SEARCH</span>
+          </div>
+
+          <div class="v-controls-right">
+            <div class="v-sort-box">
+              <span class="v-sort-label">Sort:</span>
+              <div class="v-select-wrapper">
+                <select id="vehicleSortSelect" class="v-sort-dropdown">
+                  <option value="speed-desc">Top Speed (Fastest First)</option>
+                  <option value="speed-asc">Top Speed (Slowest First)</option>
+                  <option value="accel-desc">Acceleration (Highest First)</option>
+                  <option value="name-asc">Alphabetical (A &rarr; Z)</option>
+                  <option value="handling-desc">Handling Dynamics</option>
+                </select>
+                <svg class="v-select-chevron" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="v-count-badge" id="vehicleCountBadge">
+              <span class="status-indicator-dot"></span>
+              <span>Showing 12 of 12 Confirmed Models</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparator Dock -->
+      <div class="comparator-dock" id="comparatorDock">
+        <div class="comparator-selected-slots">
+          <div class="comparator-slot" id="compSlot1">Model 1</div>
+          <span class="comparator-vs">VS</span>
+          <div class="comparator-slot" id="compSlot2">Select Second Model</div>
+        </div>
+        <button class="btn-run-compare" id="btnRunCompare">Compare Specifications</button>
+      </div>
+
+      <!-- Cards Grid (Populated with High-Res Authentic Car Photos) -->
+      <div class="vehicles-cards-grid" id="vehiclesCardsGrid"></div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 4: ECONOMY GUIDE
+       ========================================================================= -->
+  <section class="app-view" id="view-money">
+    <div class="view-container">
+      <div class="view-header">
+        <span class="view-breadcrumbs">Economy / Liquidity / Capital Acquisition</span>
+        <h1 class="view-heading">Capital Acquisition & Money Guide</h1>
+        <p class="view-description">
+          Comprehensive strategic breakdown of liquidity streams, underground fences, commercial enterprise yields, and corporate securities manipulation across greater Leonida.
+        </p>
+      </div>
+
+      <!-- Tactical Overview Note -->
+      <div class="tactical-note-card emerald">
+        <div class="tactical-note-icon">&#128176;</div>
+        <div class="tactical-note-content">
+          <h4>Dual-Protagonist Liquidity Architecture</h4>
+          <p>Lucia and Jason maintain distinct personal mobile checking accounts for everyday equipment and ammunition purchases. However, proceeds from major syndicate contracts, chop-shop exports, and corporate market dividends are routed into a shared safehouse escrow ledger accessible from any territory safehouse.</p>
+        </div>
+      </div>
+
+      <!-- Section 1: Active Heists & Tactical Operations -->
+      <div class="guide-section-block">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">High-Yield Operations</span>
+          <h2 class="guide-section-title">Primary Campaign Cash Operations</h2>
+          <p class="guide-section-desc">Fast-turnaround active income operations for immediate working capital and gear replenishment.</p>
+        </div>
+
+        <div class="money-strategy-grid">
+          <div class="strategy-box">
+            <span class="strategy-badge">Direct Operation</span>
+            <span class="strategy-payout">$25,000 - $50,000</span>
+            <h3 class="strategy-title">Gruppe Sechs Cash Transits</h3>
+            <p class="strategy-text">
+              Armored delivery routes cycle between Downtown commercial banks between 11:00 and 15:00 in-game time. Detonating rear hydraulic locks with plastic explosives yields immediate liquid currency. Escape pursuit via underground metro tunnels before the 3-star tactical perimeter closes.
+            </p>
+          </div>
+
+          <div class="strategy-box">
+            <span class="strategy-badge">Underworld Liquidation</span>
+            <span class="strategy-payout">300% Valuation</span>
+            <h3 class="strategy-title">Little Haiti Black-Market Fences</h3>
+            <p class="strategy-text">
+              Standard pawn shops and merchant counters undervalue high-tier jewelry. Fencing luxury timepieces, uncut gemstones, and rare safe contents through designated Little Haiti syndicates yields triple baseline returns without triggering law enforcement suspicion.
+            </p>
+          </div>
+
+          <div class="strategy-box">
+            <span class="strategy-badge">Exotic Export</span>
+            <span class="strategy-payout">$45,000 - $85,000</span>
+            <h3 class="strategy-title">Port Gellhorn Chop Shop VIN Scramblers</h3>
+            <p class="strategy-text">
+              Disabling GPS telemetry within 90 seconds of hotwiring luxury exotics (Torero XO, Emerus, Cheetah Classic) allows delivery to underground docks for instant non-traceable wire transfers. Delivering vehicles with zero body panels damaged grants a 15% pristine bonus.
+            </p>
+          </div>
+
+          <div class="strategy-box">
+            <span class="strategy-badge">Maritime Salvage</span>
+            <span class="strategy-payout">$10,000 - $30,000</span>
+            <h3 class="strategy-title">Keys Offshore Supply Drops</h3>
+            <p class="strategy-text">
+              Maritime patrol vessels across the southern shelf can locate scheduled contraband airdrops marked by floating marine flares in shallow Keys waters during nocturnal weather cycles. Utilize a Seashark PWC or Dinghy equipped with scuba ballast for rapid retrieval.
+            </p>
+          </div>
+
+          <div class="strategy-box">
+            <span class="strategy-badge">Cargo Intercept</span>
+            <span class="strategy-payout">$60,000 - $120,000</span>
+            <h3 class="strategy-title">Commercial Dock Freight Hijacking</h3>
+            <p class="strategy-text">
+              Container shipping manifests at the Port of Vice City schedule high-value electronics and luxury contraband convoys on Tuesday and Friday evenings. Ambush the lead escort with an EMP launcher to halt the convoy and secure the primary trailer.
+            </p>
+          </div>
+
+          <div class="strategy-box">
+            <span class="strategy-badge">Commercial Cashflow</span>
+            <span class="strategy-payout">$12,500 / Day Passive</span>
+            <h3 class="strategy-title">Ocean Drive Entertainment Laundering</h3>
+            <p class="strategy-text">
+              Acquiring beachside hospitality venues unlocks weekly passive revenue deposits. Complete delivery restocking side missions to maintain club popularity at maximum 100% capacity, yielding consistent automated bank drops directly into the syndicate treasury.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Commercial Real Estate Portfolio -->
+      <div class="guide-section-block">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">Passive Revenue Matrix</span>
+          <h2 class="guide-section-title">Commercial Real Estate & Enterprise Assets</h2>
+          <p class="guide-section-desc">Long-term capital assets providing automated weekly passive income and strategic territory benefits across Leonida.</p>
+        </div>
+
+        <div class="intel-data-table-wrap">
+          <table class="intel-data-table">
+            <thead>
+              <tr>
+                <th>Commercial Enterprise</th>
+                <th>District / Location</th>
+                <th>Purchase Cost</th>
+                <th>Weekly Net Yield</th>
+                <th>Territory & Operational Perks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-cell-bold">Ocean Drive Nightclub</td>
+                <td>Ocean Beach, Vice City</td>
+                <td class="table-cell-cost">$1,250,000</td>
+                <td class="table-cell-mono">$75,000 / week</td>
+                <td>Automated clean currency laundering; private VIP garage parking for 4 vehicles; discrete rear safehouse access.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Port Gellhorn Chop &amp; Export Facility</td>
+                <td>Port Gellhorn Industrial</td>
+                <td class="table-cell-cost">$850,000</td>
+                <td class="table-cell-mono">$60,000 / week</td>
+                <td>Automatic 25% discount on vehicle performance upgrades; unlocked VIN scrambler tool; overseas container export contracts.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Grassrivers Marina &amp; Drydock</td>
+                <td>Southern Keys Waterway</td>
+                <td class="table-cell-cost">$450,000</td>
+                <td class="table-cell-mono">$35,000 / week</td>
+                <td>Free docking for 6 marine vessels; automated contraband salvage sonar beacons deployed throughout shallow bays.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Homestead Private Airfield Hangar</td>
+                <td>Homestead Farmlands</td>
+                <td class="table-cell-cost">$1,600,000</td>
+                <td class="table-cell-mono">$110,000 / week</td>
+                <td>Storage for 3 fixed-wing aircraft and 2 helicopters; airborne freight smuggling contracts to South American air routes.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Downtown Vice Bail Enforcement Agency</td>
+                <td>Downtown Commercial Hub</td>
+                <td class="table-cell-cost">$620,000</td>
+                <td class="table-cell-mono">$45,000 / week</td>
+                <td>High-value bounty contracts dispatched weekly via in-game cell phone; temporary 1-star police evasion immunity inside district.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Redhill Metal &amp; Scrap Reclamation</td>
+                <td>Redhill Outskirts</td>
+                <td class="table-cell-cost">$380,000</td>
+                <td class="table-cell-mono">$28,000 / week</td>
+                <td>Scrapped and destroyed pursuit vehicles return 50% scrap value; complimentary heavy vehicle body repairs.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 3: Leonida Securities Exchange (Stock Market Manipulation) -->
+      <div class="guide-section-block">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">Capital Markets Strategy</span>
+          <h2 class="guide-section-title">Securities Exchange Market Manipulation (BAWSAQ &amp; LCN)</h2>
+          <p class="guide-section-desc">Campaign disruption missions directly influence equity markets. Follow this trading schedule to compound liquid capital by 150% to 300% per mission cycle.</p>
+        </div>
+
+        <div class="tactical-note-card amber">
+          <div class="tactical-note-icon">&#9888;</div>
+          <div class="tactical-note-content">
+            <h4>Crucial Execution Rule: Divest Within 48 In-Game Hours</h4>
+            <p>Do NOT advance story missions after executing corporate sabotage. Sleep at safehouses in 6-hour increments while monitoring stock market tickers on the character cell phone. Liquidate all character shares when the profit margin reaches its peak ceiling (usually 36 to 48 hours post-operation).</p>
+          </div>
+        </div>
+
+        <div class="intel-data-table-wrap">
+          <table class="intel-data-table">
+            <thead>
+              <tr>
+                <th>Mission Target</th>
+                <th>Target Ticker (Short)</th>
+                <th>Rival Corporation (Buy 100%)</th>
+                <th>Peak Target ROI</th>
+                <th>Execution Strategy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-cell-bold">Pharmaceutical Espionage</td>
+                <td>Bilkington Research (BIL)</td>
+                <td class="table-cell-mono">Betta Pharmaceuticals (BET)</td>
+                <td class="table-cell-mono">+85% to +110%</td>
+                <td>Invest all reserves in BET prior to sabotage. Sabotage Bilkington laboratories in Vice City Port. Sell BET at 48 hours.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Commercial Aviation Sabotage</td>
+                <td>AirEmu Commercial (EMU)</td>
+                <td class="table-cell-mono">FlyUS Continental (FUS)</td>
+                <td class="table-cell-mono">+90% to +130%</td>
+                <td>Purchase FUS before Escobar Airport runway strike. Destroy targeted AirEmu freight cargo. Divest at peak window.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Beverage Brand Takeover</td>
+                <td>ECola Global (ECO)</td>
+                <td class="table-cell-mono">Sprunk Beverages (SPK)</td>
+                <td class="table-cell-mono">+120% to +175%</td>
+                <td>Heavily buy SPK before intercepting ECola delivery convoy. Sell Sprunk equities once market share shifts.</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Telecommunications Disruption</td>
+                <td>Whiz Wireless (WHZ)</td>
+                <td class="table-cell-mono">Badger Telecommunications (BDG)</td>
+                <td class="table-cell-mono">+140% to +210%</td>
+                <td>Allocate funds into BDG before destroying Whiz transmission towers across the central Leonida swamp ridge.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section 4: Recurring Heist & Robbery Matrix -->
+      <div class="guide-section-block">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">Tactical Payout Index</span>
+          <h2 class="guide-section-title">Major Campaign Heists &amp; Score Payout Matrix</h2>
+          <p class="guide-section-desc">Comparative analysis of campaign set-pieces, crew expenditure deductions, and net protagonist earnings.</p>
+        </div>
+
+        <div class="intel-data-table-wrap">
+          <table class="intel-data-table">
+            <thead>
+              <tr>
+                <th>Operation Code</th>
+                <th>Target Facility</th>
+                <th>Gross Score</th>
+                <th>Crew &amp; Fence Deduction</th>
+                <th>Net Protagonist Take</th>
+                <th>Pursuit Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="table-cell-bold">The Ocean Beach Depository</td>
+                <td>Ocean Drive Commercial Vault</td>
+                <td class="table-cell-cost">$4,800,000</td>
+                <td>25% (Hacker + Driver + Demolitions)</td>
+                <td class="table-cell-mono">$3,600,000 ($1.8M / each)</td>
+                <td>⭐⭐⭐⭐ (4-Star Tactical)</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Keys High-Stakes Riverboat Vault</td>
+                <td>Leonida Sound Luxury Casino Vessel</td>
+                <td class="table-cell-cost">$2,400,000</td>
+                <td>18% (Disguise Specialist + Boat Pilot)</td>
+                <td class="table-cell-mono">$1,968,000 ($984K / each)</td>
+                <td>⭐⭐⭐ (3-Star Maritime)</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Escobar Freight Cargo Raid</td>
+                <td>MIA Air Freight Secured Terminal</td>
+                <td class="table-cell-cost">$1,750,000</td>
+                <td>15% (Customs Informant + Ramp Tech)</td>
+                <td class="table-cell-mono">$1,487,500 ($743K / each)</td>
+                <td>⭐⭐⭐⭐ (4-Star Aviation)</td>
+              </tr>
+              <tr>
+                <td class="table-cell-bold">Gellhorn Speedway Cash Room</td>
+                <td>Port Gellhorn Motor Speedway</td>
+                <td class="table-cell-cost">$850,000</td>
+                <td>10% (Inside Security Tech)</td>
+                <td class="table-cell-mono">$765,000 ($382K / each)</td>
+                <td>⭐⭐ (2-Star Local)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VIEW 5: DOCUMENTATION & TECHNICAL FAQ
+       ========================================================================= -->
+  <section class="app-view" id="view-faq">
+    <div class="view-container">
+      <div class="view-header">
+        <span class="view-breadcrumbs">Reference / System Architecture / Technical Manual</span>
+        <h1 class="view-heading">System Documentation &amp; Technical Manual</h1>
+        <p class="view-description">
+          In-depth technical reference documentation for GTA 6 controller input pipelines, save-state integrity registers, telemetry synchronization, law enforcement AI, and frequently asked mechanics questions.
+        </p>
+      </div>
+
+      <!-- Technical Architecture Modules (4 Comprehensive Systems) -->
+      <div class="guide-section-block" style="margin-top: 24px;">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">Core Engine Mechanics</span>
+          <h2 class="guide-section-title">System Architecture Modules</h2>
+          <p class="guide-section-desc">Key gameplay engineering pipelines governing gameplay modifiers, device inputs, and telemetry persistence.</p>
+        </div>
+
+        <div class="technical-module-grid">
+          <!-- Module 1 -->
+          <div class="technical-module-card">
+            <div class="module-card-top">
+              <span class="module-chapter-tag">SYS-01 &bull; INPUT</span>
+              <span class="module-version-tag">PS5 &bull; Xbox X|S</span>
+            </div>
+            <h3 class="module-card-title">Controller Input Architecture</h3>
+            <p class="module-card-text">
+              Cheat sequences in GTA 6 are processed via the in-game mobile phone home screen. Holding the shoulder triggers (L1+R1 or LB+RB) locks the UI cursor and opens an internal directional input buffer for D-Pad sequences. DualSense haptic feedback vibrates in sync with registered directional keystrokes.
+            </p>
+            <ul class="module-bullet-list">
+              <li>Phone D-Pad Up initiates baseline input state</li>
+              <li>Shoulder clamp locks directional input buffer</li>
+              <li>Input timeout window: 4.5 seconds per complete code</li>
+            </ul>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="technical-module-card">
+            <div class="module-card-top">
+              <span class="module-chapter-tag">SYS-02 &bull; PERSISTENCE</span>
+              <span class="module-version-tag">Integrity Guard</span>
+            </div>
+            <h3 class="module-card-title">Save-State Integrity &amp; Session Flags</h3>
+            <p class="module-card-text">
+              Activating any gameplay modifier sets an ephemeral session flag in volatile memory. This instantly disengages autosave writing and suppresses PlayStation Trophies and Xbox Achievements for the remainder of that playing session. Story campaign completion stats remain completely unaffected upon reloading a clean manual save.
+            </p>
+            <ul class="module-bullet-list">
+              <li>Autosave writes suspended immediately on activation</li>
+              <li>Trophy &amp; achievement calls intercepted and nullified</li>
+              <li>Restarting the session or loading a manual save resets flag</li>
+            </ul>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="technical-module-card">
+            <div class="module-card-top">
+              <span class="module-chapter-tag">SYS-03 &bull; CARTOGRAPHY</span>
+              <span class="module-version-tag">Dual-Coordinate GPS</span>
+            </div>
+            <h3 class="module-card-title">Telemetry &amp; Geodetic Synchronization</h3>
+            <p class="module-card-text">
+              The Leonida interactive atlas maps all 2,532 confirmed points of interest using a dual-coordinate projection: translating standard in-game X/Y telemetry coordinates into georeferenced South Florida geographic positions. User checklist progress is cached client-side in browser <code>localStorage</code> with zero tracking cookies or external accounts.
+            </p>
+            <ul class="module-bullet-list">
+              <li>Synchronized dual-coordinate mathematical projection</li>
+              <li>Instant zero-latency client persistence via LocalStorage</li>
+              <li>2,532 categorized waypoint markers cached offline</li>
+            </ul>
+          </div>
+
+          <!-- Module 4 -->
+          <div class="technical-module-card">
+            <div class="module-card-top">
+              <span class="module-chapter-tag">SYS-04 &bull; AI DISPATCH</span>
+              <span class="module-version-tag">Law Enforcement</span>
+            </div>
+            <h3 class="module-card-title">Law Enforcement AI &amp; Perimeter Mechanics</h3>
+            <p class="module-card-text">
+              Leonida law enforcement operates dynamic pursuit bubbles dictated by line-of-sight, surveillance cameras, and civilian 911 phone dispatches. Escaping higher heat tiers requires breaking line-of-sight for 45 continuous seconds, swapping vehicles outside surveillance cones, or utilizing licensed vehicle mod respray bays.
+            </p>
+            <ul class="module-bullet-list">
+              <li>Civilian 911 phone dispatch delay: 8 to 15 seconds</li>
+              <li>Highway CCTV speed cameras flag hotwired vehicles</li>
+              <li>Safehouse garages break active search perimeters</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical FAQ Accordion Section -->
+      <div class="guide-section-block">
+        <div class="guide-section-header">
+          <span class="guide-section-kicker">Knowledge Base</span>
+          <h2 class="guide-section-title">Frequently Asked Questions &amp; Systems FAQ</h2>
+          <p class="guide-section-desc">Clear, authoritative technical answers to common player inquiries regarding GTA 6 gameplay systems, cheat activation, vehicle management, and economy mechanics.</p>
+        </div>
+
+        <div class="faq-container-narrow" style="max-width: 100%;">
+          <div class="faq-accordion-group">
+            <div class="faq-accordion-item open">
+              <button class="faq-accordion-trigger">
+                <span>What is the exact input procedure for cheat codes?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Bring up the active character's smartphone by tapping <strong>D-Pad Up</strong>. On the home screen, hold the shoulder bumper triggers (<strong>L1 + R1</strong> on PlayStation 5 / <strong>LB + RB</strong> on Xbox Series X|S) simultaneously until a subtle haptic vibration occurs. While maintaining pressure on both bumpers, input the corresponding directional code on the D-Pad. A confirmation chime and banner alert will confirm successful activation.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>Why are many cheat codes locked behind campaign milestones?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                In GTA 6, cheat activation is intrinsically tied to the in-game progression architecture (accessible under <em>Map &gt; Progression &gt; Cheats</em> after concluding the primary storyline). Unlocking advanced modifiers requires completing specific campaign achievements—such as winning gold medals at shooting ranges, losing high-tier wanted pursuits, or performing stunt jumps. Once a milestone is achieved, the corresponding sequence is permanently decoded in the in-game cheat ledger.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>Does code activation permanently disable PlayStation Trophies or Xbox Achievements?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                No, it is strictly <strong>temporary for that playing session</strong>. Activating a cheat sets a session memory flag that suspends trophy/achievement unlocking and pauses background autosaves. To resume earning achievements and re-enable autosaves, simply quit to the main menu and reload your manual clean save file. Your overall story completion percentage and achievements remain completely untouched.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>How do vehicle spawns handle narrow alleys or obstacles?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                The game engine calculates a 15-meter radial clearance check in front of the character's camera orientation. If you attempt to spawn a heavy vehicle (such as the Haunters Rhino Tank or MTL Fire Pumper) inside a narrow alleyway or indoor parking garage, the physics engine automatically relocates the spawn point to the nearest unobstructed multi-lane roadway or wide thoroughfare to prevent vehicle clipping or immediate explosion.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>Can Jason and Lucia share bank accounts and weapon inventories?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Both protagonists maintain individual personal checking accounts on their respective mobile phones for small purchases like clothing, salon visits, and sidearm ammunition. However, all revenue generated from major heists, black-market chop-shops, and commercial real estate is pooled into a joint safehouse escrow ledger accessible by both characters. Heavy weapon arsenals stored inside vehicle trunks are also mutually accessible.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>How do Wanted Stars escalate in Vice City compared to previous GTA titles?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Law enforcement AI in GTA 6 is considerably more realistic. Crimes committed in view of civilians do not immediately spawn police; bystanders must first pull out their phones and dial 911, giving you an 8-to-15 second window to eliminate witnesses or flee the scene. Additionally, traffic CCTV cameras along major expressways log the license plates of hotwired vehicles. Evading 3-star or higher pursuits requires switching cars out of police sight or visiting a spray garage.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>How does the Leonida Interactive Map track completion without an account?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                ViceToolkit utilizes an offline-first architecture via modern browser <code>localStorage</code>. Whenever you click a waypoint pin or toggle categories, the state is instantly written to your device's local database. Your checklist completion percentage, hidden collectibles count, and map filter configurations persist across browser reloads without requiring an email address, login password, or cloud subscription.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>What happens to customized vehicles left behind during missions?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Any vehicle that you personally modify at an auto mod shop or register in a safehouse garage is marked as an "Owned Asset." If an owned vehicle is abandoned during a mission or impounded following character arrest, it is automatically transferred to the Vice City Police Department Impound Lot in Downtown Vice City. You can reclaim it for a minor $250 processing fee or by breaking into the impound lot after hours.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>How does the in-game stock market refresh timing work?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Equities traded on the BAWSAQ and LCN market exchanges update their price index once every in-game hour. Following major corporate sabotage campaign operations, market momentum experiences high volatility over a 36-to-48 hour in-game window. Sleeping at safehouses advances world time by 6-hour increments, allowing you to rapidly reach peak profit ceilings without waiting in real time.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>Are cell phone dialer cheat codes used in GTA 6?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Unlike GTA 4 and GTA 5 where cheats could be dialed as numeric telephone numbers (e.g., 1-999-...), GTA 6 returns exclusively to tactile controller D-Pad button sequences entered while holding the shoulder bumper buttons on the mobile phone home screen. There is no in-game phone number dialing pad for cheats in GTA 6.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>Can I fast travel between Vice City, the Keys, and Port Gellhorn?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Fast travel is supported via yellow city taxi cabs (flagged down on city streets or summoned via cell phone) and regional passenger rail terminals. Entering a cab as a passenger allows pressing the skip prompt for an extra fee to instantly teleport to your destination waypoint. Safehouses across different counties also unlock direct fast-travel beds after completing the campaign prologue.
+              </div>
+            </div>
+
+            <div class="faq-accordion-item">
+              <button class="faq-accordion-trigger">
+                <span>How does weather cycle variation impact handling and flight mechanics?</span>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">&#x25BC;</span>
+              </button>
+              <div class="faq-accordion-body">
+                Leonida's sub-tropical climate introduces dynamic weather events including hurricane gales, tropical downpours, and dense swamp fog. Torrential rainfall reduces tire friction by 35%, increasing braking distance and vehicle hydroplaning on asphalt. Aviation turbulence in small aircraft (such as the Lapwing Mallard) increases substantially during storms, requiring rudder compensation.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Modal -->
+  <div class="modal-overlay" id="compareModal" onclick="closeCompareModal()">
+    <div class="modal-content-card" onclick="event.stopPropagation()">
+      <button class="modal-close-cross" onclick="closeCompareModal()">✕</button>
+      <div id="compareModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Global Toast Alert -->
+  <div class="app-toast-alert" id="appToastAlert"></div>
+
+  <!-- Mobile Bottom Quick Navigation Dock (Native App Style) -->
+  <nav class="mobile-bottom-dock" id="mobileBottomDock" aria-label="Mobile Bottom Navigation">
+    <button class="mobile-dock-btn active" data-view="cheats">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+      </svg>
+      <span>Cheats</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="map">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+        <line x1="8" y1="2" x2="8" y2="18"></line>
+        <line x1="16" y1="6" x2="16" y2="22"></line>
+      </svg>
+      <span>Map</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="vehicles">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+        <circle cx="7" cy="18" r="2"></circle>
+        <circle cx="17" cy="18" r="2"></circle>
+        <path d="M5 6l2-4h10l2 4"></path>
+      </svg>
+      <span>Vehicles</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="money">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-5 0c0 2 3 2.5 3 4.5a3.5 3.5 0 0 1-5 0"></path>
+      </svg>
+      <span>Economy</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="faq">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      <span>Docs</span>
+    </button>
+  </nav>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="view-container">
+      <div class="footer-disclaimer-box">
+        ViceToolkit is an independent technical documentation suite and game reference tool. Grand Theft Auto, GTA, Vice City, and Rockstar Games are registered trademarks of Take-Two Interactive Software, Inc. PlayStation is a registered trademark of Sony Interactive Entertainment. Xbox is a registered trademark of Microsoft Corporation. This publication is not endorsed, affiliated, or sponsored by Take-Two Interactive, Rockstar Games, Sony, or Microsoft.
+      </div>
+      <div style="text-align: center; color: var(--text-dim); font-size: 0.74rem;">
+        &copy; 2026 ViceToolkit. Independent Community Database.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet Interactive Map & MarkerCluster Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script src="./assets/leonida_markers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

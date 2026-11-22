@@ -2034,7 +2034,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupFaqAccordion();
   setupKeyboardShortcuts();
   updateProgressTracker();
-  handleUrlHash();
+  handleUrlRouting();
 });
 
 // --- AUDIO SYNTHESIZER (HAPTIC UI SOUNDS) ---
@@ -2194,17 +2194,33 @@ function setupNavigation() {
     });
   }
 
-  window.addEventListener("hashchange", handleUrlHash);
+  window.addEventListener("popstate", handleUrlRouting);
+  window.addEventListener("hashchange", handleUrlRouting);
 }
 
-function handleUrlHash() {
-  const hash = window.location.hash.replace("#", "");
-  if (["cheats", "map", "vehicles", "money", "faq"].includes(hash)) {
-    switchView(hash);
+function handleUrlRouting() {
+  const path = window.location.pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
+  const hash = window.location.hash.replace("#", "").toLowerCase();
+  const valid = ["cheats", "map", "vehicles", "money", "faq"];
+
+  if (valid.includes(path)) {
+    switchView(path, false);
+  } else if (valid.includes(hash)) {
+    switchView(hash, false);
+  } else {
+    const activeSection = document.querySelector(".app-view.active");
+    if (activeSection && activeSection.id.startsWith("view-")) {
+      const activeName = activeSection.id.replace("view-", "");
+      if (valid.includes(activeName)) {
+        switchView(activeName, false);
+        return;
+      }
+    }
+    switchView("cheats", false);
   }
 }
 
-function switchView(viewName) {
+function switchView(viewName, updateUrl = true) {
   activeView = viewName;
   playUiSound("click");
   document.querySelectorAll(".nav-tab-btn, .mobile-dock-btn").forEach(btn => {
@@ -2213,7 +2229,27 @@ function switchView(viewName) {
   document.querySelectorAll(".app-view").forEach(view => {
     view.classList.toggle("active", view.id === `view-${viewName}`);
   });
-  window.location.hash = viewName;
+
+  // Clean URL update without '#'
+  if (updateUrl) {
+    const cleanPath = viewName === "cheats" ? "/cheats/" : `/${viewName}/`;
+    if (window.location.pathname !== cleanPath) {
+      window.history.pushState({ view: viewName }, "", cleanPath);
+    }
+  }
+
+  // Dynamic SEO page title update
+  const sectionTitles = {
+    cheats: "GTA 6 Cheats & Secret Controller Codes for PS5 & Xbox Series X|S | ViceToolkit",
+    map: "GTA 6 Interactive Map of Leonida - 2,532 Locations & Collectibles | ViceToolkit",
+    vehicles: "GTA 6 Vehicles Database - 72 Confirmed Cars, Bikes & Boats | ViceToolkit",
+    money: "GTA 6 Money & Economy Guide - Best Heists, Properties & BAWSAQ Stocks | ViceToolkit",
+    faq: "GTA 6 System Documentation & Gameplay Architecture FAQs | ViceToolkit"
+  };
+  if (sectionTitles[viewName]) {
+    document.title = sectionTitles[viewName];
+  }
+
   window.scrollTo({ top: 0, behavior: "smooth" });
 
   // Invalidate Leaflet Map Size when switching to map tab
