@@ -2200,13 +2200,19 @@ function setupNavigation() {
 
 function handleUrlRouting() {
   const path = window.location.pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
-  const hash = window.location.hash.replace("#", "").toLowerCase();
+  const hash = window.location.hash.replace("#", "").toLowerCase().trim();
   const valid = ["cheats", "map", "vehicles", "money", "faq"];
+
+  // Automatically eliminate and redirect any hash-based links (e.g. #vehicles -> /vehicles/)
+  if (valid.includes(hash)) {
+    const targetPath = `/${hash}/`;
+    window.history.replaceState({ view: hash }, "", targetPath);
+    switchView(hash, false);
+    return;
+  }
 
   if (valid.includes(path)) {
     switchView(path, false);
-  } else if (valid.includes(hash)) {
-    switchView(hash, false);
   } else {
     const activeSection = document.querySelector(".app-view.active");
     if (activeSection && activeSection.id.startsWith("view-")) {

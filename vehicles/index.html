@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/">
+  <script>
+    (function(){
+      var h = (window.location.hash || "").replace("#", "").toLowerCase().trim();
+      var v = ["cheats", "map", "vehicles", "money", "faq"];
+      if (v.indexOf(h) !== -1) {
+        window.location.replace("/" + h + "/");
+      }
+    })();
+  </script>
   <title>GTA 6 Vehicles Database - 72 Confirmed Cars, Bikes & Boats | ViceToolkit</title>
   <meta name="description" content="Comprehensive technical directory of all 72 confirmed GTA 6 vehicles across 15 classes. Compare real-world archetypes, top speeds, powertrains, and spawn locations.">
   <meta name="keywords" content="GTA 6 cheats, GTA 6 map, Leonida map, Vice City cheats, PS5 GTA 6 codes, Xbox GTA 6 cheats, GTA 6 vehicle database, GTA 6 money guide">
@@ -47,7 +56,7 @@
   <nav class="app-navbar">
     <div class="nav-container">
       <!-- Branded Gaming Logo (GTA 6 Badge) -->
-      <a href="#" class="brand-group" onclick="switchView('cheats'); return false;">
+      <a href="/" class="brand-group" onclick="switchView('cheats'); return false;">
         <div class="brand-logo-badge">
           <svg class="brand-icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
