@@ -4075,3 +4075,15 @@ input, select, textarea, button {
     bottom: 24px !important;
   }
 }
+
+
+@media (max-width: 768px) {
+  .search-input-wrap,
+  .v-search-box,
+  .map-gps-search-box {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: unset !important;
+  }
+}
