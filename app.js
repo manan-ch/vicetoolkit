@@ -2371,10 +2371,20 @@ function renderCheats() {
         const safeTitle = cheat.title.replace(/'/g, "\\'");
         const safeCopyCode = copyCode.replace(/'/g, "\\'");
 
+        let statusBadge = "";
+        if (cheat.id === "cash-250-000" || cheat.id === "drunk") {
+          statusBadge = `<span class="unlocked-highlight-badge"><span class="badge-fire-icon">🔥</span> NEWLY UNLOCKED</span>`;
+        } else if (!isLocked) {
+          statusBadge = `<span class="verified-active-badge">✓ WORKING</span>`;
+        }
+
         card.innerHTML = `
           <div>
             <div class="card-header-bar">
-              <h3 class="card-title-text">${cheat.title}</h3>
+              <div>
+                <h3 class="card-title-text">${cheat.title}</h3>
+                ${statusBadge}
+              </div>
               <span class="cheat-type-tag tag-${cheat.category}">${cheat.category}</span>
             </div>
             <p class="card-info-text">${cheat.desc}</p>
@@ -3017,10 +3027,15 @@ function renderVehicles() {
             </div>
           </div>
 
-          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.45;">
+          <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.45;">
             <strong>Powertrain:</strong> ${v.engine}<br>
             <strong>Spawns:</strong> ${v.location}
           </p>
+
+          <div class="v-haptic-telemetry">
+            <span class="haptic-dot"></span>
+            <span>DualSense Adaptive Trigger: Dynamic Resistance at 80%+ Speed</span>
+          </div>
         </div>
 
         <div class="v-card-actions">
@@ -3098,6 +3113,7 @@ function showCompareModal() {
           <div>Acceleration: <strong>${c1.accel}/100</strong> ${c1.accel > c2.accel ? '&bull; Higher' : ''}</div>
           <div>Handling: <strong>${c1.handling}/100</strong> ${c1.handling > c2.handling ? '&bull; Higher' : ''}</div>
           <div>Engine: <strong>${c1.engine}</strong></div>
+          <div style="color: #38bdf8; font-size: 0.72rem; display: flex; align-items: center; gap: 6px; margin-top: 4px;"><span class="haptic-dot"></span>DualSense Trigger Resistance Active</div>
         </div>
       </div>
 
@@ -3112,6 +3128,7 @@ function showCompareModal() {
           <div>Acceleration: <strong>${c2.accel}/100</strong> ${c2.accel > c1.accel ? '&bull; Higher' : ''}</div>
           <div>Handling: <strong>${c2.handling}/100</strong> ${c2.handling > c1.handling ? '&bull; Higher' : ''}</div>
           <div>Engine: <strong>${c2.engine}</strong></div>
+          <div style="color: #38bdf8; font-size: 0.72rem; display: flex; align-items: center; gap: 6px; margin-top: 4px;"><span class="haptic-dot"></span>DualSense Trigger Resistance Active</div>
         </div>
       </div>
     </div>
