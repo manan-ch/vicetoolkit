@@ -2301,6 +2301,10 @@ function setupCheatsEvents() {
       document.querySelectorAll(".controller-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       activePlatform = btn.dataset.platform;
+      const triggerEl = document.getElementById("activeTriggerComboText");
+      if (triggerEl) {
+        triggerEl.textContent = activePlatform === "ps5" ? "L1 + R1" : "LB + RB";
+      }
       renderCheats();
       playUiSound("click");
     });
@@ -2324,6 +2328,66 @@ function setupCheatsEvents() {
   }
 }
 
+function renderSingleCheatCard(cheat, container, isLocked) {
+  const pData = cheat[activePlatform];
+  const card = document.createElement("div");
+  card.className = "cheat-card-item";
+
+  let keysHtml = "";
+  let copyCode = "";
+  let copyLabel = "Copy Input";
+  
+  if (isLocked) {
+    keysHtml = `<span class="key-step-btn tbd-locked-badge">🔒 Progression Locked &bull; Complete Milestone to Unlock</span>`;
+    copyCode = `Unlock Requirement: ${cheat.unlock}`;
+    copyLabel = "Copy Req";
+  } else {
+    keysHtml = pData.seq.map((k, i) => `
+      <span class="key-step-btn">${formatDpadGlyph(k)}</span>
+      ${i < pData.seq.length - 1 ? '<span class="key-arrow-symbol">&rarr;</span>' : ''}
+    `).join("");
+    copyCode = `${pData.trigger} -> ${pData.seq.join(" > ")}`;
+    copyLabel = "Copy Input";
+  }
+
+  const safeTitle = cheat.title.replace(/'/g, "\\'");
+  const safeCopyCode = copyCode.replace(/'/g, "\\'");
+
+  let statusBadge = "";
+  if (cheat.id === "cash-250-000" || cheat.id === "drunk") {
+    statusBadge = `<span class="unlocked-highlight-badge"><span class="badge-fire-icon">🔥</span> NEWLY UNLOCKED</span>`;
+  } else if (!isLocked) {
+    statusBadge = `<span class="verified-active-badge">✓ WORKING INPUT</span>`;
+  }
+
+  card.innerHTML = `
+    <div>
+      <div class="card-header-bar">
+        <div>
+          <h3 class="card-title-text">${cheat.title}</h3>
+          ${statusBadge}
+        </div>
+        <span class="cheat-type-tag tag-${cheat.category}">${cheat.category}</span>
+      </div>
+      <p class="card-info-text">${cheat.desc}</p>
+      <div class="sequence-box-wrapper">
+        <span class="trigger-instruction">${pData.trigger}</span>
+        <div class="keys-flow">${keysHtml}</div>
+      </div>
+    </div>
+    <div class="card-bottom-actions">
+      <span>Req: ${cheat.unlock}</span>
+      <button class="btn-copy-code" onclick="executeCopy('${safeTitle}', '${safeCopyCode}')">${copyLabel}</button>
+    </div>
+  `;
+
+  card.addEventListener("mouseenter", () => {
+    updateControllerHud(cheat.title, pData.trigger, pData.seq);
+  });
+
+  container.appendChild(card);
+}
+
 function renderCheats() {
   const grid = document.getElementById("cheatsCardsGrid");
   const tableBody = document.getElementById("cheatsTableBody");
@@ -2338,83 +2402,83 @@ function renderCheats() {
     return matchesCat && matchesQuery;
   });
 
-  // Render Cards Grid
+  // Strict Hierarchy Split: Unlocked Input Codes First, Locked Milestone Codes Second
+  const unlocked = [];
+  const locked = [];
+
+  filtered.forEach(cheat => {
+    const pData = cheat[activePlatform];
+    const isLocked = cheat.isTbd || (pData.seq.length === 1 && (pData.seq[0] === "TBD" || pData.seq[0] === "PROGRESSION LOCKED"));
+    if (isLocked) {
+      locked.push(cheat);
+    } else {
+      unlocked.push(cheat);
+    }
+  });
+
+  // Sort unlocked so top priority codes ($250k, Drunk, Repair, Max Health, Lower Wanted) lead row 1
+  const topPriority = ["cash-250-000", "drunk", "repair-vehicle", "max-health-armor", "lower-wanted-level", "super-jump", "fast-run", "swim-boost"];
+  unlocked.sort((a, b) => {
+    const aIdx = topPriority.indexOf(a.id);
+    const bIdx = topPriority.indexOf(b.id);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
+    return a.title.localeCompare(b.title);
+  });
+
+  // Render Cards Grid with Clear Section Headers
   if (grid) {
     grid.innerHTML = "";
     if (filtered.length === 0) {
       grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 0.88rem;">No sequences found matching "${query}".</div>`;
     } else {
-      filtered.forEach(cheat => {
-        const pData = cheat[activePlatform];
-        const card = document.createElement("div");
-        card.className = "cheat-card-item";
-
-        const isLocked = cheat.isTbd || (pData.seq.length === 1 && (pData.seq[0] === "TBD" || pData.seq[0] === "PROGRESSION LOCKED"));
-        
-        let keysHtml = "";
-        let copyCode = "";
-        let copyLabel = "Copy Input";
-        
-        if (isLocked) {
-          keysHtml = `<span class="key-step-btn tbd-locked-badge">🔒 Progression Locked &bull; Complete Milestone to Unlock</span>`;
-          copyCode = `Unlock Requirement: ${cheat.unlock}`;
-          copyLabel = "Copy Req";
-        } else {
-          keysHtml = pData.seq.map((k, i) => `
-            <span class="key-step-btn">${formatDpadGlyph(k)}</span>
-            ${i < pData.seq.length - 1 ? '<span class="key-arrow-symbol">&rarr;</span>' : ''}
-          `).join("");
-          copyCode = `${pData.trigger} -> ${pData.seq.join(" > ")}`;
-          copyLabel = "Copy Input";
-        }
-
-        const safeTitle = cheat.title.replace(/'/g, "\\'");
-        const safeCopyCode = copyCode.replace(/'/g, "\\'");
-
-        let statusBadge = "";
-        if (cheat.id === "cash-250-000" || cheat.id === "drunk") {
-          statusBadge = `<span class="unlocked-highlight-badge"><span class="badge-fire-icon">🔥</span> NEWLY UNLOCKED</span>`;
-        } else if (!isLocked) {
-          statusBadge = `<span class="verified-active-badge">✓ WORKING</span>`;
-        }
-
-        card.innerHTML = `
-          <div>
-            <div class="card-header-bar">
-              <div>
-                <h3 class="card-title-text">${cheat.title}</h3>
-                ${statusBadge}
-              </div>
-              <span class="cheat-type-tag tag-${cheat.category}">${cheat.category}</span>
-            </div>
-            <p class="card-info-text">${cheat.desc}</p>
-            <div class="sequence-box-wrapper">
-              <span class="trigger-instruction">${pData.trigger}</span>
-              <div class="keys-flow">${keysHtml}</div>
-            </div>
+      // 1. Group Header for Working Input Sequences (TOP ROWS)
+      if (unlocked.length > 0) {
+        const activeHeader = document.createElement("div");
+        activeHeader.className = "cheat-group-header-row";
+        activeHeader.innerHTML = `
+          <div class="group-title-text">
+            <span style="color: var(--accent-primary);">⚡</span>
+            <span>Confirmed Controller Input Sequences (Ready to Use)</span>
           </div>
-          <div class="card-bottom-actions">
-            <span>Req: ${cheat.unlock}</span>
-            <button class="btn-copy-code" onclick="executeCopy('${safeTitle}', '${safeCopyCode}')">${copyLabel}</button>
-          </div>
+          <span class="group-count-badge">${unlocked.length} Working Sequences</span>
         `;
+        grid.appendChild(activeHeader);
 
-        card.addEventListener("mouseenter", () => {
-          updateControllerHud(cheat.title, pData.trigger, pData.seq);
+        unlocked.forEach(cheat => {
+          renderSingleCheatCard(cheat, grid, false);
         });
+      }
 
-        grid.appendChild(card);
-      });
+      // 2. Group Header for Locked Milestone Codes (BOTTOM ROWS)
+      if (locked.length > 0) {
+        const lockedHeader = document.createElement("div");
+        lockedHeader.className = "cheat-group-header-row locked-group";
+        lockedHeader.innerHTML = `
+          <div class="group-title-text">
+            <span style="color: var(--text-dim);">🔒</span>
+            <span>Campaign Progression &amp; Challenge Milestone Codes</span>
+          </div>
+          <span class="group-count-badge">${locked.length} Locked Codes</span>
+        `;
+        grid.appendChild(lockedHeader);
+
+        locked.forEach(cheat => {
+          renderSingleCheatCard(cheat, grid, true);
+        });
+      }
     }
   }
 
-  // Render Polygon Table View
+  // Render Polygon Table View (Hierarchy Maintained: Unlocked First)
+  const fullSorted = [...unlocked, ...locked];
   if (tableBody) {
     tableBody.innerHTML = "";
-    if (filtered.length === 0) {
+    if (fullSorted.length === 0) {
       tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 32px; color: var(--text-muted);">No sequences found matching "${query}".</td></tr>`;
     } else {
-      filtered.forEach(cheat => {
+      fullSorted.forEach(cheat => {
         const pData = cheat[activePlatform];
         const tr = document.createElement("tr");
 
