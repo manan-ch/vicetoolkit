@@ -2246,11 +2246,11 @@ function switchView(viewName, updateUrl = true) {
 
   // Dynamic SEO page title update
   const sectionTitles = {
-    cheats: "GTA 6 Cheats & Secret Controller Codes for PS5 & Xbox Series X|S | ViceToolkit",
-    map: "GTA 6 Interactive Map of Leonida - 2,532 Locations & Collectibles | ViceToolkit",
-    vehicles: "GTA 6 Vehicles Database - 72 Confirmed Cars, Bikes & Boats | ViceToolkit",
-    money: "GTA 6 Money & Economy Guide - Best Heists, Properties & BAWSAQ Stocks | ViceToolkit",
-    faq: "GTA 6 System Documentation & Gameplay Architecture FAQs | ViceToolkit"
+    cheats: "GTA 6 Cheats: All 61 Secret Controller Codes (PS5 & Xbox) [100% Verified]",
+    map: "GTA 6 Interactive Map (Leonida & Vice City) - 2,532 Locations, Caches & Fast Travel",
+    vehicles: "GTA 6 Vehicles: All 72 Confirmed Cars, Supercars & Boats [Full Specs & Real Names]",
+    money: "GTA 6 Money & Heist Guide: Best Passive Income, Real Estate & BAWSAQ Stocks",
+    faq: "GTA 6 System Guide & Gameplay Architecture FAQs [Complete Technical Intel]"
   };
   if (sectionTitles[viewName]) {
     document.title = sectionTitles[viewName];
