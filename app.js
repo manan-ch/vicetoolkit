@@ -2186,11 +2186,13 @@ function setupNavigation() {
     mapDrawerBtn.addEventListener("click", () => {
       const isOpen = mapControlPanel.classList.toggle("mobile-drawer-open");
       mapDrawerBtn.classList.toggle("active", isOpen);
+      playUiSound("click");
       if (mapDrawerBtnText) {
         mapDrawerBtnText.textContent = isOpen 
           ? "Hide Filter & Categories Panel (▲)" 
           : "Filter 2,532 Waypoints & Categories (▼)";
       }
+      triggerToast(isOpen ? "Opened 2,532 Waypoint Filter Panel" : "Closed Filter Panel");
     });
   }
 
@@ -3115,38 +3117,104 @@ function renderVehicles() {
 }
 
 function toggleCompare(vId) {
+  const car = vehiclesDatabase.find(v => v.id === vId);
   if (compareList.includes(vId)) {
     compareList = compareList.filter(id => id !== vId);
+    triggerToast(`Removed ${car ? car.name : 'model'} from comparison.`);
   } else {
     if (compareList.length >= 2) {
       compareList.shift();
     }
     compareList.push(vId);
+    playUiSound("click");
+
+    if (compareList.length === 1) {
+      triggerToast(`Selected ${car ? car.name : 'Model'}. Tap a 2nd car to auto-compare!`);
+    } else if (compareList.length === 2) {
+      const c1 = vehiclesDatabase.find(v => v.id === compareList[0]);
+      const c2 = vehiclesDatabase.find(v => v.id === compareList[1]);
+      triggerToast(`Comparing ${c1.name} vs ${c2.name}...`);
+      setTimeout(() => {
+        showCompareModal();
+      }, 300);
+    }
   }
 
   updateCompareDock();
   renderVehicles();
 }
 
+function clearCompare() {
+  compareList = [];
+  updateCompareDock();
+  renderVehicles();
+  triggerToast("Vehicle comparison cleared.");
+}
+
 function updateCompareDock() {
+  // Update desktop in-page dock
   const dock = document.getElementById("comparatorDock");
   const slot1 = document.getElementById("compSlot1");
   const slot2 = document.getElementById("compSlot2");
-  if (!dock) return;
 
-  if (compareList.length > 0) {
-    dock.classList.add("active");
-    const car1 = vehiclesDatabase.find(v => v.id === compareList[0]);
-    slot1.innerText = car1 ? car1.name : "Model 1";
+  if (dock && slot1 && slot2) {
+    if (compareList.length > 0) {
+      dock.classList.add("active");
+      const car1 = vehiclesDatabase.find(v => v.id === compareList[0]);
+      slot1.innerText = car1 ? car1.name : "Model 1";
 
-    if (compareList.length === 2) {
-      const car2 = vehiclesDatabase.find(v => v.id === compareList[1]);
-      slot2.innerText = car2 ? car2.name : "Select Second Model";
+      if (compareList.length === 2) {
+        const car2 = vehiclesDatabase.find(v => v.id === compareList[1]);
+        slot2.innerText = car2 ? car2.name : "Select Second Model";
+      } else {
+        slot2.innerText = "Select Second Model";
+      }
     } else {
-      slot2.innerText = "Select Second Model";
+      dock.classList.remove("active");
     }
+  }
+
+  // Update or create Floating Compare Bar for mobile and desktop quick view
+  let floatBar = document.getElementById("floatingCompareDock");
+  if (!floatBar) {
+    floatBar = document.createElement("div");
+    floatBar.id = "floatingCompareDock";
+    floatBar.className = "floating-compare-dock";
+    document.body.appendChild(floatBar);
+  }
+
+  if (compareList.length === 1) {
+    const car1 = vehiclesDatabase.find(v => v.id === compareList[0]);
+    floatBar.innerHTML = `
+      <div style="display:flex; align-items:center; gap:8px; overflow:hidden;">
+        <span style="font-size:1.1rem; line-height:1;">🏎️</span>
+        <div style="line-height:1.2;">
+          <div style="font-size:0.82rem; font-weight:700; color:var(--text-primary);">${car1 ? car1.name : 'Model 1'}</div>
+          <div style="font-size:0.7rem; color:var(--accent-primary); font-weight:600;">Tap 2nd model to auto-compare</div>
+        </div>
+      </div>
+      <button onclick="clearCompare()" style="background:transparent; border:1px solid var(--border-medium); border-radius:6px; color:var(--text-muted); font-size:0.72rem; padding:4px 8px; cursor:pointer;" title="Clear Selection">✕ Cancel</button>
+    `;
+    floatBar.classList.add("visible");
+  } else if (compareList.length === 2) {
+    const c1 = vehiclesDatabase.find(v => v.id === compareList[0]);
+    const c2 = vehiclesDatabase.find(v => v.id === compareList[1]);
+    floatBar.innerHTML = `
+      <div style="display:flex; align-items:center; gap:8px; overflow:hidden; flex:1;">
+        <span style="font-size:1.1rem; line-height:1;">⚡</span>
+        <div style="line-height:1.2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+          <div style="font-size:0.82rem; font-weight:800; color:var(--text-primary); text-overflow:ellipsis; overflow:hidden;">${c1.name} vs ${c2.name}</div>
+          <div style="font-size:0.7rem; color:#10b981; font-weight:600;">Ready for Telemetry Analysis</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+        <button onclick="showCompareModal()" style="background:var(--accent-primary); color:#ffffff; border:none; border-radius:6px; padding:6px 12px; font-size:0.76rem; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(225,29,72,0.3);">View Comparison</button>
+        <button onclick="clearCompare()" style="background:transparent; border:1px solid var(--border-medium); border-radius:6px; color:var(--text-muted); font-size:0.72rem; padding:4px 7px; cursor:pointer;" title="Clear">✕</button>
+      </div>
+    `;
+    floatBar.classList.add("visible");
   } else {
-    dock.classList.remove("active");
+    floatBar.classList.remove("visible");
   }
 }
 
@@ -3158,51 +3226,138 @@ function showCompareModal() {
 
   const c1 = vehiclesDatabase.find(v => v.id === compareList[0]);
   const c2 = vehiclesDatabase.find(v => v.id === compareList[1]);
+  if (!c1 || !c2) return;
 
   const modal = document.getElementById("compareModal");
   const content = document.getElementById("compareModalContent");
   if (!modal || !content) return;
 
+  const c1SpeedHigher = c1.speed > c2.speed;
+  const c2SpeedHigher = c2.speed > c1.speed;
+  const c1AccelHigher = c1.accel > c2.accel;
+  const c2AccelHigher = c2.accel > c1.accel;
+  const c1HandlingHigher = c1.handling > c2.handling;
+  const c2HandlingHigher = c2.handling > c1.handling;
+
   content.innerHTML = `
-    <h2 style="font-size: 1.3rem; color: #fff; text-align: center; margin-bottom: 16px;">
-      Telemetry Comparison
-    </h2>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border-subtle);">
+      <div>
+        <span style="font-size:0.72rem; font-weight:800; color:var(--accent-primary); text-transform:uppercase; letter-spacing:0.06em;">HEAD-TO-HEAD TELEMETRY</span>
+        <h2 style="font-size:1.35rem; color:var(--text-primary); font-weight:800; margin:2px 0 0 0;">${c1.name} vs ${c2.name}</h2>
+      </div>
+    </div>
+
     <div class="compare-grid-layout">
-      <div style="background: var(--bg-base); padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
-        <img src="${c1.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-bottom:10px;" />
-        <h3 style="color: #fff; font-size: 1.05rem; margin-bottom: 4px;">${c1.name}</h3>
-        <p style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 12px;">${c1.inspo}</p>
-        <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 8px;">
-          <div>Top Speed: <strong>${c1.topMph}</strong> ${c1.speed > c2.speed ? '&bull; Higher' : ''}</div>
-          <div>Acceleration: <strong>${c1.accel}/100</strong> ${c1.accel > c2.accel ? '&bull; Higher' : ''}</div>
-          <div>Handling: <strong>${c1.handling}/100</strong> ${c1.handling > c2.handling ? '&bull; Higher' : ''}</div>
-          <div>Engine: <strong>${c1.engine}</strong></div>
-          <div style="color: #38bdf8; font-size: 0.72rem; display: flex; align-items: center; gap: 6px; margin-top: 4px;"><span class="haptic-dot"></span>DualSense Trigger Resistance Active</div>
+      <!-- Car 1 Panel -->
+      <div class="compare-card-panel">
+        <div style="width:100%; height:140px; border-radius:6px; overflow:hidden; background:var(--bg-base); margin-bottom:12px; position:relative;">
+          <img src="${c1.image}" alt="${c1.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='./assets/car_placeholder.jpg'"/>
+          <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.65); backdrop-filter:blur(4px); color:#fff; font-size:0.68rem; font-weight:700; padding:3px 7px; border-radius:4px; text-transform:uppercase;">${c1.type}</span>
+        </div>
+        <h3 style="color:var(--text-primary); font-size:1.1rem; font-weight:800; margin:0 0 4px 0;">${c1.name}</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:0 0 14px 0;">Archetype: ${c1.inspo}</p>
+
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div class="compare-stat-row">
+            <span>Top Speed</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c1.topMph}</strong>
+              ${c1SpeedHigher ? '<span class="compare-winner-tag">⚡ FASTER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Acceleration</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c1.accel}/100</strong>
+              ${c1AccelHigher ? '<span class="compare-winner-tag">⚡ QUICKER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Handling Dynamics</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c1.handling}/100</strong>
+              ${c1HandlingHigher ? '<span class="compare-winner-tag">⚡ SHARPER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Powertrain</span>
+            <span style="font-weight:600; color:var(--text-primary);">${c1.engine}</span>
+          </div>
+          <div class="compare-stat-row">
+            <span>Confirmed Spawns</span>
+            <span style="font-size:0.74rem; color:var(--text-muted); text-align:right; max-width:60%;">${c1.spawns}</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px; padding:8px 10px; background:rgba(14,165,233,0.08); border:1px solid rgba(14,165,233,0.2); border-radius:6px; font-size:0.72rem; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+          <span style="width:6px; height:6px; border-radius:50%; background:#0ea5e9; flex-shrink:0;"></span>
+          <span>DualSense Resistance: ${c1.dualsense}</span>
         </div>
       </div>
 
       <div class="compare-vs-badge">VS</div>
 
-      <div style="background: var(--bg-base); padding: 16px; border-radius: 8px; border: 1px solid var(--border-subtle);">
-        <img src="${c2.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-bottom:10px;" />
-        <h3 style="color: #fff; font-size: 1.05rem; margin-bottom: 4px;">${c2.name}</h3>
-        <p style="font-size: 0.74rem; color: var(--text-muted); margin-bottom: 12px;">${c2.inspo}</p>
-        <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 8px;">
-          <div>Top Speed: <strong>${c2.topMph}</strong> ${c2.speed > c1.speed ? '&bull; Higher' : ''}</div>
-          <div>Acceleration: <strong>${c2.accel}/100</strong> ${c2.accel > c1.accel ? '&bull; Higher' : ''}</div>
-          <div>Handling: <strong>${c2.handling}/100</strong> ${c2.handling > c1.handling ? '&bull; Higher' : ''}</div>
-          <div>Engine: <strong>${c2.engine}</strong></div>
-          <div style="color: #38bdf8; font-size: 0.72rem; display: flex; align-items: center; gap: 6px; margin-top: 4px;"><span class="haptic-dot"></span>DualSense Trigger Resistance Active</div>
+      <!-- Car 2 Panel -->
+      <div class="compare-card-panel">
+        <div style="width:100%; height:140px; border-radius:6px; overflow:hidden; background:var(--bg-base); margin-bottom:12px; position:relative;">
+          <img src="${c2.image}" alt="${c2.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='./assets/car_placeholder.jpg'"/>
+          <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.65); backdrop-filter:blur(4px); color:#fff; font-size:0.68rem; font-weight:700; padding:3px 7px; border-radius:4px; text-transform:uppercase;">${c2.type}</span>
+        </div>
+        <h3 style="color:var(--text-primary); font-size:1.1rem; font-weight:800; margin:0 0 4px 0;">${c2.name}</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted); margin:0 0 14px 0;">Archetype: ${c2.inspo}</p>
+
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div class="compare-stat-row">
+            <span>Top Speed</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c2.topMph}</strong>
+              ${c2SpeedHigher ? '<span class="compare-winner-tag">⚡ FASTER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Acceleration</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c2.accel}/100</strong>
+              ${c2AccelHigher ? '<span class="compare-winner-tag">⚡ QUICKER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Handling Dynamics</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <strong>${c2.handling}/100</strong>
+              ${c2HandlingHigher ? '<span class="compare-winner-tag">⚡ SHARPER</span>' : ''}
+            </div>
+          </div>
+          <div class="compare-stat-row">
+            <span>Powertrain</span>
+            <span style="font-weight:600; color:var(--text-primary);">${c2.engine}</span>
+          </div>
+          <div class="compare-stat-row">
+            <span>Confirmed Spawns</span>
+            <span style="font-size:0.74rem; color:var(--text-muted); text-align:right; max-width:60%;">${c2.spawns}</span>
+          </div>
+        </div>
+
+        <div style="margin-top:12px; padding:8px 10px; background:rgba(14,165,233,0.08); border:1px solid rgba(14,165,233,0.2); border-radius:6px; font-size:0.72rem; color:var(--text-primary); display:flex; align-items:center; gap:6px;">
+          <span style="width:6px; height:6px; border-radius:50%; background:#0ea5e9; flex-shrink:0;"></span>
+          <span>DualSense Resistance: ${c2.dualsense}</span>
         </div>
       </div>
+    </div>
+
+    <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
+      <button onclick="clearCompare(); closeCompareModal();" style="background:var(--bg-surface-elevated); border:1px solid var(--border-medium); color:var(--text-muted); font-size:0.8rem; font-weight:600; padding:9px 18px; border-radius:6px; cursor:pointer;">Clear &amp; Close</button>
+      <button onclick="closeCompareModal()" style="background:var(--accent-primary); border:none; color:#ffffff; font-size:0.8rem; font-weight:700; padding:9px 22px; border-radius:6px; cursor:pointer;">Done</button>
     </div>
   `;
 
   modal.classList.add("active");
+  playUiSound("open");
 }
 
 function closeCompareModal() {
   document.getElementById("compareModal")?.classList.remove("active");
+  playUiSound("click");
 }
 
 // --- FAQ ACCORDION ---
