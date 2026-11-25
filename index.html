@@ -7,7 +7,7 @@
   <script>
     (function(){
       var h = (window.location.hash || "").replace("#", "").toLowerCase().trim();
-      var v = ["cheats", "map", "vehicles", "weapons", "updates", "money", "faq"];
+      var v = ["cheats", "map", "vehicles", "weapons", "updates", "money", "faq", "heists"];
       if (v.indexOf(h) !== -1) {
         window.location.replace("/" + h + "/");
       }
@@ -1799,6 +1799,16 @@
   <!-- Footer -->
   <footer class="app-footer">
     <div class="view-container">
+      <nav class="footer-nav-links" aria-label="Footer Navigation">
+        <a href="/" class="footer-nav-link">Cheatsheet</a>
+        <a href="/map/" class="footer-nav-link">Interactive Map</a>
+        <a href="/vehicles/" class="footer-nav-link">Vehicles DB</a>
+        <a href="/weapons/" class="footer-nav-link">Weapons Hub</a>
+        <a href="/heists/" class="footer-nav-link">Heist Calculator</a>
+        <a href="/updates/" class="footer-nav-link">Patch Notes</a>
+        <a href="/money/" class="footer-nav-link">Economy Guide</a>
+        <a href="/faq/" class="footer-nav-link">Documentation</a>
+      </nav>
       <div class="footer-disclaimer-box">
         ViceToolkit is an independent technical documentation suite and game reference tool. Grand Theft Auto, GTA, Vice City, and Rockstar Games are registered trademarks of Take-Two Interactive Software, Inc. PlayStation is a registered trademark of Sony Interactive Entertainment. Xbox is a registered trademark of Microsoft Corporation. This publication is not endorsed, affiliated, or sponsored by Take-Two Interactive, Rockstar Games, Sony, or Microsoft.
       </div>

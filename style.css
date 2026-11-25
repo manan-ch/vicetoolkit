@@ -6098,3 +6098,28 @@ input, select, textarea, button {
     cursor: pointer;
   }
 }
+
+/* Footer Crawlable Internal Links */
+.footer-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 20px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.footer-nav-link {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.footer-nav-link:hover {
+  color: var(--accent-primary);
+  text-decoration: underline;
+}
