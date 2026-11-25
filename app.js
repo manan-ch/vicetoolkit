@@ -4671,6 +4671,7 @@ let selectedGunmanId = "gustavo";
 let currentGrossTake = 1750000;
 
 function initHeistCalculator() {
+  initHeistMobileAndPresets();
   renderHeistTargets();
   renderHeistApproaches();
   renderCrewMembers();
@@ -4835,6 +4836,13 @@ function updateHeistCalculations() {
   if (takeDisp) takeDisp.innerText = "$" + grossTake.toLocaleString();
 
   const netTotalDisp = document.getElementById("heistNetTotal");
+  const mobNet = document.getElementById("mobileNetTotal");
+  if (mobNet) mobNet.innerText = "$" + netTake.toLocaleString();
+  const mobSplit = document.getElementById("mobileSplitVal");
+  if (mobSplit) {
+    const kAmt = (luciaShare / 1000).toFixed(0);
+    mobSplit.innerText = "$" + (luciaShare >= 1000000 ? (luciaShare / 1000000).toFixed(2) + "M" : kAmt + "K") + " ea";
+  }
   if (netTotalDisp) netTotalDisp.innerText = "$" + netTake.toLocaleString();
 
   const luciaDisp = document.getElementById("luciaShareDisplay");
@@ -5033,4 +5041,34 @@ function setupHeistEvents() {
   handleCrewClick("crewDriversRow", "drivers");
   handleCrewClick("crewHackersRow", "hackers");
   handleCrewClick("crewGunmenRow", "gunmen");
+}
+
+function initHeistMobileAndPresets() {
+  const mobTeleport = document.getElementById("btnMobileTeleport");
+  if (mobTeleport) {
+    mobTeleport.onclick = () => {
+      const target = heistTargets.find(t => t.id === selectedHeistTargetId) || heistTargets[0];
+      jumpToHeistLocation(target.markerId);
+    };
+  }
+  const mobDetails = document.getElementById("btnMobileDetails");
+  if (mobDetails) {
+    mobDetails.onclick = () => {
+      const hud = document.getElementById("heistTerminalHud");
+      if (hud) hud.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+  }
+  document.querySelectorAll(".heist-slider-presets .preset-btn").forEach(btn => {
+    btn.onclick = () => {
+      const target = heistTargets.find(t => t.id === selectedHeistTargetId) || heistTargets[0];
+      const slider = document.getElementById("heistTakeSlider");
+      if (!slider) return;
+      const mode = btn.dataset.preset;
+      if (mode === "min") currentGrossTake = target.baseTakeMin;
+      else if (mode === "mid") currentGrossTake = Math.round((target.baseTakeMin + target.baseTakeMax) / 2);
+      else if (mode === "max") currentGrossTake = target.baseTakeMax;
+      slider.value = currentGrossTake;
+      updateHeistCalculations();
+    };
+  });
 }

@@ -5309,3 +5309,792 @@ input, select, textarea, button {
   gap: 6px;
   margin-bottom: 4px;
 }
+
+
+/* ==========================================================================
+   FEATURE 5: ULTRA PRO AAA TACTICAL HEIST & ROBBERY PLANNER STYLES (REDESIGN)
+   ========================================================================== */
+
+.heist-planner-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1080px) {
+  .heist-planner-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Step Card Containers */
+.heist-step-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .heist-step-section {
+    padding: 18px 14px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+  }
+}
+
+.heist-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heist-step-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.heist-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(225, 29, 72, 0.1);
+  border: 1.5px solid rgba(225, 29, 72, 0.35);
+  color: var(--accent-primary);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: monospace;
+  flex-shrink: 0;
+}
+
+.heist-step-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.heist-step-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.heist-step-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* STEP 1: TARGET CARDS GRID */
+.heist-targets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .heist-targets-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.heist-target-card {
+  background: var(--bg-surface-elevated);
+  border: 1.5px solid var(--border-medium);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  user-select: none;
+}
+
+.heist-target-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 29, 72, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.heist-target-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.035);
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 8px 24px rgba(225, 29, 72, 0.15);
+}
+
+[data-theme="dark"] .heist-target-card.active {
+  background: rgba(225, 29, 72, 0.12);
+}
+
+.target-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.target-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.target-tier-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.target-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.target-payout-range {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #059669;
+  font-family: monospace;
+}
+
+.target-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.target-card-btn {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.heist-target-card.active .target-card-btn {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+/* STEP 2: INFILTRATION VECTOR */
+.heist-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .heist-approach-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.heist-approach-card {
+  background: var(--bg-surface-elevated);
+  border: 1.5px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.heist-approach-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 29, 72, 0.4);
+}
+
+.heist-approach-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.04);
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 6px 18px rgba(225, 29, 72, 0.12);
+}
+
+[data-theme="dark"] .heist-approach-card.active {
+  background: rgba(225, 29, 72, 0.14);
+}
+
+.approach-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.approach-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.approach-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.tag-stealth { background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); }
+.tag-loud { background: rgba(239, 68, 68, 0.15); color: #dc2626; border: 1px solid rgba(239, 68, 68, 0.3); }
+.tag-subterfuge { background: rgba(14, 165, 233, 0.15); color: #0284c7; border: 1px solid rgba(14, 165, 233, 0.3); }
+
+/* STEP 3: SLIDER & PRESETS */
+.heist-slider-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.heist-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.heist-slider-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.heist-slider-val {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #059669;
+  font-family: monospace;
+  letter-spacing: -0.5px;
+}
+
+.heist-range-input {
+  width: 100%;
+  height: 8px;
+  background: var(--border-medium);
+  border-radius: 6px;
+  outline: none;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.heist-slider-range-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  font-family: monospace;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.heist-slider-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preset-btn {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.preset-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* STEP 4: SPECIALIST CREW ROSTER */
+.crew-roster-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.crew-role-block {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.crew-role-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.crew-role-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crew-role-icon {
+  font-size: 1.2rem;
+}
+
+.crew-role-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.crew-role-assigned {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.crew-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .crew-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crew-card {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-medium);
+  border-radius: 10px;
+  padding: 12px 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  user-select: none;
+}
+
+.crew-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 29, 72, 0.4);
+}
+
+.crew-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.04);
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 4px 12px rgba(225, 29, 72, 0.12);
+}
+
+[data-theme="dark"] .crew-card.active {
+  background: rgba(225, 29, 72, 0.14);
+}
+
+.crew-card-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.crew-card-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.crew-cut-badge {
+  font-weight: 800;
+  color: #e11d48;
+  font-family: monospace;
+}
+
+.crew-skill-badge {
+  color: #f59e0b;
+  letter-spacing: 1px;
+}
+
+/* HOLOGRAPHIC EXECUTION TERMINAL (STICKY RIGHT) */
+.heist-terminal-hud {
+  position: sticky;
+  top: 84px;
+  background: #0f172a;
+  border: 1.5px solid rgba(225, 29, 72, 0.4);
+  border-radius: 18px;
+  padding: 24px;
+  color: #f8fafc;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35), 0 0 24px rgba(225, 29, 72, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: terminalPulse 1.8s infinite;
+}
+
+@keyframes terminalPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.terminal-status-text {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.terminal-target-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  background: rgba(225, 29, 72, 0.2);
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  color: #fb7185;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.terminal-payout-hero {
+  text-align: center;
+  padding: 16px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-payout-label {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #34d399;
+  letter-spacing: 1.2px;
+  font-family: monospace;
+}
+
+.hero-payout-amount {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #10b981;
+  font-family: monospace;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+}
+
+.hero-payout-sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.protagonist-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.protagonist-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lucia-card { border-left: 3px solid #ec4899; }
+.jason-card { border-left: 3px solid #0ea5e9; }
+.protagonist-avatar { font-size: 1.4rem; }
+.protagonist-name { font-size: 0.78rem; font-weight: 800; color: #f1f5f9; }
+.protagonist-share-badge { font-size: 0.65rem; color: #94a3b8; }
+.protagonist-amount { font-size: 1rem; font-weight: 900; color: #38bdf8; font-family: monospace; }
+.lucia-card .protagonist-amount { color: #f472b6; }
+
+.terminal-heat-gauge {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.heat-gauge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.heat-gauge-title { font-size: 0.75rem; font-weight: 800; color: #e2e8f0; }
+.heat-gauge-level { font-size: 0.75rem; font-weight: 800; color: #f43f5e; }
+
+.heat-stars-display {
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.heat-star.active {
+  color: #f43f5e;
+  text-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+  animation: heatFlicker 2s infinite;
+}
+
+@keyframes heatFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.heat-alert-note {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.terminal-ledger-card {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ledger-card-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+  margin-bottom: 2px;
+}
+
+.ledger-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.ledger-lbl { color: #94a3b8; }
+.ledger-val { font-weight: 800; font-family: monospace; color: #e2e8f0; }
+.ledger-neg { color: #f87171; }
+
+.terminal-action-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-map-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.4);
+  transition: all 0.2s ease;
+}
+
+.terminal-map-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.6);
+  filter: brightness(1.1);
+}
+
+.terminal-escape-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.escape-card-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.escape-detail-item {
+  display: flex;
+  gap: 6px;
+  font-size: 0.72rem;
+}
+
+.escape-lbl { color: #94a3b8; font-weight: 700; flex-shrink: 0; }
+.escape-val { color: #f1f5f9; }
+
+/* STICKY MOBILE TELEMETRY BOTTOM BAR */
+.heist-mobile-sticky-bar {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  #view-heists {
+    padding-bottom: 90px;
+  }
+  .heist-mobile-sticky-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1.5px solid rgba(225, 29, 72, 0.5);
+    padding: 10px 16px;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+  }
+  .mobile-hud-payout {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-hud-lbl {
+    font-size: 0.62rem;
+    font-weight: 900;
+    color: #94a3b8;
+    letter-spacing: 0.8px;
+  }
+  .mobile-hud-val {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #10b981;
+    font-family: monospace;
+    line-height: 1.1;
+  }
+  .mobile-hud-split {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.68rem;
+  }
+  .mobile-split-pair { color: #94a3b8; }
+  .mobile-split-val { color: #38bdf8; font-weight: 800; font-family: monospace; }
+  .mobile-hud-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mobile-map-jump-btn {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.4);
+  }
+  .mobile-details-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}

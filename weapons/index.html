@@ -838,37 +838,36 @@
     </div>
   </section>
 
-  
   <!-- =========================================================================
-       VIEW: INTERACTIVE HEIST & ROBBERY CALCULATOR
+       VIEW: INTERACTIVE HEIST & ROBBERY CALCULATOR (ULTRA PRO REDESIGN)
        ========================================================================= -->
-    <!-- =========================================================================\n       VIEW: INTERACTIVE HEIST & ROBBERY CALCULATOR (AAA TACTICAL BOARD)\n       ========================================================================= -->\n  <section class="app-view" id="view-heists">
+  <section class="app-view" id="view-heists">
     <div class="view-container">
-      <div class="view-header">
+      <div class="weapons-editorial-header">
         <span class="view-breadcrumbs">Tactical Operations / Heist Blueprint / Net Telemetry</span>
-        <h1 class="view-heading">GTA 6 Heist &amp; Robbery Calculator</h1>
-        <p class="view-description">
+        <h1 class="vehicles-main-title">GTA 6 Heist &amp; Robbery Calculator</h1>
+        <p class="vehicles-lead-subhead">
           Interactive planning board for high-stakes robberies across the State of Leonida. Select target objectives, infiltration vectors, specialist crew rosters, and calculate live net payouts with instant GPS map teleports.
         </p>
-      </div>
 
-      <!-- Heist Overview Bar -->
-      <div class="weapons-summary-bar">
-        <div class="w-stat-card">
-          <div class="w-stat-val" style="color: #10b981;">6 Confirmed</div>
-          <div class="w-stat-lbl">Robbery Tiers</div>
-        </div>
-        <div class="w-stat-card">
-          <div class="w-stat-val">$2.8M Max</div>
-          <div class="w-stat-lbl">Peak Depository Vault</div>
-        </div>
-        <div class="w-stat-card">
-          <div class="w-stat-val" style="color: var(--accent-primary);">1 to 5 Stars</div>
-          <div class="w-stat-lbl">Dynamic Police Heat</div>
-        </div>
-        <div class="w-stat-card">
-          <div class="w-stat-val" style="color: #38bdf8;">GPS Linked</div>
-          <div class="w-stat-lbl">1-Click Map Teleport</div>
+        <!-- Technical Telemetry HUD Metrics (Theme-Standard) -->
+        <div class="weapons-metrics-hud">
+          <div class="hud-stat-box">
+            <span class="stat-number">6 Targets</span>
+            <span class="stat-label">Robbery Objectives</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: #059669;">$2.8M Max</span>
+            <span class="stat-label">Peak Depository Vault</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: var(--accent-primary);">1 to 5 Stars</span>
+            <span class="stat-label">Dynamic Heat Response</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: #0284c7;">GPS Synced</span>
+            <span class="stat-label">1-Click Map Teleport</span>
+          </div>
         </div>
       </div>
 
@@ -882,9 +881,12 @@
             <div class="heist-step-header">
               <div class="heist-step-title-wrap">
                 <span class="heist-step-num">01</span>
-                <span class="heist-step-title">Select Robbery Objective</span>
+                <div>
+                  <h2 class="heist-step-title">Select Robbery Objective</h2>
+                  <div class="heist-step-subtitle">Choose your target across the State of Leonida</div>
+                </div>
               </div>
-              <span class="heist-step-badge">Leonida Locations</span>
+              <span class="heist-step-badge">6 Locations</span>
             </div>
             <div class="heist-targets-grid" id="heistTargetsGrid">
               <!-- Dynamically populated target cards -->
@@ -896,7 +898,10 @@
             <div class="heist-step-header">
               <div class="heist-step-title-wrap">
                 <span class="heist-step-num">02</span>
-                <span class="heist-step-title">Choose Infiltration Approach</span>
+                <div>
+                  <h2 class="heist-step-title">Choose Infiltration Approach</h2>
+                  <div class="heist-step-subtitle">Determines tactical entry, alarm delay &amp; bag damage risk</div>
+                </div>
               </div>
               <span class="heist-step-badge">Tactical Entry</span>
             </div>
@@ -910,20 +915,27 @@
             <div class="heist-step-header">
               <div class="heist-step-title-wrap">
                 <span class="heist-step-num">03</span>
-                <span class="heist-step-title">Vault Cash &amp; Loot Range</span>
+                <div>
+                  <h2 class="heist-step-title">Vault Cash &amp; Loot Range</h2>
+                  <div class="heist-step-subtitle">Adjust estimated gross loot taken before deductions</div>
+                </div>
               </div>
               <span class="heist-step-badge">Dynamic Take</span>
             </div>
             <div class="heist-slider-box">
               <div class="heist-slider-header">
-                <span class="heist-slider-label">Estimated Gross Loot (Adjust with Slider):</span>
+                <span class="heist-slider-label">Gross Vault Stash:</span>
                 <span class="heist-slider-val" id="heistTakeDisplay">$1,750,000</span>
               </div>
-              <input type="range" id="heistTakeSlider" class="heist-range-input" min="900000" max="2800000" step="10000" value="1750000">
-              <div class="heist-range-limits">
-                <span id="heistRangeMin">$900K</span>
-                <span>Move slider to test different take amounts</span>
-                <span id="heistRangeMax">$2.8M</span>
+              <input type="range" class="heist-range-input" id="heistTakeSlider" min="1000000" max="2500000" value="1750000" step="25000" aria-label="Gross Loot Slider" />
+              <div class="heist-slider-range-labels">
+                <span id="heistRangeMin">$1.0M</span>
+                <div class="heist-slider-presets">
+                  <button type="button" class="preset-btn" data-preset="min">Min</button>
+                  <button type="button" class="preset-btn" data-preset="mid">Mid (50%)</button>
+                  <button type="button" class="preset-btn" data-preset="max">Max Vault</button>
+                </div>
+                <span id="heistRangeMax">$2.5M</span>
               </div>
             </div>
           </div>
@@ -933,140 +945,193 @@
             <div class="heist-step-header">
               <div class="heist-step-title-wrap">
                 <span class="heist-step-num">04</span>
-                <span class="heist-step-title">Assemble Specialist Crew</span>
+                <div>
+                  <h2 class="heist-step-title">Hire Specialist Crew</h2>
+                  <div class="heist-step-subtitle">Specialists demand cuts but reduce heat, alarms &amp; loot loss</div>
+                </div>
               </div>
-              <span class="heist-step-badge">Cut Percentages</span>
-            </div>
-            
-            <!-- Getaway Driver -->
-            <div class="crew-role-block">
-              <div class="crew-role-header">
-                <span>🚗 Getaway Driver</span>
-                <span class="crew-active-indicator" id="activeDriverName">Eddie 'Apex' (7% Cut)</span>
-              </div>
-              <div class="crew-cards-row" id="crewDriversRow"></div>
+              <span class="heist-step-badge">3 Specialists</span>
             </div>
 
-            <!-- Hacker Specialist -->
-            <div class="crew-role-block" style="margin-top: 14px;">
-              <div class="crew-role-header">
-                <span>💻 Hacker / Security Specialist</span>
-                <span class="crew-active-indicator" id="activeHackerName">NullSec (9% Cut)</span>
+            <div class="crew-roster-container">
+              <!-- Crew Category 1: Getaway Driver -->
+              <div class="crew-role-block">
+                <div class="crew-role-header">
+                  <div class="crew-role-info">
+                    <span class="crew-role-icon">🚗</span>
+                    <span class="crew-role-title">Getaway Driver</span>
+                  </div>
+                  <span class="crew-role-assigned" id="activeDriverName">Eddie Toh (8% Cut)</span>
+                </div>
+                <div class="crew-cards-row" id="crewDriversRow">
+                  <!-- Dynamically populated driver cards -->
+                </div>
               </div>
-              <div class="crew-cards-row" id="crewHackersRow"></div>
-            </div>
 
-            <!-- Gunman / Crowd Control -->
-            <div class="crew-role-block" style="margin-top: 14px;">
-              <div class="crew-role-header">
-                <span>🔫 Gunman &amp; Crowd Control</span>
-                <span class="crew-active-indicator" id="activeGunmanName">Gustavo (8% Cut)</span>
+              <!-- Crew Category 2: Infiltration Hacker -->
+              <div class="crew-role-block">
+                <div class="crew-role-header">
+                  <div class="crew-role-info">
+                    <span class="crew-role-icon">💻</span>
+                    <span class="crew-role-title">Infiltration Hacker</span>
+                  </div>
+                  <span class="crew-role-assigned" id="activeHackerName">Paige Harris (10% Cut)</span>
+                </div>
+                <div class="crew-cards-row" id="crewHackersRow">
+                  <!-- Dynamically populated hacker cards -->
+                </div>
               </div>
-              <div class="crew-cards-row" id="crewGunmenRow"></div>
+
+              <!-- Crew Category 3: Tactical Gunman -->
+              <div class="crew-role-block">
+                <div class="crew-role-header">
+                  <div class="crew-role-info">
+                    <span class="crew-role-icon">🔫</span>
+                    <span class="crew-role-title">Tactical Gunman</span>
+                  </div>
+                  <span class="crew-role-assigned" id="activeGunmanName">Gustavo Mota (9% Cut)</span>
+                </div>
+                <div class="crew-cards-row" id="crewGunmenRow">
+                  <!-- Dynamically populated gunman cards -->
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
 
-        <!-- RIGHT COLUMN: Sticky Holographic Heist Execution Terminal -->
-        <div class="heist-terminal-hud">
-          <div class="terminal-header">
-            <span class="terminal-title">
-              <span class="terminal-status-blink"></span>
-              Mission Vault Terminal
-            </span>
-            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); font-family: monospace;">ESCROW v2.4</span>
-          </div>
+        <!-- RIGHT COLUMN: Sticky Holographic Execution Terminal -->
+        <div class="heist-terminal-column">
+          <div class="heist-terminal-hud" id="heistTerminalHud">
+            <div class="terminal-header">
+              <div class="terminal-status-wrap">
+                <span class="terminal-status-dot"></span>
+                <span class="terminal-status-text">MISSION TELEMETRY HUD</span>
+              </div>
+              <span class="terminal-target-badge" id="terminalTargetBadge">DOWNTOWN FLEECA</span>
+            </div>
 
-          <!-- Hero Payout Box -->
-          <div class="terminal-payout-hero">
-            <div class="hero-payout-label">Net Clean Cash In Pocket</div>
-            <div class="hero-payout-amount" id="heistNetTotal">$1,015,000</div>
-          </div>
+            <!-- Hero Net Take Display -->
+            <div class="terminal-payout-hero">
+              <span class="hero-payout-label">CLEAN NET PROFIT (TAKE-HOME)</span>
+              <div class="hero-payout-amount" id="heistNetTotal">$1,105,000</div>
+              <span class="hero-payout-sub">Post-Crew, Prep &amp; 10% Fencing Deductions</span>
+            </div>
 
-          <!-- Lucia & Jason Split -->
-          <div class="protagonist-split-grid">
-            <div class="protagonist-card">
-              <div class="protagonist-name"><span>👠</span> Lucia's Cut (50%)</div>
-              <div class="protagonist-share" id="luciaShareDisplay">$507,500</div>
+            <!-- Dual-Protagonist 50/50 Split Cards -->
+            <div class="protagonist-split-grid">
+              <div class="protagonist-card lucia-card">
+                <div class="protagonist-avatar">💃</div>
+                <div class="protagonist-meta">
+                  <div class="protagonist-name">Lucia Caminos</div>
+                  <div class="protagonist-share-badge">50% Cut</div>
+                  <div class="protagonist-amount" id="luciaShareDisplay">$552,500</div>
+                </div>
+              </div>
+              <div class="protagonist-card jason-card">
+                <div class="protagonist-avatar">🧢</div>
+                <div class="protagonist-meta">
+                  <div class="protagonist-name">Jason Duval</div>
+                  <div class="protagonist-share-badge">50% Cut</div>
+                  <div class="protagonist-amount" id="jasonShareDisplay">$552,500</div>
+                </div>
+              </div>
             </div>
-            <div class="protagonist-card">
-              <div class="protagonist-name"><span>🧢</span> Jason's Cut (50%)</div>
-              <div class="protagonist-share" id="jasonShareDisplay">$507,500</div>
-            </div>
-          </div>
 
-          <!-- Police Heat Star Meter -->
-          <div class="terminal-heat-box">
-            <div class="heat-title-col">
-              <span class="heat-main-title">🚨 Police Wanted Level:</span>
-              <span class="heat-sub-title" id="heatStatusText">4 Stars • SWAT Response</span>
+            <!-- Dynamic Police Heat Gauge -->
+            <div class="terminal-heat-gauge">
+              <div class="heat-gauge-header">
+                <span class="heat-gauge-title">🚨 Police Heat Rating</span>
+                <span class="heat-gauge-level" id="heatLevelText">3 Stars (High Threat)</span>
+              </div>
+              <div class="heat-stars-display" id="heatStarsDisplay">
+                <span class="heat-star active">★</span>
+                <span class="heat-star active">★</span>
+                <span class="heat-star active">★</span>
+                <span class="heat-star">★</span>
+                <span class="heat-star">★</span>
+              </div>
+              <div class="heat-alert-note" id="heatAlertNote">
+                LSPD tactical roadblocks active. Heavy helicopter pursuit expected.
+              </div>
             </div>
-            <div class="heat-stars-display" id="heistHeatStars">
-              <span class="star-active">★</span>
-              <span class="star-active">★</span>
-              <span class="star-active">★</span>
-              <span class="star-active">★</span>
-              <span class="star-inactive">★</span>
-            </div>
-          </div>
 
-          <!-- Accounting Ledger Table -->
-          <div class="terminal-ledger-table">
-            <div class="ledger-row" style="font-weight: 800; color: var(--text-primary); border-bottom: 1px solid var(--border-medium); padding-bottom: 6px;">
-              <span>Ledger Item</span>
-              <span>Amount</span>
+            <!-- Deductions Ledger Breakdown -->
+            <div class="terminal-ledger-card">
+              <div class="ledger-card-title">Accounting Breakdown</div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Gross Stash Loot</span>
+                <span class="ledger-val" id="ledgerGross">$1,750,000</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Equipment &amp; Prep Cost</span>
+                <span class="ledger-val ledger-neg" id="ledgerPrep">-$120,000</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Getaway Driver Cut</span>
+                <span class="ledger-val ledger-neg" id="ledgerDriver">-$140,000</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Infiltration Hacker Cut</span>
+                <span class="ledger-val ledger-neg" id="ledgerHacker">-$175,000</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Gunman Cut</span>
+                <span class="ledger-val ledger-neg" id="ledgerGunman">-$157,500</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">10% Fence / Laundering Fee</span>
+                <span class="ledger-val ledger-neg" id="ledgerFence">-$175,000</span>
+              </div>
+              <div class="ledger-row">
+                <span class="ledger-lbl">Bag Drop &amp; Combat Loss</span>
+                <span class="ledger-val ledger-neg" id="ledgerBagLoss">-$52,500</span>
+              </div>
             </div>
-            <div class="ledger-row">
-              <span class="ledger-label">Gross Take (Vault Loot)</span>
-              <span class="ledger-val plus" id="ledgerGross">$1,750,000</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label">Setup &amp; Prep Costs</span>
-              <span class="ledger-val minus" id="ledgerPrep">-$120,000</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label" id="ledgerDriverLabel">Driver Cut (7%)</span>
-              <span class="ledger-val minus" id="ledgerDriver">-$122,500</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label" id="ledgerHackerLabel">Hacker Cut (9%)</span>
-              <span class="ledger-val minus" id="ledgerHacker">-$157,500</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label" id="ledgerGunmanLabel">Gunman Cut (8%)</span>
-              <span class="ledger-val minus" id="ledgerGunman">-$140,000</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label">Underground Fence Fee (10%)</span>
-              <span class="ledger-val minus" id="ledgerFence">-$175,000</span>
-            </div>
-            <div class="ledger-row">
-              <span class="ledger-label" id="ledgerDamageLabel">Police Fire Bag Loss (2%)</span>
-              <span class="ledger-val minus" id="ledgerDamage">-$35,000</span>
-            </div>
-          </div>
 
-          <!-- 1-Click Map Teleport Button -->
-          <div>
-            <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 700;">
-              📍 <span id="heistTargetMapName">Downtown Fleeca Big Bank</span> &bull; <span id="heistTargetMapGps" style="font-family: monospace;">[0.66133, -0.57117]</span>
+            <!-- 1-Click Interactive Map Teleport Button -->
+            <div class="terminal-action-wrap">
+              <button type="button" class="terminal-map-btn" id="btnHeistTeleport">
+                <span>🎯 Teleport to Target on Map ↗</span>
+              </button>
             </div>
-            <button type="button" class="terminal-map-btn" id="btnHeistTeleport">
-              <span>🎯 Teleport to Target on Map ↗</span>
-            </button>
-          </div>
 
-          <!-- Escape Briefing Card -->
-          <div class="terminal-escape-card">
-            <div class="escape-card-title">
-              <span>🏎️ Escape Route &amp; Tactical Vehicle</span>
+            <!-- Escape Briefing Card -->
+            <div class="terminal-escape-card">
+              <div class="escape-card-title">Recommended Escape &amp; Route</div>
+              <div class="escape-detail-item">
+                <span class="escape-lbl">Vehicle:</span>
+                <span class="escape-val" id="escapeVehicleVal">Bravado Gauntlet Hellfire (Tuned)</span>
+              </div>
+              <div class="escape-detail-item">
+                <span class="escape-lbl">Evade Route:</span>
+                <span class="escape-val" id="escapeRouteVal">Subway tunnels &rarr; Little Haiti lockup</span>
+              </div>
             </div>
-            <p id="heistEscapeRoute" style="margin: 0;">
-              Detonate sewer blast exit point, navigate underground metro tunnel network to secret safehouse. Recommended vehicle: Heavily Armored Transporter or Subway Tunnels.
-            </p>
           </div>
         </div>
       </div>
+
+      <!-- STICKY MOBILE TELEMETRY BOTTOM BAR (Visible only on <= 1024px screens) -->
+      <div class="heist-mobile-sticky-bar" id="heistMobileStickyBar">
+        <div class="mobile-hud-payout">
+          <span class="mobile-hud-lbl">CLEAN NET</span>
+          <span class="mobile-hud-val" id="mobileNetTotal">$1,105,000</span>
+        </div>
+        <div class="mobile-hud-split">
+          <span class="mobile-split-pair">Lucia / Jason:</span>
+          <span class="mobile-split-val" id="mobileSplitVal">$552.5K ea</span>
+        </div>
+        <div class="mobile-hud-actions">
+          <button type="button" class="mobile-map-jump-btn" id="btnMobileTeleport" title="Jump to Map">
+            🎯 Map ↗
+          </button>
+          <button type="button" class="mobile-details-btn" id="btnMobileDetails" title="View Breakdown">
+            📊 Details
+          </button>
+        </div>
+      </div>
+
     </div>
   </section>
   <!-- =========================================================================
