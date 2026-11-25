@@ -2273,6 +2273,20 @@ function handleUrlRouting() {
     }
     switchView("cheats", false);
   }
+
+  // Handle deep-linked map marker queries (e.g. ?loc=1090000 or ?marker=1090000)
+  const urlParams = new URLSearchParams(window.location.search);
+  const locParam = urlParams.get("loc") || urlParams.get("marker");
+  if (locParam && (path === "map" || hash === "map")) {
+    const mId = parseInt(locParam, 10);
+    if (!isNaN(mId)) {
+      setTimeout(() => {
+        if (typeof jumpToWeaponLocation === "function") {
+          jumpToWeaponLocation(mId);
+        }
+      }, 400);
+    }
+  }
 }
 
 function switchView(viewName, updateUrl = true) {
@@ -3089,6 +3103,67 @@ function selectSearchResultById(id) {
 
 window.selectSearchResultById = selectSearchResultById;
 
+function jumpToWeaponLocation(markerId, weaponSlug) {
+  playUiSound("click");
+  const allLocs = window.LEONIDA_MARKERS || [];
+  const marker = allLocs.find(m => m.id === markerId);
+  const weapon = typeof weaponsDatabase !== "undefined" ? weaponsDatabase.find(w => w.id === weaponSlug) : null;
+  const weaponName = weapon ? weapon.name : "Confirmed GTA 6 Weapon";
+  const locTitle = marker ? marker.title : "Waypoint";
+
+  triggerToast(`Locating ${weaponName} at ${locTitle}...`);
+
+  // Switch to map view if not already there
+  if (activeView !== "map") {
+    switchView("map", true);
+  }
+
+  // Ensure Leaflet map is sized and rendered
+  setTimeout(() => {
+    if (!leafletMap && typeof initLeafletMap === "function") {
+      initLeafletMap();
+    } else if (leafletMap) {
+      leafletMap.invalidateSize(true);
+    }
+
+    if (!marker || !leafletMap) return;
+
+    const searchInput = document.getElementById("mapLocationSearch");
+    if (searchInput) searchInput.value = marker.title;
+
+    // Smoothly fly to marker location
+    leafletMap.flyTo([marker.lat, marker.lng], 16, { duration: 1.1 });
+
+    // Open authentic waypoint popup with weapon armory highlight
+    setTimeout(() => {
+      const color = getGroupBadgeColor(marker.group || (marker.catTitle ? marker.catTitle.toLowerCase() : "default"));
+      const weaponBadgeHtml = weapon ? `
+        <div style="margin: 8px 0; padding: 7px 11px; background: rgba(225, 29, 72, 0.16); border-left: 3px solid #e11d48; border-radius: 4px; font-size: 0.78rem; color: #fff;">
+          <strong>🎯 Confirmed Armory:</strong> ${escapeHtml(weaponName)}
+        </div>
+      ` : '';
+
+      const popupHtml = `
+        <div class="popup-tag-badge" style="background:${color}22; color:${color}; border:1px solid ${color}55;">
+          📍 ${(marker.catTitle || "CONFIRMED SPAWN").toUpperCase()}
+        </div>
+        <div class="popup-title">${escapeHtml(marker.title)}</div>
+        <div class="popup-region">GPS: [${marker.lat.toFixed(5)}, ${marker.lng.toFixed(5)}]</div>
+        ${weaponBadgeHtml}
+        <p class="popup-desc">${escapeHtml(marker.desc || 'Confirmed in-game spawn location in the State of Leonida.')}</p>
+      `;
+
+      L.popup()
+        .setLatLng([marker.lat, marker.lng])
+        .setContent(popupHtml)
+        .openOn(leafletMap);
+    }, 1050);
+  }, 220);
+}
+
+window.jumpToWeaponLocation = jumpToWeaponLocation;
+
+
 
 // --- VEHICLES VIEW ---
 function setupVehicleEvents() {
@@ -3505,460 +3580,700 @@ function triggerToast(msg) {
 // Confirmed Authentic GTA 6 Weapons Database (Source: Verified Leaks & GTABase)
 const weaponsDatabase = [
   {
-    id: "klose-k17",
-    image: "/assets/weapons/klose-k17.jpg",
-    name: "Klose K17",
-    category: "handguns",
-    catLabel: "Handgun",
-    mfg: "Klose",
-    inspo: "Glock 17 (9x19mm Parabellum)",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 38,
-    fireRate: 65,
-    accuracy: 72,
-    range: 45,
-    mag: "17 Rounds",
-    price: "$450",
-    spawns: "Ammu-Nation Outlets & Vice City Police Holsters",
-    desc: "Standard issue 9mm semi-automatic polymer duty pistol. Highly reliable, minimal recoil, and fast reload times make it Jason and Lucia's dependable sidearm."
+    "id": "klose-k17",
+    "image": "/assets/weapons/klose-k17.jpg",
+    "name": "Klose K17",
+    "category": "handguns",
+    "catLabel": "Handgun",
+    "mfg": "Klose",
+    "inspo": "Glock 17 (9x19mm Parabellum)",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 38,
+    "fireRate": 65,
+    "accuracy": 72,
+    "range": 45,
+    "mag": "17 Rounds",
+    "price": "$450",
+    "spawns": "Tequesta Guns & Ammo, Vice City Firearms",
+    "spawnsList": [
+      {
+        "name": "Tequesta Guns & Ammo",
+        "id": 1090000
+      },
+      {
+        "name": "Vice City Firearms",
+        "id": 1090007
+      }
+    ],
+    "desc": "Standard issue 9mm semi-automatic polymer duty pistol. Highly reliable, minimal recoil, and fast reload times make it Jason and Lucia's dependable sidearm."
   },
   {
-    id: "girardi-es9",
-    image: "/assets/weapons/girardi-es9.jpg",
-    name: "Girardi ES9",
-    category: "handguns",
-    catLabel: "Handgun",
-    mfg: "Girardi",
-    inspo: "Beretta 92FS / M9",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 42,
-    fireRate: 60,
-    accuracy: 76,
-    range: 50,
-    mag: "15 Rounds",
-    price: "$520",
-    spawns: "Downtown Vice City Gun Shops & Security Guards",
-    desc: "Italian-engineered all-metal service pistol offering crisp single-action trigger pulls and superior mid-range accuracy."
+    "id": "girardi-es9",
+    "image": "/assets/weapons/girardi-es9.jpg",
+    "name": "Girardi ES9",
+    "category": "handguns",
+    "catLabel": "Handgun",
+    "mfg": "Girardi",
+    "inspo": "Beretta 92FS / M9",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 42,
+    "fireRate": 60,
+    "accuracy": 76,
+    "range": 50,
+    "mag": "15 Rounds",
+    "price": "$520",
+    "spawns": "Chatfield Storage & Logistics, Vice City Gun & Pawn",
+    "spawnsList": [
+      {
+        "name": "Chatfield Storage & Logistics",
+        "id": 1091985
+      },
+      {
+        "name": "Vice City Gun & Pawn",
+        "id": 1090021
+      }
+    ],
+    "desc": "Italian-engineered all-metal service pistol offering crisp single-action trigger pulls and superior mid-range accuracy."
   },
   {
-    id: "duke-mustang-357",
-    image: "/assets/weapons/duke-mustang-357.jpg",
-    name: "Duke Mustang .357",
-    category: "handguns",
-    catLabel: "Revolver",
-    mfg: "Duke Arms",
-    inspo: "Colt Python .357 Magnum",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 82,
-    fireRate: 35,
-    accuracy: 80,
-    range: 65,
-    mag: "6 Rounds",
-    price: "$980",
-    spawns: "Pawn & Gun Port Gellhorn & Rural Farmsteads",
-    desc: "Heavy-caliber stainless steel wheelgun. Tremendous stopping power capable of dropping armored targets in one well-placed chest shot."
+    "id": "duke-mustang-357",
+    "image": "/assets/weapons/duke-mustang-357.jpg",
+    "name": "Duke Mustang .357",
+    "category": "handguns",
+    "catLabel": "Revolver",
+    "mfg": "Duke Arms",
+    "inspo": "Colt Python .357 Magnum",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 82,
+    "fireRate": 35,
+    "accuracy": 80,
+    "range": 65,
+    "mag": "6 Rounds",
+    "price": "$980",
+    "spawns": "Pawn & Gun Port Gellhorn, Hamlet Traders",
+    "spawnsList": [
+      {
+        "name": "Pawn & Gun - Port Gellhorn",
+        "id": 1090018
+      },
+      {
+        "name": "Hamlet Traders",
+        "id": 1090019
+      }
+    ],
+    "desc": "Heavy-caliber stainless steel wheelgun. Tremendous stopping power capable of dropping armored targets in one well-placed chest shot."
   },
   {
-    id: "hawk-little-morgan",
-    image: "/assets/weapons/hawk-little-morgan.jpg",
-    name: "Hawk & Little Morgan",
-    category: "handguns",
-    catLabel: "Heavy Revolver",
-    mfg: "Hawk & Little",
-    inspo: "Smith & Wesson Model 29 (.44 Magnum)",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 90,
-    fireRate: 30,
-    accuracy: 78,
-    range: 68,
-    mag: "6 Rounds",
-    price: "$1,150",
-    spawns: "Biff's Gun Supply & Little Haiti Fences",
-    desc: "The quintessential hand-cannon. High recoil and loud muzzle signature paired with devastating anti-vehicle projectile velocity."
+    "id": "hawk-little-morgan",
+    "image": "/assets/weapons/hawk-little-morgan.jpg",
+    "name": "Hawk & Little Morgan",
+    "category": "handguns",
+    "catLabel": "Heavy Revolver",
+    "mfg": "Hawk & Little",
+    "inspo": "Smith & Wesson Model 29 (.44 Magnum)",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 90,
+    "fireRate": 30,
+    "accuracy": 78,
+    "range": 68,
+    "mag": "6 Rounds",
+    "price": "$1,150",
+    "spawns": "Biff's Gun Supply, White Sand Jewelry Pawn",
+    "spawnsList": [
+      {
+        "name": "Biff's Gun Supply",
+        "id": 1090002
+      },
+      {
+        "name": "White Sand Jewelry Pawn",
+        "id": 1090158
+      }
+    ],
+    "desc": "The quintessential hand-cannon. High recoil and loud muzzle signature paired with devastating anti-vehicle projectile velocity."
   },
   {
-    id: "coil-shocker",
-    image: "/assets/weapons/coil-shocker.jpg",
-    name: "Coil Shocker",
-    category: "handguns",
-    catLabel: "Non-Lethal",
-    mfg: "Coil",
-    inspo: "Axon TASER 7 / X26",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 15,
-    fireRate: 25,
-    accuracy: 85,
-    range: 22,
-    mag: "2 Cartridges",
-    price: "$350",
-    spawns: "Leonida Department of Corrections & Security Supply",
-    desc: "Twin-probe neuromuscular incapacitation device. Instantly immobilizes hostile targets without triggering lethal murder charges."
+    "id": "coil-shocker",
+    "image": "/assets/weapons/coil-shocker.jpg",
+    "name": "Coil Shocker",
+    "category": "handguns",
+    "catLabel": "Non-Lethal",
+    "mfg": "Coil",
+    "inspo": "Axon TASER 7 / X26",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 15,
+    "fireRate": 25,
+    "accuracy": 85,
+    "range": 22,
+    "mag": "2 Cartridges",
+    "price": "$350",
+    "spawns": "Jackson Firearms, Tactical Outlet Guns",
+    "spawnsList": [
+      {
+        "name": "Jackson Firearms",
+        "id": 1090004
+      },
+      {
+        "name": "Tactical Outlet Guns",
+        "id": 1090003
+      }
+    ],
+    "desc": "Twin-probe neuromuscular incapacitation device. Instantly immobilizes hostile targets without triggering lethal murder charges."
   },
   {
-    id: "vom-feuer-vf5",
-    image: "/assets/weapons/vom-feuer-vf5.jpg",
-    name: "Vom Feuer VF5",
-    category: "smgs",
-    catLabel: "Submachine Gun",
-    mfg: "Vom Feuer",
-    inspo: "Heckler & Koch MP5A3",
-    carry: "pocket",
-    carryLabel: "Pocket / Sling",
-    damage: 46,
-    fireRate: 85,
-    accuracy: 75,
-    range: 58,
-    mag: "30 Rounds",
-    price: "$1,850",
-    spawns: "SWAT Tactical Lockers & Little Haiti Armories",
-    desc: "Roller-delayed blowback submachine gun renowned worldwide for pinpoint controllable automatic fire in close-quarters room breaches."
+    "id": "vom-feuer-vf5",
+    "image": "/assets/weapons/vom-feuer-vf5.jpg",
+    "name": "Vom Feuer VF5",
+    "category": "smgs",
+    "catLabel": "Submachine Gun",
+    "mfg": "Vom Feuer",
+    "inspo": "Heckler & Koch MP5A3",
+    "carry": "pocket",
+    "carryLabel": "Pocket / Sling",
+    "damage": 46,
+    "fireRate": 85,
+    "accuracy": 75,
+    "range": 58,
+    "mag": "30 Rounds",
+    "price": "$1,850",
+    "spawns": "Saber Shipping Facility, Tactical Outlet Guns",
+    "spawnsList": [
+      {
+        "name": "Saber Shipping Facility",
+        "id": 1091977
+      },
+      {
+        "name": "Tactical Outlet Guns",
+        "id": 1090003
+      }
+    ],
+    "desc": "Roller-delayed blowback submachine gun renowned worldwide for pinpoint controllable automatic fire in close-quarters room breaches."
   },
   {
-    id: "wortham-w10",
-    image: "/assets/weapons/wortham-w10.jpg",
-    name: "Wortham W-10",
-    category: "smgs",
-    catLabel: "Machine Pistol",
-    mfg: "Wortham",
-    inspo: "Ingram MAC-10 (.45 ACP)",
-    carry: "pocket",
-    carryLabel: "Pocket Concealed",
-    damage: 40,
-    fireRate: 95,
-    accuracy: 48,
-    range: 35,
-    mag: "32 Rounds",
-    price: "$1,200",
-    spawns: "Gang Cache Drops & Drive-By Loadouts",
-    desc: "Furious cyclic rate of 1,100 rounds per minute. Devastating spray-and-pray lethality from vehicle passenger seats."
+    "id": "wortham-w10",
+    "image": "/assets/weapons/wortham-w10.jpg",
+    "name": "Wortham W-10",
+    "category": "smgs",
+    "catLabel": "Machine Pistol",
+    "mfg": "Wortham",
+    "inspo": "Ingram MAC-10 (.45 ACP)",
+    "carry": "pocket",
+    "carryLabel": "Pocket Concealed",
+    "damage": 40,
+    "fireRate": 95,
+    "accuracy": 48,
+    "range": 35,
+    "mag": "32 Rounds",
+    "price": "$1,200",
+    "spawns": "Zenon's Pawn Shop, Dorado Pawn Shop",
+    "spawnsList": [
+      {
+        "name": "Zenon's Pawn Shop",
+        "id": 1090022
+      },
+      {
+        "name": "Dorado Pawn Shop",
+        "id": 1090154
+      }
+    ],
+    "desc": "Furious cyclic rate of 1,100 rounds per minute. Devastating spray-and-pray lethality from vehicle passenger seats."
   },
   {
-    id: "adb-pd90",
-    image: "/assets/weapons/adb-pd90.jpg",
-    name: "ADB PD-90",
-    category: "smgs",
-    catLabel: "Bullpup PDW",
-    mfg: "ADB",
-    inspo: "FN P90 (5.7x28mm)",
-    carry: "pocket",
-    carryLabel: "Pocket / Sling",
-    damage: 50,
-    fireRate: 88,
-    accuracy: 82,
-    range: 65,
-    mag: "50 Rounds",
-    price: "$2,600",
-    spawns: "Vice City International Airport Cargo Security",
-    desc: "Translucent top-mounted 50-round magazine firing high-velocity armor-piercing cartridges capable of penetrating Kevlar vests."
+    "id": "adb-pd90",
+    "image": "/assets/weapons/adb-pd90.jpg",
+    "name": "ADB PD-90",
+    "category": "smgs",
+    "catLabel": "Bullpup PDW",
+    "mfg": "ADB",
+    "inspo": "FN P90 (5.7x28mm)",
+    "carry": "pocket",
+    "carryLabel": "Pocket / Sling",
+    "damage": 50,
+    "fireRate": 88,
+    "accuracy": 82,
+    "range": 65,
+    "mag": "50 Rounds",
+    "price": "$2,600",
+    "spawns": "Prestige Firearms, Iron & Oak",
+    "spawnsList": [
+      {
+        "name": "Prestige Firearms",
+        "id": 1090015
+      },
+      {
+        "name": "Iron & Oak",
+        "id": 1090014
+      }
+    ],
+    "desc": "Translucent top-mounted 50-round magazine firing high-velocity armor-piercing cartridges capable of penetrating Kevlar vests."
   },
   {
-    id: "duke-556",
-    image: "/assets/weapons/duke-556.jpg",
-    name: "Duke 556 Carbine",
-    category: "rifles",
-    catLabel: "Assault Rifle",
-    mfg: "Duke Arms",
-    inspo: "Colt M4A1 / AR-15 (5.56x45mm NATO)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 64,
-    fireRate: 75,
-    accuracy: 84,
-    range: 78,
-    mag: "30 Rounds",
-    price: "$3,400",
-    spawns: "Ammu-Nation Superstores & National Guard Armories",
-    desc: "The gold standard tactical platform across North America. Highly customizable with suppressors, extended mags, holographic optics, and vertical grips."
+    "id": "duke-556",
+    "image": "/assets/weapons/duke-556.jpg",
+    "name": "Duke 556 Carbine",
+    "category": "rifles",
+    "catLabel": "Assault Rifle",
+    "mfg": "Duke Arms",
+    "inspo": "Colt M4A1 / AR-15 (5.56x45mm NATO)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 64,
+    "fireRate": 75,
+    "accuracy": 84,
+    "range": 78,
+    "mag": "30 Rounds",
+    "price": "$3,400",
+    "spawns": "Leonida Carrier Warehouse, Quickscope",
+    "spawnsList": [
+      {
+        "name": "Leonida Carrier Warehouse",
+        "id": 1091982
+      },
+      {
+        "name": "Quickscope",
+        "id": 1090006
+      }
+    ],
+    "desc": "The gold standard tactical platform across North America. Highly customizable with suppressors, extended mags, holographic optics, and vertical grips."
   },
   {
-    id: "kozlov-kz59",
-    image: "/assets/weapons/kozlov-kz59.jpg",
-    name: "Kozlov KZ-59",
-    category: "rifles",
-    catLabel: "Assault Rifle",
-    mfg: "Kozlov",
-    inspo: "AKM / AK-47 (7.62x39mm)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 72,
-    fireRate: 68,
-    accuracy: 70,
-    range: 74,
-    mag: "30 Rounds",
-    price: "$2,950",
-    spawns: "Smuggler Docks & Swamp Compound Caches",
-    desc: "Rugged, dirt-resistant gas-operated rifle. Unmatched barrier penetration and raw stopping power across swamp and mud conditions."
+    "id": "kozlov-kz59",
+    "image": "/assets/weapons/kozlov-kz59.jpg",
+    "name": "Kozlov KZ-59",
+    "category": "rifles",
+    "catLabel": "Assault Rifle",
+    "mfg": "Kozlov",
+    "inspo": "AKM / AK-47 (7.62x39mm)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 72,
+    "fireRate": 68,
+    "accuracy": 70,
+    "range": 74,
+    "mag": "30 Rounds",
+    "price": "$2,950",
+    "spawns": "Black Eagle, Carter Mining Boathouse",
+    "spawnsList": [
+      {
+        "name": "Black Eagle",
+        "id": 1090011
+      },
+      {
+        "name": "Carter Mining Boathouse",
+        "id": 1091988
+      }
+    ],
+    "desc": "Rugged, dirt-resistant gas-operated rifle. Unmatched barrier penetration and raw stopping power across swamp and mud conditions."
   },
   {
-    id: "adb-fra",
-    image: "/assets/weapons/adb-fra.jpg",
-    name: "ADB FRA Tactical",
-    category: "rifles",
-    catLabel: "Combat Rifle",
-    mfg: "ADB",
-    inspo: "SIG Sauer MCX Spear / HK416",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 68,
-    fireRate: 78,
-    accuracy: 88,
-    range: 82,
-    mag: "30 Rounds",
-    price: "$4,200",
-    spawns: "Federal Taskforce Armories & High-End Gunsmiths",
-    desc: "Next-generation short-stroke gas piston platform offering laser-beam precision recoil control under sustained full-auto bursts."
+    "id": "adb-fra",
+    "image": "/assets/weapons/adb-fra.jpg",
+    "name": "ADB FRA Tactical",
+    "category": "rifles",
+    "catLabel": "Combat Rifle",
+    "mfg": "ADB",
+    "inspo": "SIG Sauer MCX Spear / HK416",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 68,
+    "fireRate": 78,
+    "accuracy": 88,
+    "range": 82,
+    "mag": "30 Rounds",
+    "price": "$4,200",
+    "spawns": "Casa Guardia, Gellhorn Outfitters",
+    "spawnsList": [
+      {
+        "name": "Casa Guardia",
+        "id": 1091978
+      },
+      {
+        "name": "Gellhorn Outfitters",
+        "id": 1090001
+      }
+    ],
+    "desc": "Next-generation short-stroke gas piston platform offering laser-beam precision recoil control under sustained full-auto bursts."
   },
   {
-    id: "fortune-moreland-850",
-    image: "/assets/weapons/fortune-moreland-850.jpg",
-    name: "Moreland 850",
-    category: "shotguns",
-    catLabel: "Pump Shotgun",
-    mfg: "Fortune & Son",
-    inspo: "Remington 870 Tactical (12 Gauge)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 86,
-    fireRate: 32,
-    accuracy: 55,
-    range: 40,
-    mag: "8 Shells",
-    price: "$1,450",
-    spawns: "Highway Patrol Cruisers & Bank Security Vaults",
-    desc: "Heavy 12-gauge pump action shotgun loaded with 00 buckshot. Unforgiving point-blank lethality for bank vault breach operations."
+    "id": "fortune-moreland-850",
+    "image": "/assets/weapons/fortune-moreland-850.jpg",
+    "name": "Moreland 850",
+    "category": "shotguns",
+    "catLabel": "Pump Shotgun",
+    "mfg": "Fortune & Son",
+    "inspo": "Remington 870 Tactical (12 Gauge)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 86,
+    "fireRate": 32,
+    "accuracy": 55,
+    "range": 40,
+    "mag": "8 Shells",
+    "price": "$1,450",
+    "spawns": "Phil's Ammu-Nation, Woodhatch",
+    "spawnsList": [
+      {
+        "name": "Phil's Ammu-Nation",
+        "id": 1090012
+      },
+      {
+        "name": "Woodhatch",
+        "id": 1090010
+      }
+    ],
+    "desc": "Heavy 12-gauge pump action shotgun loaded with 00 buckshot. Unforgiving point-blank lethality for bank vault breach operations."
   },
   {
-    id: "girardi-az1200",
-    image: "/assets/weapons/girardi-az1200.jpg",
-    name: "Girardi AZ1200",
-    category: "shotguns",
-    catLabel: "Combat Shotgun",
-    mfg: "Girardi",
-    inspo: "Benelli M4 Super 90",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 84,
-    fireRate: 58,
-    accuracy: 62,
-    range: 48,
-    mag: "7 Shells",
-    price: "$2,850",
-    spawns: "Tequesta Guns & Ammo & SWAT Tactical Vans",
-    desc: "Auto-regulating gas-operated semi-automatic combat shotgun. Delivers rapid successive blasts capable of clearing rooms in seconds."
+    "id": "girardi-az1200",
+    "image": "/assets/weapons/girardi-az1200.jpg",
+    "name": "Girardi AZ1200",
+    "category": "shotguns",
+    "catLabel": "Combat Shotgun",
+    "mfg": "Girardi",
+    "inspo": "Benelli M4 Super 90",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 84,
+    "fireRate": 58,
+    "accuracy": 62,
+    "range": 48,
+    "mag": "7 Shells",
+    "price": "$2,850",
+    "spawns": "Mill Station Radar Base, Tequesta Guns & Ammo",
+    "spawnsList": [
+      {
+        "name": "Mill Station Radar Base",
+        "id": 1091986
+      },
+      {
+        "name": "Tequesta Guns & Ammo",
+        "id": 1090000
+      }
+    ],
+    "desc": "Auto-regulating gas-operated semi-automatic combat shotgun. Delivers rapid successive blasts capable of clearing rooms in seconds."
   },
   {
-    id: "goodwin-comshot-12",
-    image: "/assets/weapons/goodwin-comshot-12.jpg",
-    name: "Goodwin Comshot 12",
-    category: "shotguns",
-    catLabel: "Sawed-Off Shotgun",
-    mfg: "Goodwin",
-    inspo: "Coach Double-Barreled Shotgun",
-    carry: "pocket",
-    carryLabel: "Pocket / Holster",
-    damage: 96,
-    fireRate: 45,
-    accuracy: 40,
-    range: 28,
-    mag: "2 Shells",
-    price: "$850",
-    spawns: "Back-Alley Pawn Shops & Biker Hangouts",
-    desc: "Compact sawed-off double barrel. Colossal spread and immediate knockdown power at conversational ranges."
+    "id": "goodwin-comshot-12",
+    "image": "/assets/weapons/goodwin-comshot-12.jpg",
+    "name": "Goodwin Comshot 12",
+    "category": "shotguns",
+    "catLabel": "Sawed-Off Shotgun",
+    "mfg": "Goodwin",
+    "inspo": "Coach Double-Barreled Shotgun",
+    "carry": "pocket",
+    "carryLabel": "Pocket / Holster",
+    "damage": 96,
+    "fireRate": 45,
+    "accuracy": 40,
+    "range": 28,
+    "mag": "2 Shells",
+    "price": "$850",
+    "spawns": "Vice City Gun & Pawn, Buck's Jewelry & Pawn",
+    "spawnsList": [
+      {
+        "name": "Vice City Gun & Pawn",
+        "id": 1090021
+      },
+      {
+        "name": "Buck's Jewelry & Pawn",
+        "id": 1090174
+      }
+    ],
+    "desc": "Compact sawed-off double barrel. Colossal spread and immediate knockdown power at conversational ranges."
   },
   {
-    id: "fairview-ff50",
-    image: "/assets/weapons/fairview-ff50.jpg",
-    name: "Fairview FF-50 Anti-Materiel",
-    category: "snipers",
-    catLabel: "Heavy Sniper",
-    mfg: "Fairview",
-    inspo: "Barrett M82A1 (.50 BMG)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 98,
-    fireRate: 28,
-    accuracy: 96,
-    range: 98,
-    mag: "10 Rounds",
-    price: "$12,500",
-    spawns: "Military Airbase Watchtowers & Port Gellhorn Crane Perches",
-    desc: "Semi-automatic .50 BMG long-rifle designed to disable helicopter rotor blades, engine blocks, and distant targets through concrete cover."
+    "id": "fairview-ff50",
+    "image": "/assets/weapons/fairview-ff50.jpg",
+    "name": "Fairview FF-50 Anti-Materiel",
+    "category": "snipers",
+    "catLabel": "Heavy Sniper",
+    "mfg": "Fairview",
+    "inspo": "Barrett M82A1 (.50 BMG)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 98,
+    "fireRate": 28,
+    "accuracy": 96,
+    "range": 98,
+    "mag": "10 Rounds",
+    "price": "$12,500",
+    "spawns": "Rusty Willis Jr. Hunting, Griffin Free Fire Range",
+    "spawnsList": [
+      {
+        "name": "Rusty Willis Jr. Hunting Supplies",
+        "id": 1090017
+      },
+      {
+        "name": "Griffin Free Fire Range",
+        "id": 1089581
+      }
+    ],
+    "desc": "Semi-automatic .50 BMG long-rifle designed to disable helicopter rotor blades, engine blocks, and distant targets through concrete cover."
   },
   {
-    id: "wortham-w22",
-    image: "/assets/weapons/wortham-w22.jpg",
-    name: "Wortham W-22 Marksman",
-    category: "snipers",
-    catLabel: "Marksman Rifle",
-    mfg: "Wortham",
-    inspo: "Ruger 10/22 Tactical Integrally Suppressed",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 54,
-    fireRate: 52,
-    accuracy: 92,
-    range: 85,
-    mag: "10 Rounds",
-    price: "$2,200",
-    spawns: "Hunting Lodges across Gator Keys",
-    desc: "Whisper-quiet precision varmint rifle. Perfect for stealth infiltrations, disabling security cameras, and clean assassinations."
+    "id": "wortham-w22",
+    "image": "/assets/weapons/wortham-w22.jpg",
+    "name": "Wortham W-22 Marksman",
+    "category": "snipers",
+    "catLabel": "Marksman Rifle",
+    "mfg": "Wortham",
+    "inspo": "Ruger 10/22 Tactical Integrally Suppressed",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 54,
+    "fireRate": 52,
+    "accuracy": 92,
+    "range": 85,
+    "mag": "10 Rounds",
+    "price": "$2,200",
+    "spawns": "Richardson Hunting Supplies, Chuck's Tackle & Shot",
+    "spawnsList": [
+      {
+        "name": "Richardson Hunting Supplies",
+        "id": 1090005
+      },
+      {
+        "name": "Chuck's Tackle & Shot",
+        "id": 1090009
+      }
+    ],
+    "desc": "Whisper-quiet precision varmint rifle. Perfect for stealth infiltrations, disabling security cameras, and clean assassinations."
   },
   {
-    id: "goodwin-lmg6",
-    image: "/assets/weapons/goodwin-lmg6.jpg",
-    name: "Goodwin LMG 6",
-    category: "heavy",
-    catLabel: "Squad LMG",
-    mfg: "Goodwin",
-    inspo: "FN M249 SAW (5.56mm Belt)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 70,
-    fireRate: 82,
-    accuracy: 68,
-    range: 80,
-    mag: "100 Round Belt",
-    price: "$8,900",
-    spawns: "Fort Zancudo Outpost & Heavy SWAT Convoys",
-    desc: "100-round belt-fed light machine gun providing overwhelming sustained suppressive fire against police road blocks."
+    "id": "goodwin-lmg6",
+    "image": "/assets/weapons/goodwin-lmg6.jpg",
+    "name": "Goodwin LMG 6",
+    "category": "heavy",
+    "catLabel": "Squad LMG",
+    "mfg": "Goodwin",
+    "inspo": "FN M249 SAW (5.56mm Belt)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 70,
+    "fireRate": 82,
+    "accuracy": 68,
+    "range": 80,
+    "mag": "100 Round Belt",
+    "price": "$8,900",
+    "spawns": "Guns Aplenty!, Big Shots",
+    "spawnsList": [
+      {
+        "name": "Guns Aplenty!",
+        "id": 1090016
+      },
+      {
+        "name": "Big Shots",
+        "id": 1090013
+      }
+    ],
+    "desc": "100-round belt-fed light machine gun providing overwhelming sustained suppressive fire against police road blocks."
   },
   {
-    id: "hillinger-boomer",
-    image: "/assets/weapons/hillinger-boomer.jpg",
-    name: "Hillinger Boomer RPG",
-    category: "heavy",
-    catLabel: "Rocket Launcher",
-    mfg: "Hillinger",
-    inspo: "RPG-7 Shoulder Launcher",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 100,
-    fireRate: 15,
-    accuracy: 80,
-    range: 90,
-    mag: "1 Rocket",
-    price: "$15,000",
-    spawns: "Smuggler Airfields & Hidden Bunker Vaults",
-    desc: "High-explosive anti-tank shoulder launcher. Obliterates armored police interceptors, helicopters, and concrete barricades."
+    "id": "hillinger-boomer",
+    "image": "/assets/weapons/hillinger-boomer.jpg",
+    "name": "Hillinger Boomer RPG",
+    "category": "heavy",
+    "catLabel": "Rocket Launcher",
+    "mfg": "Hillinger",
+    "inspo": "RPG-7 Shoulder Launcher",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 100,
+    "fireRate": 15,
+    "accuracy": 80,
+    "range": 90,
+    "mag": "1 Rocket",
+    "price": "$15,000",
+    "spawns": "Barrage Gun Supply, Iron & Oak",
+    "spawnsList": [
+      {
+        "name": "Barrage Gun Supply",
+        "id": 1090008
+      },
+      {
+        "name": "Iron & Oak",
+        "id": 1090014
+      }
+    ],
+    "desc": "High-explosive anti-tank shoulder launcher. Obliterates armored police interceptors, helicopters, and concrete barricades."
   },
   {
-    id: "deever-glr40",
-    image: "/assets/weapons/deever-glr40.jpg",
-    name: "Deever Tech GLR40",
-    category: "heavy",
-    catLabel: "Grenade Launcher",
-    mfg: "Deever Tech",
-    inspo: "Milkor M32 MGL (40mm)",
-    carry: "trunk",
-    carryLabel: "Vehicle Trunk Stash",
-    damage: 95,
-    fireRate: 40,
-    accuracy: 72,
-    range: 70,
-    mag: "6 Revolving Drums",
-    price: "$18,500",
-    spawns: "Black Market Fences & Secret Naval Warehouses",
-    desc: "6-shot revolving semi-automatic 40mm grenade launcher. Blankets entire intersections in explosive fragmentation."
+    "id": "deever-glr40",
+    "image": "/assets/weapons/deever-glr40.jpg",
+    "name": "Deever Tech GLR40",
+    "category": "heavy",
+    "catLabel": "Grenade Launcher",
+    "mfg": "Deever Tech",
+    "inspo": "Milkor M32 MGL (40mm)",
+    "carry": "trunk",
+    "carryLabel": "Vehicle Trunk Stash",
+    "damage": 95,
+    "fireRate": 40,
+    "accuracy": 72,
+    "range": 70,
+    "mag": "6 Revolving Drums",
+    "price": "$18,500",
+    "spawns": "Tactical Outlet Guns, Prestige Firearms",
+    "spawnsList": [
+      {
+        "name": "Tactical Outlet Guns",
+        "id": 1090003
+      },
+      {
+        "name": "Prestige Firearms",
+        "id": 1090015
+      }
+    ],
+    "desc": "6-shot revolving semi-automatic 40mm grenade launcher. Blankets entire intersections in explosive fragmentation."
   },
   {
-    id: "arras-bullhead",
-    image: "/assets/weapons/arras-bullhead.jpg",
-    name: "Arras Bullhead Speargun",
-    category: "heavy",
-    catLabel: "Harpoon / Stealth",
-    mfg: "Arras",
-    inspo: "Pneumatic Marine Speargun",
-    carry: "trunk",
-    carryLabel: "Trunk / Boat Rack",
-    damage: 75,
-    fireRate: 20,
-    accuracy: 78,
-    range: 30,
-    mag: "1 Steel Spear",
-    price: "$750",
-    spawns: "Keys Marina Dive Centers & Fishing Outposts",
-    desc: "High-tension pneumatic underwater speargun. Lethal against submerged predators and patrolling harbor sentries."
+    "id": "arras-bullhead",
+    "image": "/assets/weapons/arras-bullhead.jpg",
+    "name": "Arras Bullhead Speargun",
+    "category": "heavy",
+    "catLabel": "Harpoon / Stealth",
+    "mfg": "Arras",
+    "inspo": "Pneumatic Marine Speargun",
+    "carry": "trunk",
+    "carryLabel": "Trunk / Boat Rack",
+    "damage": 75,
+    "fireRate": 20,
+    "accuracy": 78,
+    "range": 30,
+    "mag": "1 Steel Spear",
+    "price": "$750",
+    "spawns": "Chuck's Tackle & Shot, Hotspot - American Eel",
+    "spawnsList": [
+      {
+        "name": "Chuck's Tackle & Shot",
+        "id": 1090009
+      },
+      {
+        "name": "Hotspot - American Eel",
+        "id": 1089609
+      }
+    ],
+    "desc": "High-tension pneumatic underwater speargun. Lethal against submerged predators and patrolling harbor sentries."
   },
   {
-    id: "combat-knife",
-    image: "/assets/weapons/combat-knife.jpg",
-    name: "Serrated Combat Knife",
-    category: "melee",
-    catLabel: "Melee",
-    mfg: "Girardi Edge",
-    inspo: "KA-BAR USMC Tactical Knife",
-    carry: "pocket",
-    carryLabel: "Pocket Sheath",
-    damage: 55,
-    fireRate: 80,
-    accuracy: 95,
-    range: 5,
-    mag: "Melee",
-    price: "$120",
-    spawns: "Hardware Stores & Gas Station Racks",
-    desc: "Carbon steel serrated tactical combat knife for silent close-quarters takedowns from behind."
+    "id": "combat-knife",
+    "image": "/assets/weapons/combat-knife.jpg",
+    "name": "Serrated Combat Knife",
+    "category": "melee",
+    "catLabel": "Melee",
+    "mfg": "Girardi Edge",
+    "inspo": "KA-BAR USMC Tactical Knife",
+    "carry": "pocket",
+    "carryLabel": "Pocket Sheath",
+    "damage": 55,
+    "fireRate": 80,
+    "accuracy": 95,
+    "range": 5,
+    "mag": "Melee",
+    "price": "$120",
+    "spawns": "Fast Cash, Richardson Hunting Supplies",
+    "spawnsList": [
+      {
+        "name": "Fast Cash",
+        "id": 1090152
+      },
+      {
+        "name": "Richardson Hunting Supplies",
+        "id": 1090005
+      }
+    ],
+    "desc": "Carbon steel serrated tactical combat knife for silent close-quarters takedowns from behind."
   },
   {
-    id: "baseball-bat",
-    image: "/assets/weapons/baseball-bat.jpg",
-    name: "Alloy Slugger Bat",
-    category: "melee",
-    catLabel: "Melee",
-    mfg: "Heathen Sports",
-    inspo: "Louisville Slugger Aluminum Bat",
-    carry: "pocket",
-    carryLabel: "Vehicle Boot / Shoulder",
-    damage: 60,
-    fireRate: 65,
-    accuracy: 90,
-    range: 8,
-    mag: "Melee",
-    price: "$85",
-    spawns: "Sports Complexes & Pawn Shops",
-    desc: "Hollow aluminum baseball bat capable of shattering glass, disabling alarm boxes, and delivering crushing blunt force."
+    "id": "baseball-bat",
+    "image": "/assets/weapons/baseball-bat.jpg",
+    "name": "Alloy Slugger Bat",
+    "category": "melee",
+    "catLabel": "Melee",
+    "mfg": "Heathen Sports",
+    "inspo": "Louisville Slugger Aluminum Bat",
+    "carry": "pocket",
+    "carryLabel": "Vehicle Boot / Shoulder",
+    "damage": 60,
+    "fireRate": 65,
+    "accuracy": 90,
+    "range": 8,
+    "mag": "Melee",
+    "price": "$85",
+    "spawns": "Fleeca Field Stadium, Manatees Stadium",
+    "spawnsList": [
+      {
+        "name": "Fleeca Field Stadium",
+        "id": 1090510
+      },
+      {
+        "name": "Manatees Stadium",
+        "id": 1091078
+      }
+    ],
+    "desc": "Hollow aluminum baseball bat capable of shattering glass, disabling alarm boxes, and delivering crushing blunt force."
   },
   {
-    id: "m67-frag-grenade",
-    image: "/assets/weapons/m67-frag-grenade.jpg",
-    name: "M67 Frag Grenade",
-    category: "throwables",
-    catLabel: "Throwable",
-    mfg: "Military Surplus",
-    inspo: "M67 Fragmentation Grenade",
-    carry: "pocket",
-    carryLabel: "Pocket Bandolier",
-    damage: 95,
-    fireRate: 20,
-    accuracy: 85,
-    range: 40,
-    mag: "1 Hand Thrown",
-    price: "$250",
-    spawns: "Ammu-Nation Underground & Military Drops",
-    desc: "High-explosive timed fuse fragmentation grenade with a lethal casualty radius of 15 meters."
+    "id": "m67-frag-grenade",
+    "image": "/assets/weapons/m67-frag-grenade.jpg",
+    "name": "M67 Frag Grenade",
+    "category": "throwables",
+    "catLabel": "Throwable",
+    "mfg": "Military Surplus",
+    "inspo": "M67 Fragmentation Grenade",
+    "carry": "pocket",
+    "carryLabel": "Pocket Bandolier",
+    "damage": 95,
+    "fireRate": 20,
+    "accuracy": 85,
+    "range": 40,
+    "mag": "1 Hand Thrown",
+    "price": "$250",
+    "spawns": "Griffin Shooting Range, Guns Aplenty!",
+    "spawnsList": [
+      {
+        "name": "Griffin Shooting Range",
+        "id": 1089580
+      },
+      {
+        "name": "Guns Aplenty!",
+        "id": 1090016
+      }
+    ],
+    "desc": "High-explosive timed fuse fragmentation grenade with a lethal casualty radius of 15 meters."
   },
   {
-    id: "molotov-cocktail",
-    image: "/assets/weapons/molotov-cocktail.jpg",
-    name: "Vintage Molotov Cocktail",
-    category: "throwables",
-    catLabel: "Throwable Incendiary",
-    mfg: "DIY Improvised",
-    inspo: "Rag & Gasoline Glass Bottle",
-    carry: "pocket",
-    carryLabel: "Pocket / Bag",
-    damage: 85,
-    fireRate: 25,
-    accuracy: 80,
-    range: 35,
-    mag: "1 Bottle",
-    price: "$100",
-    spawns: "Gas Stations & Little Haiti Safehouses",
-    desc: "Glass bottle filled with accelerant and a cloth wick. Engulfs police roadblocks and vehicles in sustained blaze."
+    "id": "molotov-cocktail",
+    "image": "/assets/weapons/molotov-cocktail.jpg",
+    "name": "Vintage Molotov Cocktail",
+    "category": "throwables",
+    "catLabel": "Throwable Incendiary",
+    "mfg": "DIY Improvised",
+    "inspo": "Rag & Gasoline Glass Bottle",
+    "carry": "pocket",
+    "carryLabel": "Pocket / Bag",
+    "damage": 85,
+    "fireRate": 25,
+    "accuracy": 80,
+    "range": 35,
+    "mag": "1 Bottle",
+    "price": "$100",
+    "spawns": "Industrial Weed Grow, Ocean Beach Lab",
+    "spawnsList": [
+      {
+        "name": "Industrial Weed Grow",
+        "id": 1091981
+      },
+      {
+        "name": "Ocean Beach Lab",
+        "id": 1091991
+      }
+    ],
+    "desc": "Glass bottle filled with accelerant and a cloth wick. Engulfs police roadblocks and vehicles in sustained blaze."
   }
 ];
 
@@ -4103,7 +4418,19 @@ function renderWeapons() {
         </div>
 
         <div class="weapon-card-footer">
-          <div><strong>📍 Confirmed Spawns:</strong> ${escapeHtml(w.spawns)}</div>
+          <div class="weapon-spawns-header">
+            <span class="weapon-spawns-label">📍 Confirmed Spawns:</span>
+            <span class="weapon-spawns-hint">Click to Map ↗</span>
+          </div>
+          <div class="weapon-spawns-pills">
+            ${(w.spawnsList && w.spawnsList.length > 0) ? w.spawnsList.map(s => `
+              <button type="button" class="weapon-spawn-chip" onclick="jumpToWeaponLocation(${s.id}, '${w.id}')" title="Locate ${escapeHtml(s.name)} on Interactive Map">
+                <span class="spawn-pin-icon">🎯</span>
+                <span class="spawn-name">${escapeHtml(s.name)}</span>
+                <span class="spawn-arrow">↗</span>
+              </button>
+            `).join("") : `<span>${escapeHtml(w.spawns || 'Ammu-Nation Outlets')}</span>`}
+          </div>
         </div>
       </article>
     `;
