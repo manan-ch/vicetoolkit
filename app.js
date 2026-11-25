@@ -998,7 +998,7 @@ const vehiclesDatabase = [
     "id": "pegassi-tempesta",
     "name": "Pegassi Tempesta",
     "category": "hyper",
-    "inspo": "Lamborghini Huracán/Centenario, proposed 2015 Lotus Esprit",
+    "inspo": "Lamborghini Hurac\u00e1n/Centenario, proposed 2015 Lotus Esprit",
     "image": "/assets/vehicles/pegassi-tempesta.jpg",
     "fallback": "/assets/torero.jpg",
     "speed": 94,
@@ -1386,7 +1386,7 @@ const vehiclesDatabase = [
   },
   {
     "id": "bermacht-apoc",
-    "name": "Übermacht Apoc",
+    "name": "\u00dcbermacht Apoc",
     "category": "coupes",
     "inspo": "BMW M6 E63",
     "image": "/assets/vehicles/bermacht-apoc.avif",
@@ -1396,12 +1396,12 @@ const vehiclesDatabase = [
     "handling": 48,
     "braking": 45,
     "topMph": "135 MPH",
-    "engine": "Übermacht Factory High-Performance Spec",
+    "engine": "\u00dcbermacht Factory High-Performance Spec",
     "location": "State of Leonida & Greater Vice City Metro"
   },
   {
     "id": "bermacht-apoc-cabrio",
-    "name": "Übermacht Apoc (Cabrio)",
+    "name": "\u00dcbermacht Apoc (Cabrio)",
     "category": "coupes",
     "inspo": "BMW 6-Series E64",
     "image": "/assets/vehicles/bermacht-apoc-cabrio.avif",
@@ -1411,7 +1411,7 @@ const vehiclesDatabase = [
     "handling": 74,
     "braking": 72,
     "topMph": "186 MPH",
-    "engine": "Übermacht Factory High-Performance Spec",
+    "engine": "\u00dcbermacht Factory High-Performance Spec",
     "location": "State of Leonida & Greater Vice City Metro"
   },
   {
@@ -1998,6 +1998,51 @@ const vehiclesDatabase = [
     "topMph": "145 MPH",
     "engine": "4.6L Modular V8 Police Spec",
     "location": "Vice City Police Precincts & Highway Patrol"
+  },
+  {
+    "id": "vapid-ganado",
+    "name": "Vapid Ganado",
+    "category": "offroad",
+    "inspo": "1980s Chevrolet C10 / Ford F-150 Stepside Custom; Jason's personal low-riding workhorse pickup featured in key story missions.",
+    "image": "/assets/tulip.jpg",
+    "fallback": "/assets/tulip.jpg",
+    "speed": 81,
+    "accel": 78,
+    "handling": 76,
+    "braking": 74,
+    "topMph": "135 MPH",
+    "engine": "5.7L Small-Block V8 RWD",
+    "location": "Port Gellhorn & Leonard County Rural Routes"
+  },
+  {
+    "id": "declasse-tulip-72",
+    "name": "'72 Declasse Tulip",
+    "category": "muscle",
+    "inspo": "1972 Chevrolet Chevelle Malibu 4-Door Hardtop; Iconic high-torque muscle classic featured in high-speed Leonida highway pursuits.",
+    "image": "/assets/tulip.jpg",
+    "fallback": "/assets/tulip.jpg",
+    "speed": 85,
+    "accel": 84,
+    "handling": 75,
+    "braking": 72,
+    "topMph": "148 MPH",
+    "engine": "7.4L 454 Big-Block V8 RWD",
+    "location": "Little Haiti & Vice Beach Boulevard"
+  },
+  {
+    "id": "pegassi-vitello",
+    "name": "Pegassi Vitello",
+    "category": "hyper",
+    "inspo": "Lamborghini Revuelto / Si\u00e1n FKP 37; Next-gen plug-in hybrid V12 hypercar equipped with active aerodynamic rear wings and torque vectoring.",
+    "image": "/assets/cheetah.jpg",
+    "fallback": "/assets/cheetah.jpg",
+    "speed": 98,
+    "accel": 96,
+    "handling": 94,
+    "braking": 92,
+    "topMph": "224 MPH",
+    "engine": "6.5L Naturally Aspirated V12 + Tri-Motor Hybrid AWD",
+    "location": "Downtown Financial District Showrooms & Starfish Island"
   }
 ];
 
