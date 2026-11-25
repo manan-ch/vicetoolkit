@@ -2078,6 +2078,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupVehicleEvents();
   renderWeapons();
   setupWeaponEvents();
+  initHeistCalculator();
+  setupHeistEvents();
   setupFaqAccordion();
   setupKeyboardShortcuts();
   updateProgressTracker();
@@ -2250,7 +2252,7 @@ function setupNavigation() {
 function handleUrlRouting() {
   const path = window.location.pathname.replace(/^\/+|\/+$/g, "").toLowerCase();
   const hash = window.location.hash.replace("#", "").toLowerCase().trim();
-  const valid = ["cheats", "map", "vehicles", "weapons", "updates", "money", "faq"];
+  const valid = ["cheats", "map", "vehicles", "weapons", "heists", "updates", "money", "faq"];
 
   // Automatically eliminate and redirect any hash-based links (e.g. #vehicles -> /vehicles/)
   if (valid.includes(hash)) {
@@ -2313,6 +2315,7 @@ function switchView(viewName, updateUrl = true) {
     map: "GTA 6 Interactive Map: 2,532 Leonida Waypoints, Banks & Easter Eggs [Live GPS]",
     vehicles: "GTA 6 Vehicles Database: 75 Confirmed Cars, Supercars & Boats [Telemetry Specs]",
     weapons: "GTA 6 Weapons Database: All 24 Confirmed Firearms, Melee & Trunk Stash Loadouts",
+    heists: "GTA 6 Heist & Robbery Calculator: Payouts, Crews & Escape Routes [Live Tool]",
     updates: "GTA 6 Live Patch Notes & Hotfix Tracker: Official Rockstar Changelogs (Patch 1.0.2)",
     money: "GTA 6 Money & Economy Guide: Fast Cash Heists, Stocks & Businesses",
     faq: "GTA 6 Documentation & Mechanics Guide: DualSense, Fuel & Trunk Stash"
@@ -4479,6 +4482,480 @@ function setupWeaponEvents() {
     sortSelect.addEventListener("change", (e) => {
       activeWeaponSort = e.target.value;
       renderWeapons();
+      playUiSound("click");
+    });
+  }
+}
+
+
+// =========================================================================
+// FEATURE 5: INTERACTIVE HEIST & ROBBERY CALCULATOR ENGINE
+// =========================================================================
+
+const heistTargets = [
+  {
+    id: "convenience-store",
+    name: "24/7 Supermarket & Gas Marts",
+    category: "Small Robbery",
+    baseTakeMin: 1200,
+    baseTakeMax: 4500,
+    defaultTake: 2800,
+    prepCost: 0,
+    heatBase: 2,
+    timeEst: "1.5 mins",
+    difficulty: "Beginner",
+    description: "Quick register and safe snatch at gunpoint. Minimal security response time with fast escape through back alleys.",
+    markerId: 1090179,
+    locationName: "24/7 Supermarket (Port Gellhorn)",
+    gps: "[0.82042, -0.81290]",
+    recommendedEscape: "Motorbike or Muscle Car",
+    escapeRoute: "Dash through northern alleyways, avoid Highway 1 patrol units, duck under railroad bridge."
+  },
+  {
+    id: "pawn-shop",
+    name: "Pawn City & Quick Loans",
+    category: "Local Score",
+    baseTakeMin: 6500,
+    baseTakeMax: 22000,
+    defaultTake: 14500,
+    prepCost: 500,
+    heatBase: 2,
+    timeEst: "3.0 mins",
+    difficulty: "Moderate",
+    description: "Counter cash register plus reinforced backroom safe containing vintage firearms and luxury watches.",
+    markerId: 1090153,
+    locationName: "Pawn City (Little Haiti)",
+    gps: "[0.64326, -0.60239]",
+    recommendedEscape: "Sports Coupe or 4-Door Sedan",
+    escapeRoute: "Break north towards canal waterways, switch getaway vehicle at pre-placed underground garage."
+  },
+  {
+    id: "luxury-jewelry",
+    name: "Blanc & Giroux Fine Jewelry",
+    category: "High-Value Heist",
+    baseTakeMin: 75000,
+    baseTakeMax: 240000,
+    defaultTake: 165000,
+    prepCost: 15000,
+    heatBase: 3,
+    timeEst: "5.5 mins",
+    difficulty: "Advanced",
+    description: "Bulletproof display cases loaded with diamond necklaces, Swiss chronographs, and rare gems requiring glass cutters.",
+    markerId: 1090165,
+    locationName: "Blanc & Giroux (North Beach)",
+    gps: "[0.76461, -0.55244]",
+    recommendedEscape: "Tuned Hypercar or Stealth Boat",
+    escapeRoute: "Head east to coastal marina docks, escape via speedboat into open sea radar dead-zones."
+  },
+  {
+    id: "shorefront-bank",
+    name: "Rockridge Shorefront Commercial Bank",
+    category: "Major Heist",
+    baseTakeMin: 280000,
+    baseTakeMax: 720000,
+    defaultTake: 480000,
+    prepCost: 35000,
+    heatBase: 4,
+    timeEst: "8.0 mins",
+    difficulty: "Expert",
+    description: "Sub-ground vault requiring thermal lances or electronic bypass keys. High police presence and SWAT perimeter.",
+    markerId: 1090124,
+    locationName: "Rockridge Shorefront Bank",
+    gps: "[0.70328, -0.59825]",
+    recommendedEscape: "Armored SUV or Helicopter",
+    escapeRoute: "Tunnel escape under central highway transit line, abandon masks in drainage canal."
+  },
+  {
+    id: "downtown-fleeca-bigbank",
+    name: "Downtown Fleeca Central Depository",
+    category: "Federal Heist",
+    baseTakeMin: 900000,
+    baseTakeMax: 2800000,
+    defaultTake: 1750000,
+    prepCost: 120000,
+    heatBase: 5,
+    timeEst: "12.0 mins",
+    difficulty: "Mastermind",
+    description: "Multi-layered security matrix, biometric vault doors, and gold bullion cages guarded by Leonida State Tactical Police.",
+    markerId: 1090133,
+    locationName: "Downtown Fleeca Big Bank",
+    gps: "[0.66133, -0.57117]",
+    recommendedEscape: "Heavily Armored Transporter or Subway Tunnels",
+    escapeRoute: "Detonate sewer blast exit point, navigate underground metro tunnel network to secret safehouse."
+  },
+  {
+    id: "cartel-compound",
+    name: "Casa Guardia Syndicate Compound",
+    category: "Black Market Raid",
+    baseTakeMin: 320000,
+    baseTakeMax: 980000,
+    defaultTake: 620000,
+    prepCost: 45000,
+    heatBase: 4,
+    timeEst: "9.0 mins",
+    difficulty: "Extreme",
+    description: "Private armed cartel stronghold holding laundered cartel cash stacks, illicit narcotics crates, and gold bars.",
+    markerId: 1091978,
+    locationName: "Casa Guardia (Biscayne)",
+    gps: "[0.68551, -0.58873]",
+    recommendedEscape: "Offroad 4x4 or Armed Airboat",
+    escapeRoute: "Cut through swamp marshlands where police cruisers get bogged down in deep mud."
+  }
+];
+
+const heistApproaches = [
+  {
+    id: "stealth",
+    name: "Silent & Covert",
+    icon: "🥷",
+    heatModifier: -1,
+    bagDamageRisk: 2,
+    speedModifier: "Fast Exit",
+    desc: "Silenced takedowns, cameras looped, security alarms bypassed. Minimal police pursuit on exit."
+  },
+  {
+    id: "aggressive",
+    name: "Loud & Aggressive",
+    icon: "💥",
+    heatModifier: 1,
+    bagDamageRisk: 14,
+    speedModifier: "Instant Entry",
+    desc: "Heavy firepower, explosive door breaches, immediate 4-5 star police response with tactical roadblocks."
+  },
+  {
+    id: "subterfuge",
+    name: "Inside Disguise",
+    icon: "🎭",
+    heatModifier: 0,
+    bagDamageRisk: 5,
+    speedModifier: "Controlled",
+    desc: "Utility technician or security guard disguise. Buys precious extra minutes inside the vault before alarms trigger."
+  }
+];
+
+const crewMembers = {
+  drivers: [
+    { id: "eddie", name: "Eddie 'Apex' Vance (Elite • 7% Cut)", cut: 7, skill: "Elite", vehicle: "Modified Sports Sedan" },
+    { id: "tariq", name: "Tariq 'Drift' Mercer (Competent • 5% Cut)", cut: 5, skill: "Competent", vehicle: "Tuned Muscle Car" },
+    { id: "clay", name: "Rookie Wheelman (Amateur • 3% Cut)", cut: 3, skill: "Amateur", vehicle: "Stock Hatchback" }
+  ],
+  hackers: [
+    { id: "paige", name: "NullSec Hacker (Elite • 9% Cut)", cut: 9, skill: "Elite", vaultTime: "+90s Vault Time" },
+    { id: "rickie", name: "Sub-Net Specialist (Competent • 6% Cut)", cut: 6, skill: "Competent", vaultTime: "+45s Vault Time" },
+    { id: "amateur", name: "Script Kid (Amateur • 3% Cut)", cut: 3, skill: "Amateur", vaultTime: "+15s Vault Time" }
+  ],
+  gunmen: [
+    { id: "gustavo", name: "Gustavo 'Bruiser' Diaz (Elite • 8% Cut)", cut: 8, skill: "Elite", suppression: "Complete Control" },
+    { id: "packie", name: "Packie 'Street' McReary (Competent • 6% Cut)", cut: 6, skill: "Competent", suppression: "Good Crowd Control" },
+    { id: "norm", name: "Local Corner Muscle (Amateur • 3% Cut)", cut: 3, skill: "Amateur", suppression: "Unreliable" }
+  ]
+};
+
+// Heist State
+let selectedHeistTargetId = "downtown-fleeca-bigbank";
+let selectedApproachId = "stealth";
+let selectedDriverId = "eddie";
+let selectedHackerId = "paige";
+let selectedGunmanId = "gustavo";
+let currentGrossTake = 1750000;
+
+function initHeistCalculator() {
+  const targetSelect = document.getElementById("heistTargetSelect");
+  if (!targetSelect) return;
+
+  // Populate Target Select
+  targetSelect.innerHTML = heistTargets.map(t => 
+    `<option value="${t.id}" ${t.id === selectedHeistTargetId ? 'selected' : ''}>${t.name} (${t.category})</option>`
+  ).join("");
+
+  // Populate Approach Buttons
+  const approachContainer = document.getElementById("heistApproachContainer");
+  if (approachContainer) {
+    approachContainer.innerHTML = heistApproaches.map(a => `
+      <div class="heist-approach-card ${a.id === selectedApproachId ? 'active' : ''}" data-approach="${a.id}">
+        <span class="approach-icon">${a.icon}</span>
+        <span class="approach-title">${a.name}</span>
+        <span class="approach-sub">${a.speedModifier}</span>
+      </div>
+    `).join("");
+  }
+
+  // Populate Crew Selectors
+  const driverSelect = document.getElementById("heistDriverSelect");
+  if (driverSelect) {
+    driverSelect.innerHTML = crewMembers.drivers.map(d => 
+      `<option value="${d.id}" ${d.id === selectedDriverId ? 'selected' : ''}>${d.name}</option>`
+    ).join("");
+  }
+
+  const hackerSelect = document.getElementById("heistHackerSelect");
+  if (hackerSelect) {
+    hackerSelect.innerHTML = crewMembers.hackers.map(h => 
+      `<option value="${h.id}" ${h.id === selectedHackerId ? 'selected' : ''}>${h.name}</option>`
+    ).join("");
+  }
+
+  const gunmanSelect = document.getElementById("heistGunmanSelect");
+  if (gunmanSelect) {
+    gunmanSelect.innerHTML = crewMembers.gunmen.map(g => 
+      `<option value="${g.id}" ${g.id === selectedGunmanId ? 'selected' : ''}>${g.name}</option>`
+    ).join("");
+  }
+
+  syncHeistSliderWithTarget();
+  updateHeistCalculations();
+}
+
+function syncHeistSliderWithTarget() {
+  const target = heistTargets.find(t => t.id === selectedHeistTargetId) || heistTargets[0];
+  const slider = document.getElementById("heistTakeSlider");
+  const minLbl = document.getElementById("heistRangeMin");
+  const maxLbl = document.getElementById("heistRangeMax");
+
+  if (slider && minLbl && maxLbl) {
+    slider.min = target.baseTakeMin;
+    slider.max = target.baseTakeMax;
+    slider.step = Math.max(1000, Math.round((target.baseTakeMax - target.baseTakeMin) / 100));
+    currentGrossTake = target.defaultTake;
+    slider.value = currentGrossTake;
+
+    minLbl.innerText = "$" + (target.baseTakeMin >= 1000000 ? (target.baseTakeMin / 1000000).toFixed(1) + "M" : (target.baseTakeMin / 1000).toFixed(0) + "K");
+    maxLbl.innerText = "$" + (target.baseTakeMax >= 1000000 ? (target.baseTakeMax / 1000000).toFixed(1) + "M" : (target.baseTakeMax / 1000).toFixed(0) + "K");
+  }
+}
+
+function updateHeistCalculations() {
+  const target = heistTargets.find(t => t.id === selectedHeistTargetId) || heistTargets[0];
+  const approach = heistApproaches.find(a => a.id === selectedApproachId) || heistApproaches[0];
+  const driver = crewMembers.drivers.find(d => d.id === selectedDriverId) || crewMembers.drivers[0];
+  const hacker = crewMembers.hackers.find(h => h.id === selectedHackerId) || crewMembers.hackers[0];
+  const gunman = crewMembers.gunmen.find(g => g.id === selectedGunmanId) || crewMembers.gunmen[0];
+
+  const grossTake = currentGrossTake;
+  const prepCost = target.prepCost;
+
+  // Percentage cuts
+  const driverCutPct = driver.cut;
+  const hackerCutPct = hacker.cut;
+  const gunmanCutPct = gunman.cut;
+  const fenceCutPct = 10; // 10% laundering / fence cut
+
+  // Bag damage risk calculated from approach + gunman skill modifier
+  let bagDamagePct = approach.bagDamageRisk;
+  if (gunman.skill === "Elite") bagDamagePct = Math.max(1, bagDamagePct - 3);
+  else if (gunman.skill === "Amateur") bagDamagePct += 5;
+
+  // Exact dollar amounts
+  const driverCutAmt = Math.round(grossTake * (driverCutPct / 100));
+  const hackerCutAmt = Math.round(grossTake * (hackerCutPct / 100));
+  const gunmanCutAmt = Math.round(grossTake * (gunmanCutPct / 100));
+  const fenceCutAmt = Math.round(grossTake * (fenceCutPct / 100));
+  const bagDamageAmt = Math.round(grossTake * (bagDamagePct / 100));
+
+  const totalDeductions = prepCost + driverCutAmt + hackerCutAmt + gunmanCutAmt + fenceCutAmt + bagDamageAmt;
+  const netTake = Math.max(0, grossTake - totalDeductions);
+
+  // Equal 50/50 split between Lucia & Jason
+  const luciaShare = Math.round(netTake / 2);
+  const jasonShare = netTake - luciaShare;
+
+  // Police Heat Calculation (1 to 5 stars)
+  let calculatedHeat = target.heatBase + approach.heatModifier;
+  if (driver.skill === "Amateur") calculatedHeat += 1;
+  calculatedHeat = Math.max(1, Math.min(5, calculatedHeat));
+
+  // DOM Updates
+  const takeDisp = document.getElementById("heistTakeDisplay");
+  if (takeDisp) takeDisp.innerText = "$" + grossTake.toLocaleString();
+
+  const netTotalDisp = document.getElementById("heistNetTotal");
+  if (netTotalDisp) netTotalDisp.innerText = "$" + netTake.toLocaleString();
+
+  const luciaDisp = document.getElementById("luciaShareDisplay");
+  if (luciaDisp) luciaDisp.innerText = "$" + luciaShare.toLocaleString();
+
+  const jasonDisp = document.getElementById("jasonShareDisplay");
+  if (jasonDisp) jasonDisp.innerText = "$" + jasonShare.toLocaleString();
+
+  const timeDisp = document.getElementById("heistTimeDisplay");
+  if (timeDisp) timeDisp.innerText = target.timeEst;
+
+  // Update Ledger table
+  const ledgerGross = document.getElementById("ledgerGross");
+  if (ledgerGross) ledgerGross.innerText = "$" + grossTake.toLocaleString();
+
+  const ledgerPrep = document.getElementById("ledgerPrep");
+  if (ledgerPrep) ledgerPrep.innerText = prepCost > 0 ? "-$" + prepCost.toLocaleString() : "$0 (None)";
+
+  const ledgerDriver = document.getElementById("ledgerDriver");
+  const ledgerDriverLabel = document.getElementById("ledgerDriverLabel");
+  if (ledgerDriver && ledgerDriverLabel) {
+    ledgerDriverLabel.innerText = `Driver Cut (${driverCutPct}%)`;
+    ledgerDriver.innerText = "-$" + driverCutAmt.toLocaleString();
+  }
+
+  const ledgerHacker = document.getElementById("ledgerHacker");
+  const ledgerHackerLabel = document.getElementById("ledgerHackerLabel");
+  if (ledgerHacker && ledgerHackerLabel) {
+    ledgerHackerLabel.innerText = `Hacker Cut (${hackerCutPct}%)`;
+    ledgerHacker.innerText = "-$" + hackerCutAmt.toLocaleString();
+  }
+
+  const ledgerGunman = document.getElementById("ledgerGunman");
+  const ledgerGunmanLabel = document.getElementById("ledgerGunmanLabel");
+  if (ledgerGunman && ledgerGunmanLabel) {
+    ledgerGunmanLabel.innerText = `Gunman Cut (${gunmanCutPct}%)`;
+    ledgerGunman.innerText = "-$" + gunmanCutAmt.toLocaleString();
+  }
+
+  const ledgerFence = document.getElementById("ledgerFence");
+  if (ledgerFence) ledgerFence.innerText = "-$" + fenceCutAmt.toLocaleString();
+
+  const ledgerDamage = document.getElementById("ledgerDamage");
+  const ledgerDamageLabel = document.getElementById("ledgerDamageLabel");
+  if (ledgerDamage && ledgerDamageLabel) {
+    ledgerDamageLabel.innerText = `Police Fire Bag Loss (${bagDamagePct}%)`;
+    ledgerDamage.innerText = "-$" + bagDamageAmt.toLocaleString();
+  }
+
+  // Update Heat Stars
+  const starsContainer = document.getElementById("heistHeatStars");
+  if (starsContainer) {
+    let starsHtml = "";
+    for (let i = 1; i <= 5; i++) {
+      starsHtml += i <= calculatedHeat 
+        ? '<span class="star-active">★</span>' 
+        : '<span class="star-inactive">★</span>';
+    }
+    starsContainer.innerHTML = starsHtml + ` <span style="font-size:0.75rem; font-weight:700; color:${calculatedHeat >= 4 ? '#e11d48' : '#f59e0b'}; margin-left:6px;">${calculatedHeat} STARS</span>`;
+  }
+
+  // Update Map Target Box
+  const targetMapName = document.getElementById("heistTargetMapName");
+  if (targetMapName) targetMapName.innerText = target.locationName;
+
+  const targetMapGps = document.getElementById("heistTargetMapGps");
+  if (targetMapGps) targetMapGps.innerText = `GPS: ${target.gps} • ${target.category}`;
+
+  const teleportBtn = document.getElementById("btnHeistTeleport");
+  if (teleportBtn) {
+    teleportBtn.onclick = () => jumpToHeistLocation(target.markerId);
+    teleportBtn.title = `Teleport to ${target.locationName} on Map`;
+  }
+
+  // Update Escape Route
+  const escapeRouteText = document.getElementById("heistEscapeRoute");
+  if (escapeRouteText) {
+    escapeRouteText.innerHTML = `${escapeHtml(target.escapeRoute)} <strong>Recommended Vehicle:</strong> ${escapeHtml(target.recommendedEscape)} (${escapeHtml(driver.vehicle)}).`;
+  }
+}
+
+function jumpToHeistLocation(markerId) {
+  playUiSound("click");
+  const allLocs = window.LEONIDA_MARKERS || [];
+  const marker = allLocs.find(m => m.id === markerId);
+  const target = heistTargets.find(t => t.markerId === markerId);
+  const title = marker ? marker.title : (target ? target.name : "Heist Objective");
+
+  triggerToast(`Locating ${title} on Interactive Map...`);
+
+  if (activeView !== "map") {
+    switchView("map", true);
+  }
+
+  setTimeout(() => {
+    if (!leafletMap && typeof initLeafletMap === "function") {
+      initLeafletMap();
+    } else if (leafletMap) {
+      leafletMap.invalidateSize(true);
+    }
+
+    if (!marker || !leafletMap) return;
+
+    const searchInput = document.getElementById("mapLocationSearch");
+    if (searchInput) searchInput.value = marker.title;
+
+    leafletMap.flyTo([marker.lat, marker.lng], 16, { duration: 1.1 });
+
+    setTimeout(() => {
+      const color = "#e11d48";
+      const popupHtml = `
+        <div class="popup-tag-badge" style="background:${color}22; color:${color}; border:1px solid ${color}55;">
+          🎯 ROBBERY & HEIST TARGET
+        </div>
+        <div class="popup-title">${escapeHtml(marker.title)}</div>
+        <div class="popup-region">GPS: [${marker.lat.toFixed(5)}, ${marker.lng.toFixed(5)}]</div>
+        <div style="margin: 8px 0; padding: 7px 11px; background: rgba(16, 185, 129, 0.16); border-left: 3px solid #10b981; border-radius: 4px; font-size: 0.78rem; color: #fff;">
+          <strong>💰 Estimated Yield:</strong> $${(target ? target.baseTakeMin.toLocaleString() : "100,000")} &ndash; $${(target ? target.baseTakeMax.toLocaleString() : "1,000,000")}
+        </div>
+        <p class="popup-desc">${escapeHtml(marker.desc || 'High-value robbery and heist objective in greater Leonida.')}</p>
+      `;
+
+      L.popup()
+        .setLatLng([marker.lat, marker.lng])
+        .setContent(popupHtml)
+        .openOn(leafletMap);
+    }, 1050);
+  }, 220);
+}
+
+window.jumpToHeistLocation = jumpToHeistLocation;
+
+function setupHeistEvents() {
+  const targetSelect = document.getElementById("heistTargetSelect");
+  if (targetSelect) {
+    targetSelect.addEventListener("change", (e) => {
+      selectedHeistTargetId = e.target.value;
+      syncHeistSliderWithTarget();
+      updateHeistCalculations();
+      playUiSound("click");
+    });
+  }
+
+  const slider = document.getElementById("heistTakeSlider");
+  if (slider) {
+    slider.addEventListener("input", (e) => {
+      currentGrossTake = parseInt(e.target.value, 10);
+      updateHeistCalculations();
+    });
+  }
+
+  const approachContainer = document.getElementById("heistApproachContainer");
+  if (approachContainer) {
+    approachContainer.addEventListener("click", (e) => {
+      const card = e.target.closest(".heist-approach-card");
+      if (!card) return;
+      document.querySelectorAll(".heist-approach-card").forEach(c => c.classList.remove("active"));
+      card.classList.add("active");
+      selectedApproachId = card.dataset.approach;
+      updateHeistCalculations();
+      playUiSound("click");
+    });
+  }
+
+  const driverSelect = document.getElementById("heistDriverSelect");
+  if (driverSelect) {
+    driverSelect.addEventListener("change", (e) => {
+      selectedDriverId = e.target.value;
+      updateHeistCalculations();
+      playUiSound("click");
+    });
+  }
+
+  const hackerSelect = document.getElementById("heistHackerSelect");
+  if (hackerSelect) {
+    hackerSelect.addEventListener("change", (e) => {
+      selectedHackerId = e.target.value;
+      updateHeistCalculations();
+      playUiSound("click");
+    });
+  }
+
+  const gunmanSelect = document.getElementById("heistGunmanSelect");
+  if (gunmanSelect) {
+    gunmanSelect.addEventListener("change", (e) => {
+      selectedGunmanId = e.target.value;
+      updateHeistCalculations();
       playUiSound("click");
     });
   }
