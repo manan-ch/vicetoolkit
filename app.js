@@ -3998,9 +3998,7 @@ function renderWeapons() {
     return 0;
   });
 
-  if (countLabel) {
-    countLabel.textContent = `Showing ${list.length} of ${weaponsDatabase.length} Confirmed Weapons`;
-  }
+// Count label removed per user preference for a cleaner toolbar
 
   if (list.length === 0) {
     grid.innerHTML = `

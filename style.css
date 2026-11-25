@@ -2019,7 +2019,8 @@ body {
   display: none;
 }
 
-.v-filter-btn {
+.v-filter-btn,
+.w-filter-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -2036,13 +2037,15 @@ body {
   user-select: none;
 }
 
-.v-filter-btn:hover {
+.v-filter-btn:hover,
+.w-filter-btn:hover {
   background: var(--bg-surface-hover);
   color: var(--text-primary);
   transform: translateY(-1px);
 }
 
-.v-filter-btn.active {
+.v-filter-btn.active,
+.w-filter-btn.active {
   background: var(--accent-primary);
   border-color: var(--accent-primary);
   color: #ffffff;
@@ -2060,7 +2063,8 @@ body {
   transition: all 0.18s ease;
 }
 
-.v-filter-btn.active .v-pill-count {
+.v-filter-btn.active .v-pill-count,
+.w-filter-btn.active .v-pill-count {
   background: rgba(255, 255, 255, 0.25);
   color: #ffffff;
 }
@@ -3186,7 +3190,8 @@ body {
     display: none;
   }
 
-  .v-filter-btn {
+  .v-filter-btn,
+.w-filter-btn {
     flex-shrink: 0;
     white-space: nowrap;
     padding: 8px 13px;
@@ -4558,4 +4563,23 @@ input, select, textarea, button {
   .weapon-image-container {
     height: 160px;
   }
+}
+
+
+/* Enhanced Weapon Filter Active Highlight */
+.w-filter-btn.active {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35) !important;
+}
+
+.w-filter-btn.active .v-btn-label {
+  color: #ffffff !important;
+}
+
+.w-filter-btn.active .v-pill-count {
+  background: rgba(255, 255, 255, 0.28) !important;
+  color: #ffffff !important;
 }
