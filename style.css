@@ -4662,161 +4662,308 @@ input, select, textarea, button {
 }
 
 /* ==========================================================================
-   FEATURE 5: INTERACTIVE HEIST & ROBBERY CALCULATOR STYLES
+   FEATURE 5: ULTRA PRO AAA TACTICAL HEIST & ROBBERY PLANNER STYLES
    ========================================================================== */
 .heist-planner-layout {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 24px;
-  margin-top: 24px;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 28px;
+  margin-top: 28px;
+  align-items: start;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1080px) {
   .heist-planner-layout {
     grid-template-columns: 1fr;
   }
 }
 
-.heist-panel {
+/* Step Card Containers */
+.heist-step-section {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  margin-bottom: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+  position: relative;
+  overflow: hidden;
 }
 
-.heist-panel-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--text-primary);
+.heist-step-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.6), transparent);
+}
+
+.heist-step-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   margin-bottom: 18px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.heist-panel-title .badge {
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  background: rgba(225, 29, 72, 0.15);
-  color: var(--accent-primary);
-  border: 1px solid rgba(225, 29, 72, 0.3);
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.heist-form-group {
-  margin-bottom: 20px;
-}
-
-.heist-label {
+.heist-step-title-wrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.82rem;
-  font-weight: 700;
+  gap: 12px;
+}
+
+.heist-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(225, 29, 72, 0.15);
+  border: 1px solid rgba(225, 29, 72, 0.4);
+  color: var(--accent-primary);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 900;
+  font-family: monospace;
+  box-shadow: 0 0 12px rgba(225, 29, 72, 0.2);
+}
+
+.heist-step-title {
+  font-size: 1.05rem;
+  font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  letter-spacing: -0.2px;
 }
 
-.heist-label-hint {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-  font-weight: 500;
+.heist-step-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.heist-select {
-  width: 100%;
-  padding: 10px 14px;
+/* STEP 1: TARGET CARDS GRID */
+.heist-targets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .heist-targets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.heist-target-card {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-size: 0.88rem;
-  font-family: inherit;
-  font-weight: 600;
+  padding: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
 }
 
-.heist-select:focus {
+.heist-target-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 29, 72, 0.5);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.heist-target-card.active {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.2);
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.12), rgba(20, 24, 40, 0.9));
+  box-shadow: 0 0 20px rgba(225, 29, 72, 0.35);
 }
 
+.target-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.target-icon {
+  font-size: 1.6rem;
+}
+
+.target-tier-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
+.target-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.target-payout-range {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #10b981;
+  font-family: monospace;
+}
+
+.target-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.target-card-btn {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.heist-target-card.active .target-card-btn {
+  background: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.4);
+}
+
+.heist-target-card:not(.active) .target-card-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+}
+
+/* STEP 2: INFILTRATION VECTORS */
 .heist-approach-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
-@media (max-width: 580px) {
+@media (max-width: 640px) {
   .heist-approach-grid {
     grid-template-columns: 1fr;
   }
 }
 
 .heist-approach-card {
-  padding: 12px 10px;
+  padding: 16px 14px;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  position: relative;
 }
 
 .heist-approach-card:hover {
   border-color: rgba(225, 29, 72, 0.5);
-  background: rgba(225, 29, 72, 0.08);
   transform: translateY(-2px);
 }
 
 .heist-approach-card.active {
   border-color: var(--accent-primary);
-  background: rgba(225, 29, 72, 0.16);
-  box-shadow: 0 0 14px rgba(225, 29, 72, 0.25);
+  background: rgba(225, 29, 72, 0.14);
+  box-shadow: 0 0 18px rgba(225, 29, 72, 0.28);
 }
 
 .approach-icon {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
+  margin-bottom: 2px;
 }
 
 .approach-title {
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
-.approach-sub {
+.approach-tag {
   font-size: 0.68rem;
-  color: var(--text-muted);
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 4px;
 }
 
-.heist-slider-container {
-  padding: 12px 16px;
+.tag-stealth {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tag-loud {
+  background: rgba(225, 29, 72, 0.15);
+  color: #e11d48;
+  border: 1px solid rgba(225, 29, 72, 0.3);
+}
+
+.tag-subterfuge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* STEP 3: DYNAMIC LOOT SLIDER */
+.heist-slider-box {
+  padding: 20px;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
 }
 
+.heist-slider-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.heist-slider-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
 .heist-slider-val {
-  font-size: 1.3rem;
-  font-weight: 900;
+  font-size: 1.7rem;
+  font-weight: 950;
   color: #10b981;
   font-family: monospace;
-  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
 }
 
 .heist-range-input {
   width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  outline: none;
   accent-color: var(--accent-primary);
   cursor: pointer;
 }
@@ -4824,210 +4971,341 @@ input, select, textarea, button {
 .heist-range-limits {
   display: flex;
   justify-content: space-between;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  margin-top: 4px;
+  font-family: monospace;
+  margin-top: 8px;
+}
+
+/* STEP 4: VISUAL CREW SELECTORS */
+.crew-role-block {
+  margin-bottom: 18px;
+}
+
+.crew-role-block:last-child {
+  margin-bottom: 0;
+}
+
+.crew-role-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.crew-active-indicator {
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 700;
   font-family: monospace;
 }
 
-/* Telemetry & Payout Side Panel */
-.heist-result-hero {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 78, 59, 0.2));
-  border: 1px solid rgba(16, 185, 129, 0.35);
+.crew-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 580px) {
+  .crew-cards-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.crew-card {
+  padding: 12px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.crew-card:hover {
+  border-color: rgba(225, 29, 72, 0.5);
+  transform: translateY(-2px);
+}
+
+.crew-card.active {
+  border-color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.12);
+  box-shadow: 0 0 16px rgba(225, 29, 72, 0.25);
+}
+
+.crew-card-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.crew-card-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+}
+
+.crew-cut-badge {
+  font-weight: 800;
+  color: #ef4444;
+  font-family: monospace;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.crew-skill-badge {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+/* RIGHT COLUMN: STICKY TACTICAL TERMINAL HUD */
+.heist-terminal-hud {
+  position: sticky;
+  top: 86px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.terminal-title {
+  font-size: 0.88rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.terminal-status-blink {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseBlink 1.5s infinite;
+}
+
+@keyframes pulseBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Hero Net Cash Box */
+.terminal-payout-hero {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(10, 15, 29, 0.95) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.4);
   border-radius: var(--radius-lg);
   padding: 20px;
   text-align: center;
-  margin-bottom: 20px;
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
 }
 
-.heist-result-label {
+.hero-payout-label {
   font-size: 0.74rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   color: #10b981;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.heist-result-amount {
-  font-size: 2.2rem;
+.hero-payout-amount {
+  font-size: 2.3rem;
   font-weight: 950;
   color: #ffffff;
   font-family: monospace;
   letter-spacing: -0.5px;
-  text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  text-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
 }
 
-.heist-split-grid {
+/* Duo Protagonists Split */
+.protagonist-split-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+  gap: 12px;
 }
 
-.heist-split-box {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.protagonist-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  text-align: center;
 }
 
-.heist-split-name {
-  font-size: 0.72rem;
+.protagonist-name {
+  font-size: 0.74rem;
+  font-weight: 800;
   color: var(--text-muted);
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
 }
 
-.heist-split-val {
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: #f1f5f9;
+.protagonist-share {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
   font-family: monospace;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
-/* Deductions Breakdown Table */
-.heist-breakdown-list {
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
+/* Police Heat HUD */
+.terminal-heat-box {
+  background: rgba(225, 29, 72, 0.08);
+  border: 1px solid rgba(225, 29, 72, 0.3);
   border-radius: var(--radius-md);
   padding: 12px 16px;
-  margin-bottom: 20px;
-  font-size: 0.8rem;
-}
-
-.breakdown-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.breakdown-row:last-child {
-  border-bottom: none;
-}
-
-.breakdown-label {
-  color: var(--text-secondary);
+.heat-title-col {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.breakdown-val {
-  font-family: monospace;
+.heat-main-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.heat-sub-title {
+  font-size: 0.68rem;
   font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
 }
 
-.breakdown-val.minus {
-  color: #ef4444;
-}
-
-.breakdown-val.plus {
-  color: #10b981;
-}
-
-/* Police Heat Stars */
 .heat-stars-display {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
 .star-active {
   color: #e11d48;
-  text-shadow: 0 0 10px rgba(225, 29, 72, 0.6);
+  text-shadow: 0 0 10px rgba(225, 29, 72, 0.7);
 }
 
 .star-inactive {
   color: rgba(255, 255, 255, 0.15);
 }
 
-/* Map Teleport Card */
-.heist-map-teleport-box {
-  background: rgba(225, 29, 72, 0.08);
-  border: 1px solid rgba(225, 29, 72, 0.35);
+/* Accounting Breakdown */
+.terminal-ledger-table {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 12px 16px;
+  font-size: 0.78rem;
+}
+
+.ledger-row {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.heist-target-location-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.ledger-row:last-child {
+  border-bottom: none;
 }
 
-.heist-target-name {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #fff;
+.ledger-label {
+  color: var(--text-secondary);
 }
 
-.heist-target-gps {
-  font-size: 0.72rem;
-  color: var(--text-muted);
+.ledger-val {
   font-family: monospace;
+  font-weight: 700;
 }
 
-.heist-teleport-btn {
-  display: inline-flex;
+.ledger-val.plus {
+  color: #10b981;
+}
+
+.ledger-val.minus {
+  color: #ef4444;
+}
+
+/* 1-Click Map Action Button */
+.terminal-map-btn {
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
   background: var(--accent-primary);
   color: #ffffff;
   border: none;
-  padding: 10px 16px;
   border-radius: var(--radius-md);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 800;
   font-family: inherit;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+  box-shadow: 0 4px 18px rgba(225, 29, 72, 0.45);
+  letter-spacing: 0.3px;
 }
 
-.heist-teleport-btn:hover {
+.terminal-map-btn:hover {
   background: #be123c;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(225, 29, 72, 0.45);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.6);
 }
 
-.heist-teleport-btn:active {
+.terminal-map-btn:active {
   transform: translateY(0);
 }
 
-/* Escape Route & Tactical Advice */
-.heist-escape-box {
+/* Escape Advice Box */
+.terminal-escape-card {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
+  padding: 14px;
+  font-size: 0.76rem;
   line-height: 1.45;
+  color: var(--text-secondary);
 }
 
-.escape-title {
+.escape-card-title {
+  font-size: 0.8rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
+  margin-bottom: 4px;
 }
-

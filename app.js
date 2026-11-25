@@ -4488,7 +4488,6 @@ function setupWeaponEvents() {
 }
 
 
-// =========================================================================
 // FEATURE 5: INTERACTIVE HEIST & ROBBERY CALCULATOR ENGINE
 // =========================================================================
 
@@ -4497,6 +4496,7 @@ const heistTargets = [
     id: "convenience-store",
     name: "24/7 Supermarket & Gas Marts",
     category: "Small Robbery",
+    icon: "🏪",
     baseTakeMin: 1200,
     baseTakeMax: 4500,
     defaultTake: 2800,
@@ -4504,6 +4504,7 @@ const heistTargets = [
     heatBase: 2,
     timeEst: "1.5 mins",
     difficulty: "Beginner",
+    tagColor: "#38bdf8",
     description: "Quick register and safe snatch at gunpoint. Minimal security response time with fast escape through back alleys.",
     markerId: 1090179,
     locationName: "24/7 Supermarket (Port Gellhorn)",
@@ -4515,6 +4516,7 @@ const heistTargets = [
     id: "pawn-shop",
     name: "Pawn City & Quick Loans",
     category: "Local Score",
+    icon: "💼",
     baseTakeMin: 6500,
     baseTakeMax: 22000,
     defaultTake: 14500,
@@ -4522,6 +4524,7 @@ const heistTargets = [
     heatBase: 2,
     timeEst: "3.0 mins",
     difficulty: "Moderate",
+    tagColor: "#a855f7",
     description: "Counter cash register plus reinforced backroom safe containing vintage firearms and luxury watches.",
     markerId: 1090153,
     locationName: "Pawn City (Little Haiti)",
@@ -4533,6 +4536,7 @@ const heistTargets = [
     id: "luxury-jewelry",
     name: "Blanc & Giroux Fine Jewelry",
     category: "High-Value Heist",
+    icon: "💎",
     baseTakeMin: 75000,
     baseTakeMax: 240000,
     defaultTake: 165000,
@@ -4540,6 +4544,7 @@ const heistTargets = [
     heatBase: 3,
     timeEst: "5.5 mins",
     difficulty: "Advanced",
+    tagColor: "#f59e0b",
     description: "Bulletproof display cases loaded with diamond necklaces, Swiss chronographs, and rare gems requiring glass cutters.",
     markerId: 1090165,
     locationName: "Blanc & Giroux (North Beach)",
@@ -4550,7 +4555,8 @@ const heistTargets = [
   {
     id: "shorefront-bank",
     name: "Rockridge Shorefront Commercial Bank",
-    category: "Major Heist",
+    category: "Major Bank Heist",
+    icon: "🏦",
     baseTakeMin: 280000,
     baseTakeMax: 720000,
     defaultTake: 480000,
@@ -4558,6 +4564,7 @@ const heistTargets = [
     heatBase: 4,
     timeEst: "8.0 mins",
     difficulty: "Expert",
+    tagColor: "#e11d48",
     description: "Sub-ground vault requiring thermal lances or electronic bypass keys. High police presence and SWAT perimeter.",
     markerId: 1090124,
     locationName: "Rockridge Shorefront Bank",
@@ -4568,7 +4575,8 @@ const heistTargets = [
   {
     id: "downtown-fleeca-bigbank",
     name: "Downtown Fleeca Central Depository",
-    category: "Federal Heist",
+    category: "Federal Vault",
+    icon: "🏛️",
     baseTakeMin: 900000,
     baseTakeMax: 2800000,
     defaultTake: 1750000,
@@ -4576,6 +4584,7 @@ const heistTargets = [
     heatBase: 5,
     timeEst: "12.0 mins",
     difficulty: "Mastermind",
+    tagColor: "#ec4899",
     description: "Multi-layered security matrix, biometric vault doors, and gold bullion cages guarded by Leonida State Tactical Police.",
     markerId: 1090133,
     locationName: "Downtown Fleeca Big Bank",
@@ -4586,7 +4595,8 @@ const heistTargets = [
   {
     id: "cartel-compound",
     name: "Casa Guardia Syndicate Compound",
-    category: "Black Market Raid",
+    category: "Cartel Stronghold",
+    icon: "🏰",
     baseTakeMin: 320000,
     baseTakeMax: 980000,
     defaultTake: 620000,
@@ -4594,6 +4604,7 @@ const heistTargets = [
     heatBase: 4,
     timeEst: "9.0 mins",
     difficulty: "Extreme",
+    tagColor: "#10b981",
     description: "Private armed cartel stronghold holding laundered cartel cash stacks, illicit narcotics crates, and gold bars.",
     markerId: 1091978,
     locationName: "Casa Guardia (Biscayne)",
@@ -4635,19 +4646,19 @@ const heistApproaches = [
 
 const crewMembers = {
   drivers: [
-    { id: "eddie", name: "Eddie 'Apex' Vance (Elite • 7% Cut)", cut: 7, skill: "Elite", vehicle: "Modified Sports Sedan" },
-    { id: "tariq", name: "Tariq 'Drift' Mercer (Competent • 5% Cut)", cut: 5, skill: "Competent", vehicle: "Tuned Muscle Car" },
-    { id: "clay", name: "Rookie Wheelman (Amateur • 3% Cut)", cut: 3, skill: "Amateur", vehicle: "Stock Hatchback" }
+    { id: "eddie", name: "Eddie 'Apex'", cut: 7, skill: "★★★★ Elite", vehicle: "Modified Sports Sedan" },
+    { id: "tariq", name: "Tariq Mercer", cut: 5, skill: "★★★ Skilled", vehicle: "Tuned Muscle Car" },
+    { id: "clay", name: "Rookie Wheelman", cut: 3, skill: "★ Budget", vehicle: "Stock Hatchback" }
   ],
   hackers: [
-    { id: "paige", name: "NullSec Hacker (Elite • 9% Cut)", cut: 9, skill: "Elite", vaultTime: "+90s Vault Time" },
-    { id: "rickie", name: "Sub-Net Specialist (Competent • 6% Cut)", cut: 6, skill: "Competent", vaultTime: "+45s Vault Time" },
-    { id: "amateur", name: "Script Kid (Amateur • 3% Cut)", cut: 3, skill: "Amateur", vaultTime: "+15s Vault Time" }
+    { id: "paige", name: "NullSec Elite", cut: 9, skill: "★★★★ Elite", vaultTime: "+90s Vault Time" },
+    { id: "rickie", name: "Sub-Net Tech", cut: 6, skill: "★★★ Skilled", vaultTime: "+45s Vault Time" },
+    { id: "amateur", name: "Script Kid", cut: 3, skill: "★ Budget", vaultTime: "+15s Vault Time" }
   ],
   gunmen: [
-    { id: "gustavo", name: "Gustavo 'Bruiser' Diaz (Elite • 8% Cut)", cut: 8, skill: "Elite", suppression: "Complete Control" },
-    { id: "packie", name: "Packie 'Street' McReary (Competent • 6% Cut)", cut: 6, skill: "Competent", suppression: "Good Crowd Control" },
-    { id: "norm", name: "Local Corner Muscle (Amateur • 3% Cut)", cut: 3, skill: "Amateur", suppression: "Unreliable" }
+    { id: "gustavo", name: "Gustavo Diaz", cut: 8, skill: "★★★★ Elite", suppression: "Complete Control" },
+    { id: "packie", name: "Packie McReary", cut: 6, skill: "★★★ Skilled", suppression: "Heavy Fire Cover" },
+    { id: "norm", name: "Local Muscle", cut: 3, skill: "★ Budget", suppression: "Unreliable" }
   ]
 };
 
@@ -4660,50 +4671,105 @@ let selectedGunmanId = "gustavo";
 let currentGrossTake = 1750000;
 
 function initHeistCalculator() {
-  const targetSelect = document.getElementById("heistTargetSelect");
-  if (!targetSelect) return;
-
-  // Populate Target Select
-  targetSelect.innerHTML = heistTargets.map(t => 
-    `<option value="${t.id}" ${t.id === selectedHeistTargetId ? 'selected' : ''}>${t.name} (${t.category})</option>`
-  ).join("");
-
-  // Populate Approach Buttons
-  const approachContainer = document.getElementById("heistApproachContainer");
-  if (approachContainer) {
-    approachContainer.innerHTML = heistApproaches.map(a => `
-      <div class="heist-approach-card ${a.id === selectedApproachId ? 'active' : ''}" data-approach="${a.id}">
-        <span class="approach-icon">${a.icon}</span>
-        <span class="approach-title">${a.name}</span>
-        <span class="approach-sub">${a.speedModifier}</span>
-      </div>
-    `).join("");
-  }
-
-  // Populate Crew Selectors
-  const driverSelect = document.getElementById("heistDriverSelect");
-  if (driverSelect) {
-    driverSelect.innerHTML = crewMembers.drivers.map(d => 
-      `<option value="${d.id}" ${d.id === selectedDriverId ? 'selected' : ''}>${d.name}</option>`
-    ).join("");
-  }
-
-  const hackerSelect = document.getElementById("heistHackerSelect");
-  if (hackerSelect) {
-    hackerSelect.innerHTML = crewMembers.hackers.map(h => 
-      `<option value="${h.id}" ${h.id === selectedHackerId ? 'selected' : ''}>${h.name}</option>`
-    ).join("");
-  }
-
-  const gunmanSelect = document.getElementById("heistGunmanSelect");
-  if (gunmanSelect) {
-    gunmanSelect.innerHTML = crewMembers.gunmen.map(g => 
-      `<option value="${g.id}" ${g.id === selectedGunmanId ? 'selected' : ''}>${g.name}</option>`
-    ).join("");
-  }
-
+  renderHeistTargets();
+  renderHeistApproaches();
+  renderCrewMembers();
   syncHeistSliderWithTarget();
   updateHeistCalculations();
+}
+
+function renderHeistTargets() {
+  const grid = document.getElementById("heistTargetsGrid");
+  if (!grid) return;
+  grid.innerHTML = heistTargets.map(t => {
+    const isSel = t.id === selectedHeistTargetId;
+    return [
+      '<div class="heist-target-card ' + (isSel ? 'active' : '') + '" data-target-id="' + t.id + '">',
+      '  <div class="target-card-top">',
+      '    <span class="target-icon">' + t.icon + '</span>',
+      '    <span class="target-tier-pill" style="color:' + t.tagColor + '; border-color:' + t.tagColor + '55; background:' + t.tagColor + '18;">' + escapeHtml(t.category) + '</span>',
+      '  </div>',
+      '  <div class="target-title">' + escapeHtml(t.name) + '</div>',
+      '  <div class="target-payout-range">💰 $' + t.baseTakeMin.toLocaleString() + ' &ndash; $' + t.baseTakeMax.toLocaleString() + '</div>',
+      '  <div class="target-card-footer">',
+      '    <span>' + t.difficulty + ' &bull; ' + t.timeEst + '</span>',
+      '    <span class="target-card-btn">' + (isSel ? '✓ SELECTED' : 'SELECT') + '</span>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+  }).join('\n');
+}
+
+function renderHeistApproaches() {
+  const container = document.getElementById("heistApproachContainer");
+  if (!container) return;
+  container.innerHTML = heistApproaches.map(a => {
+    const isSel = a.id === selectedApproachId;
+    const tagClass = a.id === "stealth" ? "tag-stealth" : (a.id === "aggressive" ? "tag-loud" : "tag-subterfuge");
+    const badgeText = a.id === "stealth" ? "LOW HEAT (-1★)" : (a.id === "aggressive" ? "HIGH HEAT (+1★)" : "BALANCED RISK");
+    return [
+      '<div class="heist-approach-card ' + (isSel ? 'active' : '') + '" data-approach="' + a.id + '">',
+      '  <span class="approach-icon">' + a.icon + '</span>',
+      '  <span class="approach-title">' + escapeHtml(a.name) + '</span>',
+      '  <span class="approach-tag ' + tagClass + '">' + badgeText + '</span>',
+      '</div>'
+    ].join('\n');
+  }).join('\n');
+}
+
+function renderCrewMembers() {
+  const driversRow = document.getElementById("crewDriversRow");
+  if (driversRow) {
+    driversRow.innerHTML = crewMembers.drivers.map(d => [
+      '<div class="crew-card ' + (d.id === selectedDriverId ? 'active' : '') + '" data-role="drivers" data-id="' + d.id + '">',
+      '  <div class="crew-card-title">' + escapeHtml(d.name) + '</div>',
+      '  <div class="crew-card-stats">',
+      '    <span class="crew-cut-badge">' + d.cut + '% CUT</span>',
+      '    <span class="crew-skill-badge">' + d.skill + '</span>',
+      '  </div>',
+      '</div>'
+    ].join('\n')).join('\n');
+  }
+
+  const hackersRow = document.getElementById("crewHackersRow");
+  if (hackersRow) {
+    hackersRow.innerHTML = crewMembers.hackers.map(h => [
+      '<div class="crew-card ' + (h.id === selectedHackerId ? 'active' : '') + '" data-role="hackers" data-id="' + h.id + '">',
+      '  <div class="crew-card-title">' + escapeHtml(h.name) + '</div>',
+      '  <div class="crew-card-stats">',
+      '    <span class="crew-cut-badge">' + h.cut + '% CUT</span>',
+      '    <span class="crew-skill-badge">' + h.skill + '</span>',
+      '  </div>',
+      '</div>'
+    ].join('\n')).join('\n');
+  }
+
+  const gunmenRow = document.getElementById("crewGunmenRow");
+  if (gunmenRow) {
+    gunmenRow.innerHTML = crewMembers.gunmen.map(g => [
+      '<div class="crew-card ' + (g.id === selectedGunmanId ? 'active' : '') + '" data-role="gunmen" data-id="' + g.id + '">',
+      '  <div class="crew-card-title">' + escapeHtml(g.name) + '</div>',
+      '  <div class="crew-card-stats">',
+      '    <span class="crew-cut-badge">' + g.cut + '% CUT</span>',
+      '    <span class="crew-skill-badge">' + g.skill + '</span>',
+      '  </div>',
+      '</div>'
+    ].join('\n')).join('\n');
+  }
+
+  // Update Indicator Names in Headers
+  const dActive = crewMembers.drivers.find(d => d.id === selectedDriverId);
+  const hActive = crewMembers.hackers.find(h => h.id === selectedHackerId);
+  const gActive = crewMembers.gunmen.find(g => g.id === selectedGunmanId);
+
+  const actDriver = document.getElementById("activeDriverName");
+  if (actDriver && dActive) actDriver.innerText = dActive.name + ' (' + dActive.cut + '% Cut)';
+
+  const actHacker = document.getElementById("activeHackerName");
+  if (actHacker && hActive) actHacker.innerText = hActive.name + ' (' + hActive.cut + '% Cut)';
+
+  const actGunman = document.getElementById("activeGunmanName");
+  if (actGunman && gActive) actGunman.innerText = gActive.name + ' (' + gActive.cut + '% Cut)';
 }
 
 function syncHeistSliderWithTarget() {
@@ -4742,8 +4808,8 @@ function updateHeistCalculations() {
 
   // Bag damage risk calculated from approach + gunman skill modifier
   let bagDamagePct = approach.bagDamageRisk;
-  if (gunman.skill === "Elite") bagDamagePct = Math.max(1, bagDamagePct - 3);
-  else if (gunman.skill === "Amateur") bagDamagePct += 5;
+  if (gunman.id === "gustavo") bagDamagePct = Math.max(1, bagDamagePct - 3);
+  else if (gunman.id === "norm") bagDamagePct += 5;
 
   // Exact dollar amounts
   const driverCutAmt = Math.round(grossTake * (driverCutPct / 100));
@@ -4761,7 +4827,7 @@ function updateHeistCalculations() {
 
   // Police Heat Calculation (1 to 5 stars)
   let calculatedHeat = target.heatBase + approach.heatModifier;
-  if (driver.skill === "Amateur") calculatedHeat += 1;
+  if (driver.id === "clay") calculatedHeat += 1;
   calculatedHeat = Math.max(1, Math.min(5, calculatedHeat));
 
   // DOM Updates
@@ -4777,9 +4843,6 @@ function updateHeistCalculations() {
   const jasonDisp = document.getElementById("jasonShareDisplay");
   if (jasonDisp) jasonDisp.innerText = "$" + jasonShare.toLocaleString();
 
-  const timeDisp = document.getElementById("heistTimeDisplay");
-  if (timeDisp) timeDisp.innerText = target.timeEst;
-
   // Update Ledger table
   const ledgerGross = document.getElementById("ledgerGross");
   if (ledgerGross) ledgerGross.innerText = "$" + grossTake.toLocaleString();
@@ -4790,21 +4853,21 @@ function updateHeistCalculations() {
   const ledgerDriver = document.getElementById("ledgerDriver");
   const ledgerDriverLabel = document.getElementById("ledgerDriverLabel");
   if (ledgerDriver && ledgerDriverLabel) {
-    ledgerDriverLabel.innerText = `Driver Cut (${driverCutPct}%)`;
+    ledgerDriverLabel.innerText = 'Driver Cut (' + driverCutPct + '%)';
     ledgerDriver.innerText = "-$" + driverCutAmt.toLocaleString();
   }
 
   const ledgerHacker = document.getElementById("ledgerHacker");
   const ledgerHackerLabel = document.getElementById("ledgerHackerLabel");
   if (ledgerHacker && ledgerHackerLabel) {
-    ledgerHackerLabel.innerText = `Hacker Cut (${hackerCutPct}%)`;
+    ledgerHackerLabel.innerText = 'Hacker Cut (' + hackerCutPct + '%)';
     ledgerHacker.innerText = "-$" + hackerCutAmt.toLocaleString();
   }
 
   const ledgerGunman = document.getElementById("ledgerGunman");
   const ledgerGunmanLabel = document.getElementById("ledgerGunmanLabel");
   if (ledgerGunman && ledgerGunmanLabel) {
-    ledgerGunmanLabel.innerText = `Gunman Cut (${gunmanCutPct}%)`;
+    ledgerGunmanLabel.innerText = 'Gunman Cut (' + gunmanCutPct + '%)';
     ledgerGunman.innerText = "-$" + gunmanCutAmt.toLocaleString();
   }
 
@@ -4814,12 +4877,13 @@ function updateHeistCalculations() {
   const ledgerDamage = document.getElementById("ledgerDamage");
   const ledgerDamageLabel = document.getElementById("ledgerDamageLabel");
   if (ledgerDamage && ledgerDamageLabel) {
-    ledgerDamageLabel.innerText = `Police Fire Bag Loss (${bagDamagePct}%)`;
+    ledgerDamageLabel.innerText = 'Police Fire Bag Loss (' + bagDamagePct + '%)';
     ledgerDamage.innerText = "-$" + bagDamageAmt.toLocaleString();
   }
 
   // Update Heat Stars
   const starsContainer = document.getElementById("heistHeatStars");
+  const heatStatus = document.getElementById("heatStatusText");
   if (starsContainer) {
     let starsHtml = "";
     for (let i = 1; i <= 5; i++) {
@@ -4827,7 +4891,17 @@ function updateHeistCalculations() {
         ? '<span class="star-active">★</span>' 
         : '<span class="star-inactive">★</span>';
     }
-    starsContainer.innerHTML = starsHtml + ` <span style="font-size:0.75rem; font-weight:700; color:${calculatedHeat >= 4 ? '#e11d48' : '#f59e0b'}; margin-left:6px;">${calculatedHeat} STARS</span>`;
+    starsContainer.innerHTML = starsHtml;
+  }
+  if (heatStatus) {
+    const heatLabels = {
+      1: "1 Star • Low Local Patrol",
+      2: "2 Stars • County Deputies",
+      3: "3 Stars • Highway Pursuit & Chopper",
+      4: "4 Stars • State Tactical SWAT",
+      5: "5 Stars • NOOSE & Military Barricades"
+    };
+    heatStatus.innerText = heatLabels[calculatedHeat] || (calculatedHeat + ' Stars Response');
   }
 
   // Update Map Target Box
@@ -4835,18 +4909,18 @@ function updateHeistCalculations() {
   if (targetMapName) targetMapName.innerText = target.locationName;
 
   const targetMapGps = document.getElementById("heistTargetMapGps");
-  if (targetMapGps) targetMapGps.innerText = `GPS: ${target.gps} • ${target.category}`;
+  if (targetMapGps) targetMapGps.innerText = 'GPS: ' + target.gps;
 
   const teleportBtn = document.getElementById("btnHeistTeleport");
   if (teleportBtn) {
     teleportBtn.onclick = () => jumpToHeistLocation(target.markerId);
-    teleportBtn.title = `Teleport to ${target.locationName} on Map`;
+    teleportBtn.title = 'Teleport to ' + target.locationName + ' on Map';
   }
 
   // Update Escape Route
   const escapeRouteText = document.getElementById("heistEscapeRoute");
   if (escapeRouteText) {
-    escapeRouteText.innerHTML = `${escapeHtml(target.escapeRoute)} <strong>Recommended Vehicle:</strong> ${escapeHtml(target.recommendedEscape)} (${escapeHtml(driver.vehicle)}).`;
+    escapeRouteText.innerHTML = escapeHtml(target.escapeRoute) + ' <strong>Recommended Vehicle:</strong> ' + escapeHtml(target.recommendedEscape) + ' (' + escapeHtml(driver.vehicle) + ').';
   }
 }
 
@@ -4857,7 +4931,7 @@ function jumpToHeistLocation(markerId) {
   const target = heistTargets.find(t => t.markerId === markerId);
   const title = marker ? marker.title : (target ? target.name : "Heist Objective");
 
-  triggerToast(`Locating ${title} on Interactive Map...`);
+  triggerToast('Locating ' + title + ' on Interactive Map...');
 
   if (activeView !== "map") {
     switchView("map", true);
@@ -4879,17 +4953,17 @@ function jumpToHeistLocation(markerId) {
 
     setTimeout(() => {
       const color = "#e11d48";
-      const popupHtml = `
-        <div class="popup-tag-badge" style="background:${color}22; color:${color}; border:1px solid ${color}55;">
-          🎯 ROBBERY & HEIST TARGET
-        </div>
-        <div class="popup-title">${escapeHtml(marker.title)}</div>
-        <div class="popup-region">GPS: [${marker.lat.toFixed(5)}, ${marker.lng.toFixed(5)}]</div>
-        <div style="margin: 8px 0; padding: 7px 11px; background: rgba(16, 185, 129, 0.16); border-left: 3px solid #10b981; border-radius: 4px; font-size: 0.78rem; color: #fff;">
-          <strong>💰 Estimated Yield:</strong> $${(target ? target.baseTakeMin.toLocaleString() : "100,000")} &ndash; $${(target ? target.baseTakeMax.toLocaleString() : "1,000,000")}
-        </div>
-        <p class="popup-desc">${escapeHtml(marker.desc || 'High-value robbery and heist objective in greater Leonida.')}</p>
-      `;
+      const popupHtml = [
+        '<div class="popup-tag-badge" style="background:' + color + '22; color:' + color + '; border:1px solid ' + color + '55;">',
+        '  🎯 ROBBERY &amp; HEIST TARGET',
+        '</div>',
+        '<div class="popup-title">' + escapeHtml(marker.title) + '</div>',
+        '<div class="popup-region">GPS: [' + marker.lat.toFixed(5) + ', ' + marker.lng.toFixed(5) + ']</div>',
+        '<div style="margin: 8px 0; padding: 7px 11px; background: rgba(16, 185, 129, 0.16); border-left: 3px solid #10b981; border-radius: 4px; font-size: 0.78rem; color: #fff;">',
+        '  <strong>💰 Estimated Yield:</strong> $' + (target ? target.baseTakeMin.toLocaleString() : "100,000") + ' &ndash; $' + (target ? target.baseTakeMax.toLocaleString() : "1,000,000"),
+        '</div>',
+        '<p class="popup-desc">' + escapeHtml(marker.desc || 'High-value robbery and heist objective in greater Leonida.') + '</p>'
+      ].join('\n');
 
       L.popup()
         .setLatLng([marker.lat, marker.lng])
@@ -4902,16 +4976,21 @@ function jumpToHeistLocation(markerId) {
 window.jumpToHeistLocation = jumpToHeistLocation;
 
 function setupHeistEvents() {
-  const targetSelect = document.getElementById("heistTargetSelect");
-  if (targetSelect) {
-    targetSelect.addEventListener("change", (e) => {
-      selectedHeistTargetId = e.target.value;
+  // Target cards event delegation
+  const targetGrid = document.getElementById("heistTargetsGrid");
+  if (targetGrid) {
+    targetGrid.addEventListener("click", (e) => {
+      const card = e.target.closest(".heist-target-card");
+      if (!card) return;
+      selectedHeistTargetId = card.dataset.targetId;
+      renderHeistTargets();
       syncHeistSliderWithTarget();
       updateHeistCalculations();
       playUiSound("click");
     });
   }
 
+  // Loot Slider
   const slider = document.getElementById("heistTakeSlider");
   if (slider) {
     slider.addEventListener("input", (e) => {
@@ -4920,43 +4999,38 @@ function setupHeistEvents() {
     });
   }
 
+  // Approach cards event delegation
   const approachContainer = document.getElementById("heistApproachContainer");
   if (approachContainer) {
     approachContainer.addEventListener("click", (e) => {
       const card = e.target.closest(".heist-approach-card");
       if (!card) return;
-      document.querySelectorAll(".heist-approach-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
       selectedApproachId = card.dataset.approach;
+      renderHeistApproaches();
       updateHeistCalculations();
       playUiSound("click");
     });
   }
 
-  const driverSelect = document.getElementById("heistDriverSelect");
-  if (driverSelect) {
-    driverSelect.addEventListener("change", (e) => {
-      selectedDriverId = e.target.value;
-      updateHeistCalculations();
-      playUiSound("click");
-    });
-  }
+  // Crew cards event delegation
+  const handleCrewClick = (containerId, roleKey) => {
+    const row = document.getElementById(containerId);
+    if (!row) return;
+    row.addEventListener("click", (e) => {
+      const card = e.target.closest(".crew-card");
+      if (!card) return;
+      const id = card.dataset.id;
+      if (roleKey === "drivers") selectedDriverId = id;
+      else if (roleKey === "hackers") selectedHackerId = id;
+      else if (roleKey === "gunmen") selectedGunmanId = id;
 
-  const hackerSelect = document.getElementById("heistHackerSelect");
-  if (hackerSelect) {
-    hackerSelect.addEventListener("change", (e) => {
-      selectedHackerId = e.target.value;
+      renderCrewMembers();
       updateHeistCalculations();
       playUiSound("click");
     });
-  }
+  };
 
-  const gunmanSelect = document.getElementById("heistGunmanSelect");
-  if (gunmanSelect) {
-    gunmanSelect.addEventListener("change", (e) => {
-      selectedGunmanId = e.target.value;
-      updateHeistCalculations();
-      playUiSound("click");
-    });
-  }
+  handleCrewClick("crewDriversRow", "drivers");
+  handleCrewClick("crewHackersRow", "hackers");
+  handleCrewClick("crewGunmenRow", "gunmen");
 }
