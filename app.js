@@ -3992,16 +3992,20 @@ function renderWeapons() {
     const isPocket = w.carry === "pocket";
     const carryClass = isPocket ? "carry-pocket" : "carry-trunk";
     const carryIcon = isPocket ? "⚡" : "🧰";
+    const imgUrl = w.image || `/assets/weapons/${w.id}.jpg`;
     return `
       <article class="weapon-card">
+        <div class="weapon-image-container">
+          <img class="weapon-image-photo" src="${imgUrl}" alt="${escapeHtml(w.name)}" loading="lazy" onerror="this.onerror=null; this.src='/assets/weapons/default_weapon.jpg';" />
+          <div class="weapon-image-overlay"></div>
+          <span class="weapon-cat-badge">${escapeHtml(w.catLabel)}</span>
+          <span class="weapon-carry-badge ${carryClass}">
+            <span>${carryIcon}</span>
+            <span>${escapeHtml(w.carryLabel)}</span>
+          </span>
+        </div>
+
         <div class="weapon-card-top">
-          <div class="weapon-badge-row">
-            <span class="weapon-cat-badge">${escapeHtml(w.catLabel)}</span>
-            <span class="weapon-carry-badge ${carryClass}">
-              <span>${carryIcon}</span>
-              <span>${escapeHtml(w.carryLabel)}</span>
-            </span>
-          </div>
           <h3 class="weapon-title">${escapeHtml(w.name)}</h3>
           <p class="weapon-archetype">Real-World Base: <strong>${escapeHtml(w.inspo)}</strong></p>
         </div>

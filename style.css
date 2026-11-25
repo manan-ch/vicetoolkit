@@ -4505,3 +4505,57 @@ input, select, textarea, button {
     padding: 18px 16px;
   }
 }
+
+
+/* Tactical Weapon Card Visual Presentation */
+.weapon-image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  background: #141821;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weapon-image-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weapon-card:hover .weapon-image-photo {
+  transform: scale(1.05);
+}
+
+.weapon-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.55) 100%);
+  pointer-events: none;
+}
+
+.weapon-image-container .weapon-cat-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.weapon-image-container .weapon-carry-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .weapon-image-container {
+    height: 160px;
+  }
+}
