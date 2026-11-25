@@ -8,7 +8,7 @@
 const cheatsData = [
   {
     id: "cash-250-000",
-    title: "$250,000 Liquid Currency",
+        title: "$250,000 Liquid Currency",
     category: "money",
     desc: "Instantly gives you $250,000",
     unlock: "Make $250,000 from fenced goods",
@@ -3506,6 +3506,7 @@ function triggerToast(msg) {
 const weaponsDatabase = [
   {
     id: "klose-k17",
+    image: "/assets/weapons/klose-k17.jpg",
     name: "Klose K17",
     category: "handguns",
     catLabel: "Handgun",
@@ -3524,6 +3525,7 @@ const weaponsDatabase = [
   },
   {
     id: "girardi-es9",
+    image: "/assets/weapons/girardi-es9.jpg",
     name: "Girardi ES9",
     category: "handguns",
     catLabel: "Handgun",
@@ -3542,6 +3544,7 @@ const weaponsDatabase = [
   },
   {
     id: "duke-mustang-357",
+    image: "/assets/weapons/duke-mustang-357.jpg",
     name: "Duke Mustang .357",
     category: "handguns",
     catLabel: "Revolver",
@@ -3560,6 +3563,7 @@ const weaponsDatabase = [
   },
   {
     id: "hawk-little-morgan",
+    image: "/assets/weapons/hawk-little-morgan.jpg",
     name: "Hawk & Little Morgan",
     category: "handguns",
     catLabel: "Heavy Revolver",
@@ -3578,6 +3582,7 @@ const weaponsDatabase = [
   },
   {
     id: "coil-shocker",
+    image: "/assets/weapons/coil-shocker.jpg",
     name: "Coil Shocker",
     category: "handguns",
     catLabel: "Non-Lethal",
@@ -3596,6 +3601,7 @@ const weaponsDatabase = [
   },
   {
     id: "vom-feuer-vf5",
+    image: "/assets/weapons/vom-feuer-vf5.jpg",
     name: "Vom Feuer VF5",
     category: "smgs",
     catLabel: "Submachine Gun",
@@ -3614,6 +3620,7 @@ const weaponsDatabase = [
   },
   {
     id: "wortham-w10",
+    image: "/assets/weapons/wortham-w10.jpg",
     name: "Wortham W-10",
     category: "smgs",
     catLabel: "Machine Pistol",
@@ -3632,6 +3639,7 @@ const weaponsDatabase = [
   },
   {
     id: "adb-pd90",
+    image: "/assets/weapons/adb-pd90.jpg",
     name: "ADB PD-90",
     category: "smgs",
     catLabel: "Bullpup PDW",
@@ -3650,6 +3658,7 @@ const weaponsDatabase = [
   },
   {
     id: "duke-556",
+    image: "/assets/weapons/duke-556.jpg",
     name: "Duke 556 Carbine",
     category: "rifles",
     catLabel: "Assault Rifle",
@@ -3668,6 +3677,7 @@ const weaponsDatabase = [
   },
   {
     id: "kozlov-kz59",
+    image: "/assets/weapons/kozlov-kz59.jpg",
     name: "Kozlov KZ-59",
     category: "rifles",
     catLabel: "Assault Rifle",
@@ -3686,6 +3696,7 @@ const weaponsDatabase = [
   },
   {
     id: "adb-fra",
+    image: "/assets/weapons/adb-fra.jpg",
     name: "ADB FRA Tactical",
     category: "rifles",
     catLabel: "Combat Rifle",
@@ -3704,6 +3715,7 @@ const weaponsDatabase = [
   },
   {
     id: "fortune-moreland-850",
+    image: "/assets/weapons/fortune-moreland-850.jpg",
     name: "Moreland 850",
     category: "shotguns",
     catLabel: "Pump Shotgun",
@@ -3722,6 +3734,7 @@ const weaponsDatabase = [
   },
   {
     id: "girardi-az1200",
+    image: "/assets/weapons/girardi-az1200.jpg",
     name: "Girardi AZ1200",
     category: "shotguns",
     catLabel: "Combat Shotgun",
@@ -3740,6 +3753,7 @@ const weaponsDatabase = [
   },
   {
     id: "goodwin-comshot-12",
+    image: "/assets/weapons/goodwin-comshot-12.jpg",
     name: "Goodwin Comshot 12",
     category: "shotguns",
     catLabel: "Sawed-Off Shotgun",
@@ -3758,6 +3772,7 @@ const weaponsDatabase = [
   },
   {
     id: "fairview-ff50",
+    image: "/assets/weapons/fairview-ff50.jpg",
     name: "Fairview FF-50 Anti-Materiel",
     category: "snipers",
     catLabel: "Heavy Sniper",
@@ -3776,6 +3791,7 @@ const weaponsDatabase = [
   },
   {
     id: "wortham-w22",
+    image: "/assets/weapons/wortham-w22.jpg",
     name: "Wortham W-22 Marksman",
     category: "snipers",
     catLabel: "Marksman Rifle",
@@ -3794,6 +3810,7 @@ const weaponsDatabase = [
   },
   {
     id: "goodwin-lmg6",
+    image: "/assets/weapons/goodwin-lmg6.jpg",
     name: "Goodwin LMG 6",
     category: "heavy",
     catLabel: "Squad LMG",
@@ -3812,6 +3829,7 @@ const weaponsDatabase = [
   },
   {
     id: "hillinger-boomer",
+    image: "/assets/weapons/hillinger-boomer.jpg",
     name: "Hillinger Boomer RPG",
     category: "heavy",
     catLabel: "Rocket Launcher",
@@ -3830,6 +3848,7 @@ const weaponsDatabase = [
   },
   {
     id: "deever-glr40",
+    image: "/assets/weapons/deever-glr40.jpg",
     name: "Deever Tech GLR40",
     category: "heavy",
     catLabel: "Grenade Launcher",
@@ -3848,6 +3867,7 @@ const weaponsDatabase = [
   },
   {
     id: "arras-bullhead",
+    image: "/assets/weapons/arras-bullhead.jpg",
     name: "Arras Bullhead Speargun",
     category: "heavy",
     catLabel: "Harpoon / Stealth",
@@ -3866,6 +3886,7 @@ const weaponsDatabase = [
   },
   {
     id: "combat-knife",
+    image: "/assets/weapons/combat-knife.jpg",
     name: "Serrated Combat Knife",
     category: "melee",
     catLabel: "Melee",
@@ -3884,6 +3905,7 @@ const weaponsDatabase = [
   },
   {
     id: "baseball-bat",
+    image: "/assets/weapons/baseball-bat.jpg",
     name: "Alloy Slugger Bat",
     category: "melee",
     catLabel: "Melee",
@@ -3902,6 +3924,7 @@ const weaponsDatabase = [
   },
   {
     id: "m67-frag-grenade",
+    image: "/assets/weapons/m67-frag-grenade.jpg",
     name: "M67 Frag Grenade",
     category: "throwables",
     catLabel: "Throwable",
@@ -3920,6 +3943,7 @@ const weaponsDatabase = [
   },
   {
     id: "molotov-cocktail",
+    image: "/assets/weapons/molotov-cocktail.jpg",
     name: "Vintage Molotov Cocktail",
     category: "throwables",
     catLabel: "Throwable Incendiary",
