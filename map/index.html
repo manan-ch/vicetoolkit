@@ -392,16 +392,37 @@
     </div>
   </section>
 
-  <!-- =========================================================================
-       VIEW 2: INTERACTIVE MAP (LEAFLET GOOGLE-MAPS ENGINE)
+    <!-- =========================================================================
+       VIEW: INTERACTIVE LEAFLET MAP (ULTRA PRO AAA REDESIGN)
        ========================================================================= -->
   <section class="app-view active" id="view-map">
     <div class="view-container">
-      <div class="view-header map-view-header">
-        <h1 class="view-heading">GTA 6 Interactive Map</h1>
-        <p class="view-description">
+      <div class="weapons-editorial-header">
+        <span class="view-breadcrumbs">Cartography / Leonida Satellite GIS / Live Navigation</span>
+        <h1 class="vehicles-main-title">GTA 6 Interactive Map</h1>
+        <p class="vehicles-lead-subhead">
           Authentic in-game cartography covering all 2,532 confirmed locations, weapon caches, stunt jumps, vehicles, and activities across Vice City and greater Leonida.
         </p>
+
+        <!-- Technical Telemetry HUD Metrics (Matching Weapons/Vehicles Pages) -->
+        <div class="weapons-metrics-hud">
+          <div class="hud-stat-box">
+            <span class="stat-number">2,532</span>
+            <span class="stat-label">Confirmed Waypoints</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: #059669;">8 Categories</span>
+            <span class="stat-label">Tactical Filter Layers</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: var(--accent-primary);" id="hudCompletedCount">0 Found</span>
+            <span class="stat-label">Discovered Waypoints</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number" style="color: #0284c7;">100% Live</span>
+            <span class="stat-label">Leonida Satellite GIS</span>
+          </div>
+        </div>
       </div>
 
       <!-- Map Live Marker Search Bar & Tool Actions -->
@@ -440,102 +461,118 @@
         </div>
       </div>
 
-      <!-- Mobile Filter Toggle Button for Small Screens -->
+      <!-- Mobile Filter Drawer Toggle Button -->
       <button class="mobile-map-drawer-btn" id="mobileMapDrawerBtn">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
         </svg>
-        <span id="mobileMapDrawerBtnText">Filter 2,532 Waypoints &amp; Categories (Tap to Open)</span>
+        <span id="mobileMapDrawerBtnText">Filter Layers &amp; Districts (Tap to Open)</span>
       </button>
 
-      <div class="map-page-layout">
-        <!-- Control Sidebar (IGN Architecture Replica) -->
-        <div class="map-control-panel">
-          <!-- IGN Style Header & Progress Widget -->
+      <!-- Main Map Page Layout -->
+      <div class="map-page-layout" id="mapPageLayout">
+        <!-- Control Sidebar (Interactive Tactical Hub) -->
+        <div class="map-control-panel" id="mapControlPanel">
+          
+          <!-- 100% Completion Checklist Widget -->
           <div class="progress-widget-box">
             <div class="progress-header">
-              <span class="progress-title">Completion Tracker</span>
-              <span class="progress-percent-val" id="mapProgressText">0%</span>
+              <div class="progress-title-wrap">
+                <span class="progress-title">🎯 100% Leonida Checklist</span>
+                <span class="progress-percent-val" id="mapProgressText">0%</span>
+              </div>
+              <button type="button" class="progress-reset-btn" id="btnResetProgress" title="Reset your discovered waypoints">↺ Reset</button>
             </div>
             <div class="progress-track-bar">
-              <div class="progress-fill-bar" id="mapProgressFill"></div>
+              <div class="progress-fill-bar" id="mapProgressFill" style="width: 0%;"></div>
             </div>
             <div class="progress-counter-row">
-              <span id="mapCompletedCount">Completed: <strong>0</strong></span>
-              <span id="mapIncompletedCount">Incomplete: <strong>2,532</strong></span>
+              <span id="mapCompletedCount">Found: <strong>0</strong></span>
+              <span id="mapIncompletedCount">Remaining: <strong>2,532</strong></span>
+            </div>
+            <div class="progress-help-tip">
+              💡 <em>Click any pin on the map &amp; press <strong>"Mark as Discovered"</strong> to log your collection!</em>
             </div>
           </div>
 
-          <!-- Quick Action Buttons -->
+          <!-- Quick Bulk Actions -->
           <div class="ign-layer-actions">
-            <button class="btn-layer-toggle" id="btnShowAllLayers">Show All (2,532)</button>
-            <button class="btn-layer-toggle" id="btnHideAllLayers">Hide All</button>
+            <button class="btn-layer-toggle btn-select-all" id="btnShowAllLayers">✓ Show All (2,532)</button>
+            <button class="btn-layer-toggle btn-clear-all" id="btnHideAllLayers">✕ Hide All</button>
           </div>
 
-          <!-- Interactive Marker Categories (IGN GTA 6 Groups) -->
-          <div>
-            <span class="filter-category-heading">Filter Map Markers</span>
+          <!-- Interactive Marker Categories (Toggleable with live checkbox feedback) -->
+          <div class="filter-section-block">
+            <span class="filter-category-heading">Filter Map Markers (8 Layers)</span>
             <div class="pin-toggle-list" id="mapCategoryList">
               <div class="pin-toggle-item active" data-group="vehicles">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -180px -618px;" title="Vehicles"></span>
-                  <span>Standout Vehicles</span>
+                  <span class="pin-group-title">Standout Vehicles</span>
                 </div>
                 <span class="pin-count-badge">103</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="weapons">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -270px -558px;" title="Weapons"></span>
-                  <span>Ammu-Nation &amp; Weapons</span>
+                  <span class="pin-group-title">Ammu-Nation &amp; Weapons</span>
                 </div>
                 <span class="pin-count-badge">39</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="robberies">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: 0px -528px;" title="Robberies"></span>
-                  <span>Banks &amp; Robberies</span>
+                  <span class="pin-group-title">Banks &amp; Robberies</span>
                 </div>
                 <span class="pin-count-badge">386</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="stunts">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -632px -480px;" title="Stunts"></span>
-                  <span>Stunts &amp; Jumps</span>
+                  <span class="pin-group-title">Stunts &amp; Jumps</span>
                 </div>
                 <span class="pin-count-badge">397</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="safehouses">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -450px -528px;" title="Safehouses"></span>
-                  <span>Garages &amp; Safehouses</span>
+                  <span class="pin-group-title">Garages &amp; Safehouses</span>
                 </div>
                 <span class="pin-count-badge">102</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="collectibles">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -300px -618px;" title="Collectibles"></span>
-                  <span>Cards &amp; Collectibles</span>
+                  <span class="pin-group-title">Cards &amp; Collectibles</span>
                 </div>
                 <span class="pin-count-badge">227</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="gangs">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -480px -618px;" title="Gangs"></span>
-                  <span>Gang Syndicates</span>
+                  <span class="pin-group-title">Gang Syndicates</span>
                 </div>
                 <span class="pin-count-badge">40</span>
               </div>
 
               <div class="pin-toggle-item active" data-group="activities">
                 <div class="pin-label-group">
+                  <span class="pin-toggle-checkbox">✓</span>
                   <span class="cat-sprite-icon" style="background-position: -90px -558px;" title="Activities"></span>
-                  <span>Activities &amp; Hotspots</span>
+                  <span class="pin-group-title">Activities &amp; Hotspots</span>
                 </div>
                 <span class="pin-count-badge">1,238</span>
               </div>
@@ -543,10 +580,10 @@
           </div>
 
           <!-- Quick Teleport Waypoint Jump -->
-          <div>
-            <span class="filter-category-heading">Quick Sector Teleport</span>
+          <div class="filter-section-block">
+            <span class="filter-category-heading">📍 District Quick Teleport (7 Hotspots)</span>
             <div class="teleport-pills-grid" id="teleportPillsContainer">
-              <!-- Populated dynamically by app.js -->
+              <!-- Populated dynamically by app.js with district icons & live camera jump -->
             </div>
           </div>
         </div>
@@ -571,7 +608,7 @@
           <div class="waypoint-intel-drawer hidden" id="waypointIntelDrawer">
             <div class="drawer-header">
               <span class="drawer-sector-tag" id="drawerSectorTag">SECTOR INTEL</span>
-              <button class="drawer-close-btn" id="drawerCloseBtn">&times;</button>
+              <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close intel card">&times;</button>
             </div>
             <h3 class="drawer-title" id="drawerTitle">Location Name</h3>
             <p class="drawer-coords" id="drawerCoords">In-Game GPS: X: 0, Y: 0</p>

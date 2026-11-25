@@ -2619,6 +2619,7 @@ function executeCopy(title, text) {
 let markerClusterGroup = null;
 let activeMapGroups = new Set(["vehicles", "weapons", "robberies", "stunts", "safehouses", "collectibles", "gangs", "activities"]);
 let activeSelectedLocation = null;
+let mapFilterEventsInitialized = false;
 
 function initLeafletMap() {
   const mapElement = document.getElementById("leafletMapContainer");
@@ -2715,9 +2716,9 @@ function renderAllMapMarkers(query = "") {
     if (!activeMapGroups.has(m.group)) return;
 
     if (lowerQuery) {
-      const match = m.title.toLowerCase().includes(lowerQuery) ||
-                    m.catTitle.toLowerCase().includes(lowerQuery) ||
-                    m.desc.toLowerCase().includes(lowerQuery);
+      const match = (m.title && m.title.toLowerCase().includes(lowerQuery)) ||
+                    (m.catTitle && m.catTitle.toLowerCase().includes(lowerQuery)) ||
+                    (m.desc && m.desc.toLowerCase().includes(lowerQuery));
       if (!match) return;
     }
 
@@ -2745,7 +2746,7 @@ function renderAllMapMarkers(query = "") {
           <div class="popup-sprite-badge" style="background-position: -${m.sx}px -${m.sy}px;"></div>
           <div class="popup-title-meta">
             <span class="popup-category-badge" style="background:${color}22; color:${color}; border: 1px solid ${color}66;">
-              ${m.catTitle.toUpperCase()}
+              ${(m.catTitle || "LOCATION").toUpperCase()}
             </span>
             <h4 class="popup-name">${m.title}</h4>
           </div>
@@ -2779,16 +2780,16 @@ function toggleLocationFound(pinId) {
   if (discoveredPins.includes(numId)) {
     discoveredPins = discoveredPins.filter(id => id !== numId);
     playUiSound("click");
-    triggerToast("Location unmarked");
+    triggerToast("Waypoint unmarked");
   } else {
     discoveredPins.push(numId);
     playUiSound("pop");
-    triggerToast("Logged to Completion Tracker (+1)");
+    triggerToast("Logged to 100% Checklist (+1)");
   }
 
   localStorage.setItem("gta6_discovered_pins", JSON.stringify(discoveredPins));
   updateProgressTracker();
-  renderAllMapMarkers();
+  renderAllMapMarkers(document.getElementById("mapLocationSearch")?.value || "");
 }
 
 function updateProgressTracker() {
@@ -2800,11 +2801,13 @@ function updateProgressTracker() {
   const fillBar = document.getElementById("mapProgressFill");
   const compCount = document.getElementById("mapCompletedCount");
   const incompCount = document.getElementById("mapIncompletedCount");
+  const hudCount = document.getElementById("hudCompletedCount");
 
   if (textVal) textVal.innerText = `${percent}%`;
   if (fillBar) fillBar.style.width = `${percent}%`;
-  if (compCount) compCount.innerHTML = `Completed: <strong>${completed}</strong>`;
-  if (incompCount) incompCount.innerHTML = `Incomplete: <strong>${(total - completed).toLocaleString()}</strong>`;
+  if (compCount) compCount.innerHTML = `Found: <strong>${completed}</strong>`;
+  if (incompCount) incompCount.innerHTML = `Remaining: <strong>${(total - completed).toLocaleString()}</strong>`;
+  if (hudCount) hudCount.innerText = `${completed} Found`;
 }
 
 function renderTeleportPills() {
@@ -2812,11 +2815,22 @@ function renderTeleportPills() {
   if (!container) return;
   container.innerHTML = "";
 
+  const districtIcons = {
+    "loc-ocean-drive": "🏖️",
+    "loc-downtown": "🏙️",
+    "loc-starfish": "🌴",
+    "loc-escobar": "✈️",
+    "loc-port-gelhorn": "⚓",
+    "loc-little-haiti": "🎨",
+    "loc-malibu-club": "🍸"
+  };
+
   keyLocationsData.forEach(loc => {
     const btn = document.createElement("button");
+    const icon = districtIcons[loc.id] || "📍";
     btn.className = `teleport-pill-btn ${activeSelectedLocation?.id === loc.id ? 'active' : ''}`;
-    btn.innerText = loc.name.split("&")[0].trim();
-    btn.title = `${loc.name} (${loc.sector})`;
+    btn.innerHTML = `<span>${icon} ${loc.name.split("&")[0].trim()}</span>`;
+    btn.title = `Fly to ${loc.name} (${loc.sector})`;
 
     btn.addEventListener("click", () => {
       document.querySelectorAll(".teleport-pill-btn").forEach(b => b.classList.remove("active"));
@@ -2834,6 +2848,12 @@ function focusLocation(locId, animated = true) {
 
   activeSelectedLocation = loc;
   const targetZoom = 15;
+
+  // On smaller screens, scroll map container into view so user sees the camera flight
+  if (window.innerWidth <= 1024) {
+    const mapBox = document.getElementById("mapCanvasViewport");
+    if (mapBox) mapBox.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   if (animated) {
     leafletMap.flyTo([loc.mapGenieLat, loc.mapGenieLng], targetZoom, { duration: 1.0 });
@@ -2854,14 +2874,14 @@ function showWaypointDrawer(loc) {
   document.getElementById("drawerDesc").innerHTML = `
     ${loc.desc}<br><br>
     <strong>How to reach in-game:</strong> ${loc.howToReach}<br>
-    <span style="color:var(--text-dim);font-size:0.7rem;">Sector Archetype: ${loc.realWorld}</span>
+    <span style="color:var(--text-secondary);font-size:0.75rem;">Sector Archetype: ${loc.realWorld}</span>
   `;
 
   const copyBtn = document.getElementById("btnCopyGps");
   if (copyBtn) {
     copyBtn.onclick = () => {
       navigator.clipboard.writeText(`/waypoint ${loc.mapGenieLat}, ${loc.mapGenieLng}`).then(() => {
-        triggerToast(`Copied GPS Waypoint: ${loc.mapGenieLat}, ${loc.mapGenieLng}`);
+        triggerToast(`Copied GPS: ${loc.mapGenieLat}, ${loc.mapGenieLng}`);
       });
     };
   }
@@ -2887,37 +2907,76 @@ function setupMapTelemetry() {
 }
 
 function setupMapFilterEvents() {
+  // Prevent duplicate event listener bindings
+  if (mapFilterEventsInitialized) return;
+  mapFilterEventsInitialized = true;
+
+  // Category Filter Toggles
   document.querySelectorAll(".pin-toggle-item").forEach(item => {
     item.addEventListener("click", () => {
       const grp = item.dataset.group;
+      const checkbox = item.querySelector(".pin-toggle-checkbox");
       if (activeMapGroups.has(grp)) {
         activeMapGroups.delete(grp);
+        item.classList.remove("active");
         item.classList.add("inactive");
+        if (checkbox) checkbox.textContent = "";
       } else {
         activeMapGroups.add(grp);
+        item.classList.add("active");
         item.classList.remove("inactive");
+        if (checkbox) checkbox.textContent = "✓";
       }
       playUiSound("click");
-      renderAllMapMarkers();
+      const currentQuery = document.getElementById("mapLocationSearch")?.value || "";
+      renderAllMapMarkers(currentQuery);
     });
   });
 
+  // Bulk Show All Layers
   document.getElementById("btnShowAllLayers")?.addEventListener("click", () => {
     activeMapGroups = new Set(["vehicles", "weapons", "robberies", "stunts", "safehouses", "collectibles", "gangs", "activities"]);
-    document.querySelectorAll(".pin-toggle-item").forEach(i => i.classList.remove("inactive"));
+    document.querySelectorAll(".pin-toggle-item").forEach(i => {
+      i.classList.add("active");
+      i.classList.remove("inactive");
+      const cb = i.querySelector(".pin-toggle-checkbox");
+      if (cb) cb.textContent = "✓";
+    });
     playUiSound("click");
-    renderAllMapMarkers();
+    renderAllMapMarkers(document.getElementById("mapLocationSearch")?.value || "");
     triggerToast("Showing all 2,532 map markers");
   });
 
+  // Bulk Hide All Layers
   document.getElementById("btnHideAllLayers")?.addEventListener("click", () => {
     activeMapGroups.clear();
-    document.querySelectorAll(".pin-toggle-item").forEach(i => i.classList.add("inactive"));
+    document.querySelectorAll(".pin-toggle-item").forEach(i => {
+      i.classList.remove("active");
+      i.classList.add("inactive");
+      const cb = i.querySelector(".pin-toggle-checkbox");
+      if (cb) cb.textContent = "";
+    });
     playUiSound("click");
-    renderAllMapMarkers();
+    renderAllMapMarkers("");
     triggerToast("Hidden all markers");
   });
 
+  // Reset Checklist Progress
+  document.getElementById("btnResetProgress")?.addEventListener("click", () => {
+    if (discoveredPins.length === 0) {
+      triggerToast("Checklist is already at 0%");
+      return;
+    }
+    if (confirm("Reset your 100% discovered checklist to 0%?")) {
+      discoveredPins = [];
+      localStorage.removeItem("gta6_discovered_pins");
+      updateProgressTracker();
+      renderAllMapMarkers(document.getElementById("mapLocationSearch")?.value || "");
+      triggerToast("Checklist reset to 0%");
+    }
+  });
+
+  // Live Location Search Bar
   const searchInput = document.getElementById("mapLocationSearch");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
@@ -2939,16 +2998,16 @@ function setupMapFilterEvents() {
     });
   }
 
-  // Close map search dropdown when clicking outside
+  // Close search dropdown on click outside
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".map-gps-search-box")) {
       document.getElementById("mapSearchResults")?.classList.add("hidden");
     }
   });
 
-  // Toggle Map Sidebar (Wide-screen immersive mode)
+  // Toggle Map Sidebar
   const btnToggleSidebar = document.getElementById("btnToggleMapSidebar");
-  const mapLayout = document.querySelector(".map-page-layout");
+  const mapLayout = document.getElementById("mapPageLayout");
   const sidebarLabel = document.getElementById("sidebarToggleLabel");
   if (btnToggleSidebar && mapLayout) {
     btnToggleSidebar.addEventListener("click", () => {
@@ -2960,7 +3019,7 @@ function setupMapFilterEvents() {
       playUiSound("click");
       setTimeout(() => {
         if (leafletMap) leafletMap.invalidateSize(true);
-      }, 300);
+      }, 250);
       triggerToast(isHidden ? "Expanded to Full-Width Map view" : "Categories Sidebar restored");
     });
   }
@@ -2985,8 +3044,7 @@ function setupMapFilterEvents() {
 
   function toggleMapFullscreen() {
     if (!mapViewport) return;
-    mapViewport.classList.toggle("is-fullscreen");
-    const isFull = mapViewport.classList.contains("is-fullscreen");
+    const isFull = mapViewport.classList.toggle("is-fullscreen");
     if (btnExitFullscreen) {
       btnExitFullscreen.classList.toggle("hidden", !isFull);
     }
@@ -2997,6 +3055,7 @@ function setupMapFilterEvents() {
     setTimeout(() => {
       if (leafletMap) leafletMap.invalidateSize(true);
     }, 250);
+    triggerToast(isFull ? "Entered Fullscreen Map Mode" : "Exited Fullscreen");
   }
 
   if (btnMapFullscreen) {
@@ -3005,8 +3064,29 @@ function setupMapFilterEvents() {
   if (btnExitFullscreen) {
     btnExitFullscreen.addEventListener("click", toggleMapFullscreen);
   }
-}
 
+  // ESC key to exit fullscreen
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mapViewport && mapViewport.classList.contains("is-fullscreen")) {
+      toggleMapFullscreen();
+    }
+  });
+
+  // Mobile Drawer Toggle Button
+  const mobileDrawerBtn = document.getElementById("mobileMapDrawerBtn");
+  const controlPanel = document.getElementById("mapControlPanel");
+  if (mobileDrawerBtn && controlPanel) {
+    mobileDrawerBtn.addEventListener("click", () => {
+      controlPanel.classList.toggle("mobile-drawer-open");
+      const isOpen = controlPanel.classList.contains("mobile-drawer-open");
+      const btnText = document.getElementById("mobileMapDrawerBtnText");
+      if (btnText) {
+        btnText.textContent = isOpen ? "Close Filter Drawer (✕)" : "Filter Layers & Districts (Tap to Open)";
+      }
+      playUiSound("click");
+    });
+  }
+}
 function escapeHtml(str) {
   if (!str) return "";
   return String(str)
