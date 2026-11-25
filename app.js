@@ -2901,7 +2901,26 @@ function setupMapFilterEvents() {
       renderAllMapMarkers(q);
       handleMapSearchDropdown(q);
     });
+    searchInput.addEventListener("focus", (e) => {
+      if (e.target.value.trim()) {
+        handleMapSearchDropdown(e.target.value);
+      }
+    });
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const firstOption = document.querySelector("#mapSearchResults .search-item-option");
+        if (firstOption) firstOption.click();
+      }
+    });
   }
+
+  // Close map search dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".map-gps-search-box")) {
+      document.getElementById("mapSearchResults")?.classList.add("hidden");
+    }
+  });
 
   // Toggle Map Sidebar (Wide-screen immersive mode)
   const btnToggleSidebar = document.getElementById("btnToggleMapSidebar");
@@ -2964,6 +2983,16 @@ function setupMapFilterEvents() {
   }
 }
 
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function handleMapSearchDropdown(query) {
   const dropdown = document.getElementById("mapSearchResults");
   if (!dropdown) return;
@@ -2976,44 +3005,83 @@ function handleMapSearchDropdown(query) {
 
   const allLocs = window.LEONIDA_MARKERS || [];
   const matches = allLocs.filter(m => 
-    m.title.toLowerCase().includes(q) || 
-    m.catTitle.toLowerCase().includes(q)
+    (m.title && m.title.toLowerCase().includes(q)) || 
+    (m.catTitle && m.catTitle.toLowerCase().includes(q)) ||
+    (m.desc && m.desc.toLowerCase().includes(q))
   ).slice(0, 8);
 
   if (matches.length === 0) {
-    dropdown.innerHTML = `<div style="padding: 10px 14px; font-size: 0.8rem; color: var(--text-muted);">No locations found matching "${query}".</div>`;
+    dropdown.innerHTML = `
+      <div style="padding: 14px 16px; text-align: center; font-size: 0.82rem; color: var(--text-muted);">
+        No locations found matching "<strong>${escapeHtml(query)}</strong>".<br>
+        <span style="font-size:0.74rem; color:var(--text-dim);">Try searching: Bank, Ammu-Nation, Stunt, Airport, Cheetah...</span>
+      </div>
+    `;
     dropdown.classList.remove("hidden");
     return;
   }
 
-  dropdown.innerHTML = matches.map(m => `
-    <div class="search-item-option" onclick="selectSearchResult(${m.lat}, ${m.lng}, '${m.title.replace(/'/g, "\'")}', '${m.catTitle.replace(/'/g, "\'")}', '${m.desc.replace(/'/g, "\'")}')">
-      <div class="search-item-name">${m.title}</div>
-      <div class="search-item-sector">${m.catTitle.toUpperCase()} &bull; GPS: [${m.lat}, ${m.lng}]</div>
-    </div>
-  `).join("");
+  dropdown.innerHTML = matches.map(m => {
+    const color = getGroupBadgeColor(m.group || (m.catTitle ? m.catTitle.toLowerCase() : "default"));
+    const catName = m.catTitle || "LOCATION";
+    const gpsCoord = (m.lat && m.lng) ? `GPS: [${m.lat.toFixed(5)}, ${m.lng.toFixed(5)}]` : "";
+    return `
+      <div class="search-item-option" onclick="selectSearchResultById(${m.id})">
+        <div class="search-item-header">
+          <span class="search-item-name">${escapeHtml(m.title)}</span>
+          <span class="search-item-badge" style="background:${color}18; color:${color}; border:1px solid ${color}44;">
+            ${escapeHtml(catName)}
+          </span>
+        </div>
+        <div class="search-item-sector">
+          <span>📍 ${gpsCoord}</span>
+        </div>
+        ${m.desc ? `<div class="search-item-desc">${escapeHtml(m.desc)}</div>` : ''}
+      </div>
+    `;
+  }).join("");
 
   dropdown.classList.remove("hidden");
 }
 
-function selectSearchResult(lat, lng, title, catTitle, desc) {
-  document.getElementById("mapSearchResults")?.classList.add("hidden");
-  if (!leafletMap) return;
+function selectSearchResultById(id) {
+  const dropdown = document.getElementById("mapSearchResults");
+  if (dropdown) dropdown.classList.add("hidden");
 
-  leafletMap.flyTo([lat, lng], 16, { duration: 1.0 });
+  const allLocs = window.LEONIDA_MARKERS || [];
+  const marker = allLocs.find(m => m.id === id);
+  if (!marker || !leafletMap) return;
 
-  const color = getGroupBadgeColor(catTitle.toLowerCase());
-  const popupHtml = `
-    <div class="popup-tag-badge" style="background:${color}22; color:${color}; border:1px solid ${color}55;">
-      ${catTitle.toUpperCase()}
-    </div>
-    <div class="popup-title">${title}</div>
-    <div class="popup-region">GPS: [${lat}, ${lng}]</div>
-    <p class="popup-desc">${desc}</p>
-  `;
+  const searchInput = document.getElementById("mapLocationSearch");
+  if (searchInput) searchInput.value = marker.title;
 
-  L.popup().setLatLng([lat, lng]).setContent(popupHtml).openOn(leafletMap);
+  playUiSound("click");
+  triggerToast(`Navigating to ${marker.title}...`);
+
+  // Fly to location with smooth animation
+  leafletMap.flyTo([marker.lat, marker.lng], 16, { duration: 1.0 });
+
+  // Open popup after map arrives
+  setTimeout(() => {
+    const color = getGroupBadgeColor(marker.group || (marker.catTitle ? marker.catTitle.toLowerCase() : "default"));
+    const popupHtml = `
+      <div class="popup-tag-badge" style="background:${color}22; color:${color}; border:1px solid ${color}55;">
+        ${(marker.catTitle || "WAYPOINT").toUpperCase()}
+      </div>
+      <div class="popup-title">${escapeHtml(marker.title)}</div>
+      <div class="popup-region">GPS: [${marker.lat.toFixed(5)}, ${marker.lng.toFixed(5)}]</div>
+      <p class="popup-desc">${escapeHtml(marker.desc || 'Confirmed in-game waypoint across greater Leonida.')}</p>
+    `;
+
+    L.popup()
+      .setLatLng([marker.lat, marker.lng])
+      .setContent(popupHtml)
+      .openOn(leafletMap);
+  }, 950);
 }
+
+window.selectSearchResultById = selectSearchResultById;
+
 
 // --- VEHICLES VIEW ---
 function setupVehicleEvents() {
