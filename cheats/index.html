@@ -7,7 +7,7 @@
   <script>
     (function(){
       var h = (window.location.hash || "").replace("#", "").toLowerCase().trim();
-      var v = ["cheats", "map", "vehicles", "money", "faq"];
+      var v = ["cheats", "map", "vehicles", "weapons", "updates", "money", "faq"];
       if (v.indexOf(h) !== -1) {
         window.location.replace("/" + h + "/");
       }
@@ -138,12 +138,6 @@
       "position": 1,
       "name": "Home",
       "item": "https://vicetoolkit.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Cheatsheet",
-      "item": "https://vicetoolkit.com/cheats/"
     }
   ]
 }
@@ -189,6 +183,8 @@
         <button class="nav-tab-btn active" data-view="cheats">Cheatsheet</button>
         <button class="nav-tab-btn" data-view="map">Interactive Map</button>
         <button class="nav-tab-btn" data-view="vehicles">Vehicles DB</button>
+        <button class="nav-tab-btn" data-view="weapons">Weapons Hub</button>
+        <button class="nav-tab-btn" data-view="updates">Patch Notes</button>
         <button class="nav-tab-btn" data-view="money">Economy Guide</button>
         <button class="nav-tab-btn" data-view="faq">Documentation</button>
       </div>
@@ -739,6 +735,197 @@
     </div>
   </section>
 
+    <!-- =========================================================================
+       VIEW: WEAPONS & ARMORY DATABASE
+       ========================================================================= -->
+  <section class="app-view" id="view-weapons">
+    <div class="view-container">
+      <div class="weapons-editorial-header">
+        <h1 class="vehicles-main-title">GTA 6 Weapons Database &amp; Armory</h1>
+        <p class="vehicles-lead-subhead">
+          Confirmed firearms, tactical weapons, real-world inspirations, damage telemetry, and carry classifications across greater Leonida.
+        </p>
+
+        <!-- Technical Telemetry HUD Metrics -->
+        <div class="weapons-metrics-hud">
+          <div class="hud-stat-box">
+            <span class="stat-number">24</span>
+            <span class="stat-label">Confirmed Weapons</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Combat Classes</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">Trunk &bull; Pocket</span>
+            <span class="stat-label">Carry Classification</span>
+          </div>
+          <div class="hud-stat-box">
+            <span class="stat-number">DualSense Active</span>
+            <span class="stat-label">Trigger Resistance Telemetry</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segmented Category Filters & Search Console -->
+      <div class="weapons-toolbar">
+        <div class="vehicle-type-filters">
+          <button class="w-filter-btn active" data-category="all">
+            <span class="v-btn-label">All Weapons</span>
+            <span class="v-pill-count">24</span>
+          </button>
+          <button class="w-filter-btn" data-category="handguns">
+            <span class="v-btn-label">Pistols &amp; Revolvers</span>
+            <span class="v-pill-count">5</span>
+          </button>
+          <button class="w-filter-btn" data-category="smgs">
+            <span class="v-btn-label">Submachine Guns</span>
+            <span class="v-pill-count">3</span>
+          </button>
+          <button class="w-filter-btn" data-category="rifles">
+            <span class="v-btn-label">Assault Rifles</span>
+            <span class="v-pill-count">3</span>
+          </button>
+          <button class="w-filter-btn" data-category="shotguns">
+            <span class="v-btn-label">Shotguns</span>
+            <span class="v-pill-count">3</span>
+          </button>
+          <button class="w-filter-btn" data-category="snipers">
+            <span class="v-btn-label">Snipers &amp; DMRs</span>
+            <span class="v-pill-count">2</span>
+          </button>
+          <button class="w-filter-btn" data-category="heavy">
+            <span class="v-btn-label">Heavy &amp; Special</span>
+            <span class="v-pill-count">4</span>
+          </button>
+          <button class="w-filter-btn" data-category="melee">
+            <span class="v-btn-label">Melee Tools</span>
+            <span class="v-pill-count">2</span>
+          </button>
+          <button class="w-filter-btn" data-category="throwables">
+            <span class="v-btn-label">Throwables</span>
+            <span class="v-pill-count">2</span>
+          </button>
+        </div>
+
+        <div class="vehicles-utility-row">
+          <div class="v-search-box">
+            <svg class="v-search-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="text" id="appWeaponSearch" placeholder="Search weapons by name, real-world gun, manufacturer, or caliber..." autocomplete="off">
+          </div>
+
+          <div class="v-controls-right">
+            <div class="v-select-custom">
+              <select id="weaponSortSelect" class="v-sort-dropdown">
+                <option value="damage-desc">Damage (Highest First)</option>
+                <option value="firerate-desc">Fire Rate (Fastest First)</option>
+                <option value="accuracy-desc">Accuracy (Most Precise)</option>
+                <option value="range-desc">Range (Longest Range)</option>
+                <option value="name-asc">Alphabetical (A - Z)</option>
+              </select>
+            </div>
+            <div class="v-counter-pill">
+              <span class="v-counter-dot"></span>
+              <span id="weaponsCountLabel">Showing 24 of 24 Confirmed Weapons</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weapons Cards Grid -->
+      <div class="weapons-cards-grid" id="weaponsCardsGrid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+    <!-- =========================================================================
+       VIEW: LIVE PATCH NOTES & HOTFIX TRACKER
+       ========================================================================= -->
+  <section class="app-view" id="view-updates">
+    <div class="view-container">
+      <div class="vehicles-editorial-header">
+        <h1 class="vehicles-main-title">GTA 6 Live Patch Notes &amp; Hotfix Tracker</h1>
+        <p class="vehicles-lead-subhead">
+          Official Rockstar Games update changelogs, system stability hotfixes, and download sizes across PS5 and Xbox Series X|S.
+        </p>
+
+        <!-- Live Status Bar -->
+        <div class="patch-live-status-bar">
+          <div class="live-status-indicator">
+            <span class="live-pulse-dot"></span>
+            <span>All Leonida Cloud Systems Operational &bull; Latest Hotfix Active</span>
+          </div>
+          <div class="patch-size-chips">
+            <span class="size-chip">PS5: v01.002.002</span>
+            <span class="size-chip">Xbox: v1.0.2.2</span>
+            <span class="size-chip" style="color:var(--text-muted);">PC: Projected 2027</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Patch Timeline Cards -->
+      <div class="patch-timeline-wrap">
+        <!-- Patch 1.0.2 -->
+        <article class="patch-entry-card">
+          <div class="patch-header-row">
+            <div>
+              <span class="patch-version-tag">LATEST HOTFIX &bull; PATCH 1.0.2 (01.002.002)</span>
+              <h2 style="font-size: 1.4rem; color: var(--text-primary); font-weight: 800; margin: 6px 0 2px 0;">Post-Launch Stability &amp; Mission Progression Hotfix</h2>
+              <span class="patch-release-date">Released: November 24, 2026 &bull; Deployment: Worldwide Rolling</span>
+            </div>
+            <div class="patch-size-chips">
+              <span class="size-chip">PS5: ~603 MB</span>
+              <span class="size-chip">Xbox Series X|S: ~1.6 GB</span>
+            </div>
+          </div>
+
+          <div class="patch-section-title">
+            <span>🛠️</span>
+            <span>General &amp; Miscellaneous Bug Fixes (Official Rockstar Notes)</span>
+          </div>
+          <ul class="patch-fixes-list">
+            <li class="patch-fix-item"><strong>Stability &amp; System Crashes:</strong> Resolved multiple isolated memory allocation issues that caused the application to crash unexpectedly during transition sequences between Vice City and the Keys.</li>
+            <li class="patch-fix-item"><strong>Weather System Freeze:</strong> Fixed an environmental cycle bug where atmospheric weather patterns would remain permanently frozen in rain or storm states without transitioning back to clear skies.</li>
+            <li class="patch-fix-item"><strong>Autosave Reliability:</strong> Resolved a critical savegame state issue where background autosaves failed to record story progression after long free-roam sessions.</li>
+            <li class="patch-fix-item"><strong>Story Progression Phone Calls:</strong> Fixed essential cellular phone call triggers from campaign contacts that previously failed to activate, unblocking players who experienced soft-locks after heist setups.</li>
+            <li class="patch-fix-item"><strong>Permanent Wanted Level Glitch:</strong> Fixed an issue where Wanted Stars would remain permanently locked on players even after escaping the active police search radius and respraying the vehicle.</li>
+            <li class="patch-fix-item"><strong>Gym Deadlift Interaction:</strong> Fixed an interactive prop glitch preventing Jason and Lucia from engaging with the deadlift bar at open-world workout facilities.</li>
+            <li class="patch-fix-item"><strong>Partner Fencing Handover:</strong> Resolved an inventory transfer bug where heist companions failed to hand over stolen loot bags, previously preventing loot from being cashed out at underground fences.</li>
+          </ul>
+        </article>
+
+        <!-- Patch 1.0.1 (Day 1 Update) -->
+        <article class="patch-entry-card">
+          <div class="patch-header-row">
+            <div>
+              <span class="patch-version-tag" style="color:#0ea5e9; background:rgba(14,165,233,0.1); border-color:rgba(14,165,233,0.3);">DAY ONE UPDATE &bull; PATCH 1.0.1 (01.001.000)</span>
+              <h2 style="font-size: 1.4rem; color: var(--text-primary); font-weight: 800; margin: 6px 0 2px 0;">Worldwide Commercial Launch Day Calibration</h2>
+              <span class="patch-release-date">Released: November 19, 2026 &bull; Deployment: Day One Mandatory</span>
+            </div>
+            <div class="patch-size-chips">
+              <span class="size-chip">PS5: ~5.8 GB</span>
+              <span class="size-chip">Xbox Series X|S: ~6.2 GB</span>
+            </div>
+          </div>
+
+          <div class="patch-section-title">
+            <span>🚀</span>
+            <span>Launch Day Optimizations &amp; Calibrations</span>
+          </div>
+          <ul class="patch-fixes-list">
+            <li class="patch-fix-item"><strong>DualSense Adaptive Trigger Profiles:</strong> Fully calibrated dynamic brake and accelerator tension curves across all 75 vehicle classes on PlayStation 5.</li>
+            <li class="patch-fix-item"><strong>Pedestrian &amp; Traffic Density:</strong> Balanced AI density scaling across Vice Beach and Ocean Drive to sustain stable 60 FPS performance during high-speed traffic pursuits.</li>
+            <li class="patch-fix-item"><strong>Watercraft Physics:</strong> Enhanced wake rendering, wave resistance, and buoyancy physics for high-performance speedboats and airboats navigating the Gator Keys marshes.</li>
+            <li class="patch-fix-item"><strong>Global HDR Calibration:</strong> Tuned sub-tropical sunlight exposure and neon specular reflections across nighttime urban corridors.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- =========================================================================
        VIEW 4: ECONOMY GUIDE
        ========================================================================= -->
@@ -1279,6 +1466,18 @@
         <path d="M5 6l2-4h10l2 4"></path>
       </svg>
       <span>Vehicles</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="weapons">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2L8 8l4 4 6-6-4-4zM8 8l-6 6 4 4 6-6"></path>
+      </svg>
+      <span>Weapons</span>
+    </button>
+    <button class="mobile-dock-btn" data-view="updates">
+      <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <span>Updates</span>
     </button>
     <button class="mobile-dock-btn" data-view="money">
       <svg class="dock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

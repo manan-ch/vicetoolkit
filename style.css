@@ -2896,7 +2896,7 @@ body {
   /* Show Native-App Style Bottom Navigation Dock */
   .mobile-bottom-dock {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     position: fixed;
     bottom: 0;
     left: 0;
@@ -2910,7 +2910,7 @@ body {
     border-top: 1px solid var(--border-medium);
     z-index: 9999;
     align-items: center;
-    padding: 3px 2px env(safe-area-inset-bottom, 3px) 2px;
+    padding: 3px 1px env(safe-area-inset-bottom, 3px) 1px;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.18);
   }
 
@@ -2949,7 +2949,7 @@ body {
   }
 
   .mobile-dock-btn span {
-    font-size: 0.6rem;
+    font-size: 0.54rem;
     font-weight: 700;
     letter-spacing: 0.01em;
     text-transform: uppercase;
@@ -4178,5 +4178,330 @@ input, select, textarea, button {
     width: 100% !important;
     height: auto !important;
     min-height: unset !important;
+  }
+}
+
+/* ==========================================================================
+   WEAPONS & ARMORY DATABASE STYLES (100% THEME MATCHED)
+   ========================================================================== */
+.weapons-editorial-header {
+  margin-bottom: 28px;
+}
+
+.weapons-metrics-hud {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.weapons-toolbar {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weapons-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.weapon-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.weapon-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+}
+
+.weapon-card-top {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+}
+
+.weapon-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.weapon-cat-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(225, 29, 72, 0.12);
+  color: var(--accent-primary);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+}
+
+.weapon-carry-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.carry-pocket {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.carry-trunk {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.weapon-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.weapon-archetype {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.weapon-card-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.weapon-stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label-val {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stat-track {
+  height: 6px;
+  background: var(--bg-base);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.fill-damage { background: #ef4444; }
+.fill-firerate { background: #0ea5e9; }
+.fill-accuracy { background: #10b981; }
+.fill-range { background: #8b5cf6; }
+
+.weapon-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.74rem;
+}
+
+.weapon-meta-item strong {
+  color: var(--text-primary);
+  display: block;
+}
+
+.weapon-meta-item span {
+  color: var(--text-muted);
+}
+
+.weapon-card-footer {
+  padding: 12px 20px;
+  background: var(--bg-surface-elevated);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   LIVE PATCH NOTES & UPDATES TRACKER STYLES
+   ========================================================================== */
+.patch-live-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  margin-bottom: 24px;
+}
+
+.live-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.live-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseLive 1.5s infinite;
+}
+
+@keyframes pulseLive {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.patch-timeline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.patch-entry-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  box-shadow: var(--card-shadow);
+}
+
+.patch-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 18px;
+}
+
+.patch-version-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  background: rgba(225, 29, 72, 0.1);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(225, 29, 72, 0.25);
+}
+
+.patch-release-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.patch-size-chips {
+  display: flex;
+  gap: 8px;
+  font-size: 0.74rem;
+}
+
+.size-chip {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.patch-section-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 16px 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.patch-fixes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.patch-fix-item {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.patch-fix-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .weapons-metrics-hud {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .weapons-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .patch-entry-card {
+    padding: 18px 16px;
   }
 }
