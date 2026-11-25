@@ -3973,23 +3973,51 @@ let weaponSearchQuery = "";
 
 function renderWeapons() {
   const grid = document.getElementById("weaponsCardsGrid");
-  const countLabel = document.getElementById("weaponsCountLabel");
   if (!grid) return;
 
-  const query = weaponSearchQuery.toLowerCase().trim();
+  const rawQuery = (weaponSearchQuery || "").toLowerCase().trim();
+
   let list = weaponsDatabase.filter(w => {
     const matchesFilter = activeWeaponFilter === "all" || w.category === activeWeaponFilter;
-    const matchesQuery = !query || 
-      w.name.toLowerCase().includes(query) ||
-      w.inspo.toLowerCase().includes(query) ||
-      w.mfg.toLowerCase().includes(query) ||
-      w.catLabel.toLowerCase().includes(query) ||
-      w.spawns.toLowerCase().includes(query);
+    if (!rawQuery) return matchesFilter;
+
+    const nameLower = w.name.toLowerCase();
+    const mfgLower = (w.mfg || "").toLowerCase();
+    const catLower = (w.catLabel || "").toLowerCase();
+    const inspoLower = (w.inspo || "").toLowerCase();
+
+    // For single-character query, match weapon name, manufacturer or category prefix
+    if (rawQuery.length === 1) {
+      const match = nameLower.includes(rawQuery) || mfgLower.includes(rawQuery) || catLower.startsWith(rawQuery);
+      return matchesFilter && match;
+    }
+
+    // For 2+ characters: match weapon name, real-world gun inspo, manufacturer, category
+    const matchesQuery = nameLower.includes(rawQuery) ||
+      inspoLower.includes(rawQuery) ||
+      mfgLower.includes(rawQuery) ||
+      catLower.includes(rawQuery);
+
     return matchesFilter && matchesQuery;
   });
 
-  // Sorting
+  // Smart Search Ranking: weapons starting with the search query appear first!
   list.sort((a, b) => {
+    if (rawQuery) {
+      const aName = a.name.toLowerCase();
+      const bName = b.name.toLowerCase();
+      const aStarts = aName.startsWith(rawQuery);
+      const bStarts = bName.startsWith(rawQuery);
+      if (aStarts && !bStarts) return -1;
+      if (!aStarts && bStarts) return 1;
+
+      const aPos = aName.indexOf(rawQuery);
+      const bPos = bName.indexOf(rawQuery);
+      if (aPos !== -1 && bPos === -1) return -1;
+      if (aPos === -1 && bPos !== -1) return 1;
+      if (aPos !== -1 && bPos !== -1 && aPos !== bPos) return aPos - bPos;
+    }
+
     if (activeWeaponSort === "damage-desc") return b.damage - a.damage;
     if (activeWeaponSort === "firerate-desc") return b.fireRate - a.fireRate;
     if (activeWeaponSort === "accuracy-desc") return b.accuracy - a.accuracy;
@@ -3998,13 +4026,12 @@ function renderWeapons() {
     return 0;
   });
 
-// Count label removed per user preference for a cleaner toolbar
-
   if (list.length === 0) {
     grid.innerHTML = `
-      <div style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; background: var(--bg-surface); border: 1px dashed var(--border-medium); border-radius: var(--radius-md);">
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px;">No weapons match your search criteria.</p>
-        <button onclick="clearWeaponFilters()" style="background: var(--accent-primary); color: #fff; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 700; cursor: pointer;">Reset Filters</button>
+      <div style="grid-column: 1 / -1; padding: 48px 20px; text-align: center; background: var(--bg-surface); border: 1px dashed var(--border-medium); border-radius: var(--radius-md);">
+        <p style="color: var(--text-primary); font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">No weapons found matching "${escapeHtml(rawQuery)}"</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">Try searching by gun name (e.g. Duke, Deever, Glock), caliber, or weapon class.</p>
+        <button onclick="clearWeaponFilters()" style="background: var(--accent-primary); color: #fff; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 700; cursor: pointer;">Clear Search</button>
       </div>
     `;
     return;
@@ -4109,6 +4136,13 @@ function setupWeaponEvents() {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       weaponSearchQuery = e.target.value;
+      // When typing a query, auto-switch to "all" so all weapons are searched across categories
+      if (weaponSearchQuery.trim().length > 0 && activeWeaponFilter !== "all") {
+        activeWeaponFilter = "all";
+        document.querySelectorAll(".w-filter-btn").forEach(b => {
+          b.classList.toggle("active", b.dataset.category === "all");
+        });
+      }
       renderWeapons();
     });
   }
