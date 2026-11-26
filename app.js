@@ -2195,9 +2195,14 @@ function setupKeyboardShortcuts() {
 function setupNavigation() {
   // Support both desktop navbar buttons and mobile bottom dock buttons
   document.querySelectorAll(".nav-tab-btn, .mobile-dock-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
       const view = btn.dataset.view;
       if (view) {
+        const targetView = document.getElementById("view-" + view);
+        if (!targetView && btn.getAttribute("href")) {
+          return; // Let browser follow real link to another page
+        }
+        e.preventDefault();
         switchView(view);
         // Auto-close mobile drawer if open
         const navTabs = document.getElementById("navTabsMenu");
