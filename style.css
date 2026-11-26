@@ -6250,3 +6250,92 @@ input, select, textarea, button {
   color: var(--accent-primary);
   text-decoration: underline;
 }
+
+/* Featured Tool Spotlight Banner (Homepage Authority Funnel) */
+.heist-spotlight-banner {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(14, 165, 233, 0.06) 100%);
+  border: 1.5px solid rgba(225, 29, 72, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(225, 29, 72, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.heist-spotlight-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent-gradient);
+}
+
+.spotlight-badge {
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  background: rgba(225, 29, 72, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.spotlight-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+}
+
+.spotlight-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.45;
+  max-width: 650px;
+}
+
+.spotlight-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent-gradient);
+  color: #ffffff !important;
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.35);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.spotlight-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.5);
+  filter: brightness(1.08);
+}
+
+@media (max-width: 768px) {
+  .heist-spotlight-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 16px;
+  }
+  .spotlight-cta-btn {
+    width: 100%;
+  }
+}
