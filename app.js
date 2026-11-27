@@ -3645,11 +3645,24 @@ function closeCompareModal() {
 
 // --- FAQ ACCORDION ---
 function setupFaqAccordion() {
-  document.querySelectorAll(".faq-accordion-trigger").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const item = btn.closest(".faq-accordion-item");
-      item.classList.toggle("open");
-    });
+  // Event delegation on document to handle all present and future FAQ accordions seamlessly
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest(".faq-accordion-trigger");
+    if (!trigger) return;
+    
+    e.preventDefault();
+    const currentItem = trigger.closest(".faq-accordion-item");
+    if (!currentItem) return;
+
+    const isOpen = currentItem.classList.contains("open");
+    
+    // Smoothly toggle current item
+    currentItem.classList.toggle("open", !isOpen);
+    trigger.setAttribute("aria-expanded", String(!isOpen));
+
+    if (typeof playUiSound === "function") {
+      playUiSound("click");
+    }
   });
 }
 
