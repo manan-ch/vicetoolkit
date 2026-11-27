@@ -6461,3 +6461,43 @@ input, select, textarea, button {
 .guide-card:hover .guide-card-cta .cta-arrow {
   transform: translateX(4px);
 }
+
+
+/* ==========================================================================
+   CENTER ORPHAN CARDS IN LAST ROW (SEAMLESS MULTI-PAGE ALIGNMENT)
+   ========================================================================== */
+@media (min-width: 769px) {
+  /* Strategy Guides Grid (Homepage & Cheats: 7 Cards -> 7th Card Dead Center) */
+  .guides-cards-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+    width: calc(50% - 10px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Technical Documentation Modules Grid (FAQ / Docs: 5 Cards -> 5th Card Dead Center) */
+  .technical-module-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+    max-width: 520px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+
+  /* Economy Capital Strategy Grid */
+  .money-strategy-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+    max-width: 520px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+  }
+
+  /* Heist Targets Grid */
+  .heist-targets-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1 !important;
+    width: calc(50% - 7px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
