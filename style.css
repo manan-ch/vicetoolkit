@@ -1026,6 +1026,13 @@ body {
   gap: 18px;
 }
 
+.cheats-cards-grid > .cheat-group-header-row {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 .cheats-cards-grid > .cheat-card-item {
   flex: 0 0 calc(33.333% - 12px);
   max-width: calc(33.333% - 12px);
@@ -4116,23 +4123,31 @@ body {
 
 /* Cheat Grid Section Header Dividers */
 .cheat-group-header-row {
-  grid-column: 1 / -1;
+  grid-column: 1 / -1 !important;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
+  padding: 14px 20px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-left: 4px solid var(--accent-primary);
   border-radius: var(--radius-sm);
-  margin-top: 16px;
-  margin-bottom: 6px;
+  margin-top: 24px;
+  margin-bottom: 8px;
   box-shadow: var(--card-shadow);
 }
 
 .cheat-group-header-row.locked-group {
   border-left-color: var(--text-dim);
-  margin-top: 28px;
+  margin-top: 32px;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .group-title-text {
