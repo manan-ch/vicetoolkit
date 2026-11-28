@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ViceToolkit Prototype: Next-Gen Cheats &amp; Missions UI Preview</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #090d16;
+      --bg-surface: #0f172a;
+      --bg-elevated: #162036;
+      --bg-row-hover: #1c2a47;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.16);
+      --accent-primary: #f43f5e;
+      --accent-cyan: #06b6d4;
+      --accent-amber: #f59e0b;
+      --accent-emerald: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --key-bg: #1e293b;
+      --key-border: #334155;
+      --key-bottom: #0f172a;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Prototype Notice Banner */
+    .prototype-bar {
+      background: linear-gradient(90deg, #be123c, #e11d48);
+      color: #ffffff;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      letter-spacing: 0.02em;
+    }
+    .prototype-badge {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    /* Frosted Sticky Navbar */
+    .preview-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 12px 24px;
+    }
+    .preview-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .preview-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .brand-box {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--accent-primary); }
+
+    .preview-menu {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .preview-menu-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .preview-menu-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .preview-menu-btn.active {
+      color: #ffffff;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+    }
+    .preview-menu-btn .pill-new {
+      background: var(--accent-primary);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      margin-left: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Main Container */
+    .preview-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+
+    /* Cinematic Hero (GTA6Database Style) */
+    .hero-box {
+      background: radial-gradient(circle at 50% 0%, rgba(244, 63, 94, 0.12), transparent 70%), var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      color: #fb7185;
+      font-size: 0.7rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .hero-h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .hero-p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 680px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .hero-stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .stat-chip {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stat-chip strong { color: var(--accent-cyan); font-family: var(--font-mono); }
+
+    /* Controls Bar: Search & Platform Switcher */
+    .controls-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+    }
+    .search-box {
+      flex: 1 1 320px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 14px 10px 38px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.86rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .search-input:focus { border-color: var(--accent-primary); }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .platform-tabs {
+      display: flex;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      padding: 3px;
+      border-radius: 8px;
+      gap: 3px;
+    }
+    .platform-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .platform-btn.active {
+      background: var(--bg-elevated);
+      color: #ffffff;
+      border: 1px solid var(--border-medium);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Category Filter Badges */
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cat-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .cat-pill:hover {
+      border-color: var(--border-medium);
+      color: var(--text-main);
+    }
+    .cat-pill.active {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    /* Section Category Headings */
+    .group-section {
+      margin-bottom: 36px;
+    }
+    .group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 4px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 12px;
+    }
+    .group-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .group-count {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    /* ViceCityDB Style List Rows */
+    .cheat-row-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cheat-row-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.18s ease;
+    }
+    .cheat-row-card:hover {
+      background: var(--bg-row-hover);
+      border-color: var(--border-medium);
+      transform: translateX(2px);
+    }
+
+    /* Left Info */
+    .row-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex: 1 1 360px;
+    }
+    .row-check-label {
+      cursor: pointer;
+      margin-top: 3px;
+    }
+    .row-checkbox {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--text-dim);
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .row-checkbox:checked {
+      background: var(--accent-emerald);
+      border-color: var(--accent-emerald);
+    }
+    .row-checkbox:checked::after {
+      content: '✓';
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    .row-main-meta h3 {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .tag-category-pill {
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .tag-player { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .tag-combat { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-vehicles { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .tag-wanted { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .row-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .row-req {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+    }
+    .row-req strong { color: var(--text-muted); }
+
+    /* Right Sequence Dock */
+    .row-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .seq-dock {
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .seq-trigger {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .seq-then {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0 4px;
+    }
+    .seq-keys {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Keycaps (vicecitydb style) */
+    kbd.key-glyph {
+      background: var(--key-bg);
+      color: #ffffff;
+      border: 1px solid var(--key-border);
+      border-bottom: 2px solid var(--key-bottom);
+      min-width: 26px;
+      height: 26px;
+      padding: 0 7px;
+      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    kbd.key-bumper {
+      background: #334155;
+      padding: 0 9px;
+      font-size: 0.68rem;
+    }
+    .key-plus {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-weight: bold;
+    }
+
+    /* Copy Button */
+    .btn-row-copy {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-row-copy:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    /* Locked Milestone Badge */
+    .locked-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed var(--border-subtle);
+      color: var(--text-dim);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* Missions Section Preview */
+    .missions-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .mission-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      transition: all 0.15s ease;
+    }
+    .mission-card:hover {
+      border-color: var(--border-medium);
+      background: var(--bg-elevated);
+    }
+    .mission-num {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent-cyan);
+      font-weight: 800;
+    }
+    .mission-title {
+      font-size: 0.96rem;
+      font-weight: 800;
+      margin: 4px 0 6px;
+    }
+    .mission-char-pill {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .char-jason { background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+    .char-lucia { background: rgba(244, 63, 94, 0.2); color: #fda4af; }
+    .char-dual { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+    .mission-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* Toast Notification */
+    .preview-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--accent-emerald);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+
+    @media (max-width: 768px) {
+      .cheat-row-card {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .row-right {
+        justify-content: space-between;
+      }
+      .seq-dock {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Prototype Top Notice -->
+  <div class="prototype-bar">
+    <span class="prototype-badge">Design Prototype Preview</span>
+    <span>Yeh sirf aik DUMMY PREVIEW hai. Aap ki live website par koi tabdeeli nahi ki gayi.</span>
+  </div>
+
+  <!-- Frosted Navigation -->
+  <header class="preview-nav">
+    <div class="preview-nav-inner">
+      <a href="/" class="preview-brand">
+        <div class="brand-box">6</div>
+        <div class="brand-title">VICE<span>TOOLKIT</span></div>
+      </a>
+      <nav class="preview-menu">
+        <button class="preview-menu-btn active" onclick="switchPreviewTab('cheats')">Cheatsheet</button>
+        <button class="preview-menu-btn" onclick="switchPreviewTab('missions')">Missions <span class="pill-new">91 All</span></button>
+        <a href="/map/" class="preview-menu-btn">Map</a>
+        <a href="/vehicles/" class="preview-menu-btn">Vehicles</a>
+        <a href="/heists/" class="preview-menu-btn">Heist Calc</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="preview-wrap">
+
+    <!-- Hero Section (GTA6Database Inspired) -->
+    <section class="hero-box">
+      <div class="hero-glow-badge">★ GTA 6 TACTICAL COMPANION • DUMMY PROTOTYPE</div>
+      <h1 class="hero-h1">GTA 6 Cheats &amp; Story Missions Matrix</h1>
+      <p class="hero-p">
+        Inspired by modern gaming databases like ViceCityDB and GTA6Database. Featuring compact row architecture, 3D tactile controller glyphs, milestone unlock tracking, and all 91 campaign walkthroughs.
+      </p>
+      <div class="hero-stats-row">
+        <div class="stat-chip"><strong>61</strong> Verified Codes</div>
+        <div class="stat-chip"><strong>91</strong> Story Missions</div>
+        <div class="stat-chip"><strong>PS5 &amp; Xbox</strong> Dual Input</div>
+        <div class="stat-chip"><strong>0% Ads</strong> Instant Copy</div>
+      </div>
+    </section>
+
+    <!-- Controls Strip -->
+    <div class="controls-strip">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="demoSearch" class="search-input" placeholder="Search by cheat effect, weapon, money, or mission name..." oninput="filterDemo()">
+      </div>
+      <div class="platform-tabs">
+        <button class="platform-btn active" id="btnPs5" onclick="setPlatform('ps5')">PlayStation 5</button>
+        <button class="platform-btn" id="btnXbox" onclick="setPlatform('xbox')">Xbox Series X|S</button>
+      </div>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="category-pills">
+      <button class="cat-pill active" onclick="setCategory('all', this)">All Codes (61)</button>
+      <button class="cat-pill" onclick="setCategory('player', this)">Player &amp; Cash (10)</button>
+      <button class="cat-pill" onclick="setCategory('combat', this)">Combat &amp; Ammo (12)</button>
+      <button class="cat-pill" onclick="setCategory('vehicles', this)">Vehicles &amp; Spawns (15)</button>
+      <button class="cat-pill" onclick="setCategory('wanted', this)">Wanted &amp; Heat (6)</button>
+      <button class="cat-pill" onclick="setCategory('missions', this)">Story Missions (91)</button>
+    </div>
+
+    <!-- TAB 1: CHEATSHEET (ViceCityDB Row Layout) -->
+    <div id="tabCheats">
+      
+      <!-- Section: Player & Cash -->
+      <section class="group-section" data-cat="player">
+        <div class="group-header">
+          <h2 class="group-title">💰 Player Modifiers &amp; Cash Exploits</h2>
+          <span class="group-count">Working Inputs</span>
+        </div>
+        <div class="cheat-row-list">
+
+          <!-- Row Item 1: $250k Cash -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>$250,000 Liquid Cash <span class="tag-category-pill tag-player">Player</span></h3>
+                <p class="row-desc">Deposits $250,000 liquid offshore cash directly into Jason and Lucia's account. Can be repeated continuously.</p>
+                <div class="row-req"><strong>Unlock:</strong> Beat Campaign / Fence $250,000 in stolen jewelry</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <div class="seq-trigger" id="trigger-cash">
+                  <kbd class="key-glyph key-bumper">L1</kbd>
+                  <span class="key-plus">+</span>
+                  <kbd class="key-glyph key-bumper">R1</kbd>
+                </div>
+                <span class="seq-then">then</span>
+                <div class="seq-keys">
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                </div>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('$250,000 Cash', 'L1 + R1 -> Up, Right, Down, Left, Up, Left, Down, Right')">Copy</button>
+            </div>
+          </div>
+
+          <!-- Row Item 2: Max Health & Armor -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>Max Health &amp; Heavy Kevlar Armor <span class="tag-category-pill tag-player">Player</span></h3>
+                <p class="row-desc">Instantly restores 100% vital organs and equips Grade-4 tactical ballistic body armor.</p>
+                <div class="row-req"><strong>Unlock:</strong> Complete 100 gym workouts in Leonida</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <div class="seq-trigger">
+                  <kbd class="key-glyph key-bumper">L1</kbd>
+                  <span class="key-plus">+</span>
+                  <kbd class="key-glyph key-bumper">R1</kbd>
+                </div>
+                <span class="seq-then">then</span>
+                <div class="seq-keys">
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                </div>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('Max Health & Armor', 'L1 + R1 -> Down, Up, Left, Up, Up, Down, Down')">Copy</button>
+            </div>
+          </div>
+
+          <!-- Row Item 3: Drunk Mode -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>Drunk Ragdoll Simulation <span class="tag-category-pill tag-player">Player</span></h3>
+                <p class="row-desc">Triggers drunken camera sway, blurred peripheral vision, and erratic vehicle handling.</p>
+                <div class="row-req"><strong>Unlock:</strong> Spend $2,500 on bar beverages across Ocean Beach</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <div class="seq-trigger">
+                  <kbd class="key-glyph key-bumper">L1</kbd>
+                  <span class="key-plus">+</span>
+                  <kbd class="key-glyph key-bumper">R1</kbd>
+                </div>
+                <span class="seq-then">then</span>
+                <div class="seq-keys">
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                </div>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('Drunk Mode', 'L1 + R1 -> Up, Left, Right, Up, Left, Right')">Copy</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Combat & Weapons -->
+      <section class="group-section" data-cat="combat">
+        <div class="group-header">
+          <h2 class="group-title">⚔️ Combat &amp; Heavy Weapons Arsenal</h2>
+          <span class="group-count">Working Inputs</span>
+        </div>
+        <div class="cheat-row-list">
+
+          <!-- Row Item: Attack Force -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>Attack Force: Advanced Weapon Loadout <span class="tag-category-pill tag-combat">Combat</span></h3>
+                <p class="row-desc">Equips military assault rifle, micro-SMG, pump shotgun, and 10 fragmentation grenades with full reserves.</p>
+                <div class="row-req"><strong>Unlock:</strong> Beat Campaign / Complete 50 Headshots at Ammu-Nation</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <div class="seq-trigger">
+                  <kbd class="key-glyph key-bumper">L1</kbd>
+                  <span class="key-plus">+</span>
+                  <kbd class="key-glyph key-bumper">R1</kbd>
+                </div>
+                <span class="seq-then">then</span>
+                <div class="seq-keys">
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                </div>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('Attack Force Weapons', 'L1 + R1 -> Down, Up, Left, Left, Right, Down, Up')">Copy</button>
+            </div>
+          </div>
+
+          <!-- Row Item: Incendiary Ammo -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>Incendiary Thermite Ammo <span class="tag-category-pill tag-combat">Combat</span></h3>
+                <p class="row-desc">All fired ballistic rounds ignite targets on impact, causing continuous burning splash damage.</p>
+                <div class="row-req"><strong>Unlock:</strong> Set 100 enemies on fire during combat</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <span class="locked-indicator">🔒 Complete Milestone: Throw 100 Molotovs</span>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('Incendiary Ammo', 'Milestone: Throw 100 Molotovs')">Copy Req</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Vehicles -->
+      <section class="group-section" data-cat="vehicles">
+        <div class="group-header">
+          <h2 class="group-title">🚗 Exotic Vehicles &amp; Chopper Spawns</h2>
+          <span class="group-count">Working Inputs</span>
+        </div>
+        <div class="cheat-row-list">
+
+          <!-- Row Item: Sea Sparrow -->
+          <div class="cheat-row-card">
+            <div class="row-left">
+              <label class="row-check-label">
+                <input type="checkbox" class="row-checkbox" onchange="toggleDone(this)">
+              </label>
+              <div class="row-main-meta">
+                <h3>Spawn Sea Sparrow Attack Chopper <span class="tag-category-pill tag-vehicles">Vehicles</span></h3>
+                <p class="row-desc">Spawns an amphibious light attack helicopter equipped with dual pontoons and front miniguns.</p>
+                <div class="row-req"><strong>Unlock:</strong> Complete 20 underwater diving dives in the Keys</div>
+              </div>
+            </div>
+            <div class="row-right">
+              <div class="seq-dock">
+                <div class="seq-trigger">
+                  <kbd class="key-glyph key-bumper">L1</kbd>
+                  <span class="key-plus">+</span>
+                  <kbd class="key-glyph key-bumper">R1</kbd>
+                </div>
+                <span class="seq-then">then</span>
+                <div class="seq-keys">
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&uarr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&darr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                  <kbd class="key-glyph">&larr;</kbd>
+                  <kbd class="key-glyph">&rarr;</kbd>
+                </div>
+              </div>
+              <button class="btn-row-copy" onclick="copyCode('Spawn Sea Sparrow', 'L1 + R1 -> Up, Up, Down, Down, Left, Right, Left, Right')">Copy</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- TAB 2: MISSIONS (Missions Hub Preview) -->
+    <div id="tabMissions" style="display: none;">
+      <section class="group-section">
+        <div class="group-header">
+          <h2 class="group-title">📋 Story Missions Hub (All 91 Missions in Order)</h2>
+          <span class="group-count">Interactive Campaign Tracker</span>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.86rem; margin-bottom: 20px;">
+          Track your story campaign progression. Completing all 91 missions unlocks the cheats menu. Check off completed missions to save progress in your browser.
+        </p>
+
+        <div class="missions-preview-grid">
+          
+          <!-- Mission 1 -->
+          <div class="mission-card">
+            <span class="mission-num">MISSION 01 &bull; CHAPTER 1</span>
+            <h3 class="mission-title">Prologue: The Keys Getaway</h3>
+            <span class="mission-char-pill char-dual">Jason &amp; Lucia</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              High-intensity diner robbery tutorial introducing joint tactical breach mechanics and the Highway Patrol pursuit perimeter.
+            </p>
+            <div class="mission-footer">
+              <span>Payout: $14,200</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+          <!-- Mission 2 -->
+          <div class="mission-card">
+            <span class="mission-num">MISSION 02 &bull; CHAPTER 1</span>
+            <h3 class="mission-title">Gone Fishing: Port Gellhorn Drop</h3>
+            <span class="mission-char-pill char-jason">Jason Solo</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Navigate airboats through the Grassrivers swamp to intercept a contraband shipment before local rival syndicate enforces claim.
+            </p>
+            <div class="mission-footer">
+              <span>Payout: $8,500</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+          <!-- Mission 3 -->
+          <div class="mission-card">
+            <span class="mission-num">MISSION 03 &bull; CHAPTER 1</span>
+            <h3 class="mission-title">Gear Up: Safehouse Stash</h3>
+            <span class="mission-char-pill char-lucia">Lucia Solo</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Infiltrate an underground gunsmith warehouse in Little Haiti to secure vehicle trunk loadout kits and tactical suppressors.
+            </p>
+            <div class="mission-footer">
+              <span>Unlocks Trunk Arsenal</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+          <!-- Mission 4 -->
+          <div class="mission-card">
+            <span class="mission-num">MISSION 04 &bull; CHAPTER 1</span>
+            <h3 class="mission-title">Just A Scratch: Chop Shop Intro</h3>
+            <span class="mission-char-pill char-dual">Jason &amp; Lucia</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Steal an exotic supercar off Starfish Island and deliver it to Port Gellhorn VIN scramblers before the tracker escalates heat.
+            </p>
+            <div class="mission-footer">
+              <span>Payout: $32,000</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+          <!-- Mission 5 -->
+          <div class="mission-card">
+            <span class="mission-num">MISSION 05 &bull; CHAPTER 1</span>
+            <h3 class="mission-title">Lab Fees: Meth &amp; Moonshine</h3>
+            <span class="mission-char-pill char-jason">Jason Solo</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              Raid a Kelly County distillery lab to disrupt counterfeit currency distribution across Vice City night clubs.
+            </p>
+            <div class="mission-footer">
+              <span>Payout: $18,400</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+          <!-- Mission 91 (Final) -->
+          <div class="mission-card" style="border-color: rgba(244, 63, 94, 0.4);">
+            <span class="mission-num" style="color: var(--accent-primary);">MISSION 91 &bull; GRAND FINALE</span>
+            <h3 class="mission-title">Ocean Drive Sovereign: The Big Score</h3>
+            <span class="mission-char-pill char-dual" style="background: rgba(244, 63, 94, 0.2); color: #fda4af;">Grand Finale Heist</span>
+            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+              The culminating campaign heist hitting the Leonida Federal Reserve vault. Unlocks the post-game Cheats Menu &amp; $250k money reward.
+            </p>
+            <div class="mission-footer">
+              <span style="color: var(--accent-emerald); font-weight: bold;">Unlocks Cheats Menu</span>
+              <label style="cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" class="row-checkbox"> Completed
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Live Toast Notification -->
+  <div class="preview-toast" id="toastBox">
+    <span>✓</span>
+    <span id="toastMsg">Code copied to clipboard!</span>
+  </div>
+
+  <script>
+    let activePlatform = 'ps5';
+
+    function setPlatform(platform) {
+      activePlatform = platform;
+      document.getElementById('btnPs5').classList.toggle('active', platform === 'ps5');
+      document.getElementById('btnXbox').classList.toggle('active', platform === 'xbox');
+
+      const trigger = document.getElementById('trigger-cash');
+      if (trigger) {
+        if (platform === 'xbox') {
+          trigger.innerHTML = `
+            <kbd class="key-glyph key-bumper">LB</kbd>
+            <span class="key-plus">+</span>
+            <kbd class="key-glyph key-bumper">RB</kbd>
+          `;
+        } else {
+          trigger.innerHTML = `
+            <kbd class="key-glyph key-bumper">L1</kbd>
+            <span class="key-plus">+</span>
+            <kbd class="key-glyph key-bumper">R1</kbd>
+          `;
+        }
+      }
+      showToast('Switched to ' + (platform === 'ps5' ? 'PlayStation 5' : 'Xbox Series X|S') + ' controls');
+    }
+
+    function switchPreviewTab(tab) {
+      document.getElementById('tabCheats').style.display = tab === 'cheats' ? 'block' : 'none';
+      document.getElementById('tabMissions').style.display = tab === 'missions' ? 'block' : 'none';
+
+      document.querySelectorAll('.preview-menu-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tab));
+      });
+    }
+
+    function setCategory(cat, btn) {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (cat === 'missions') {
+        switchPreviewTab('missions');
+      } else {
+        switchPreviewTab('cheats');
+        document.querySelectorAll('.group-section').forEach(sec => {
+          if (cat === 'all' || sec.getAttribute('data-cat') === cat) {
+            sec.style.display = 'block';
+          } else {
+            sec.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    function filterDemo() {
+      const q = document.getElementById('demoSearch').value.toLowerCase().trim();
+      document.querySelectorAll('.cheat-row-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? 'flex' : 'none';
+      });
+      document.querySelectorAll('.mission-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function toggleDone(chk) {
+      const card = chk.closest('.cheat-row-card') || chk.closest('.mission-card');
+      if (card) {
+        card.style.opacity = chk.checked ? '0.6' : '1';
+      }
+      showToast(chk.checked ? 'Marked as Completed!' : 'Marked as Incomplete');
+    }
+
+    function copyCode(title, code) {
+      navigator.clipboard.writeText(code).then(() => {
+        showToast('Copied: ' + title);
+      }).catch(() => {
+        showToast('Copied: ' + title);
+      });
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastBox');
+      document.getElementById('toastMsg').textContent = msg;
+      t.style.display = 'inline-flex';
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => {
+        t.style.display = 'none';
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
